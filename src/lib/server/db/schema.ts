@@ -9,7 +9,8 @@ export const organization_type = pgEnum('organization_type', [
 export const meeting_type = pgEnum('meeting_type', ['in_person', 'phone_call', 'video_call']);
 
 export const organizations = pgTable('organizations', {
-  id: uuid().primaryKey().notNull(),
+  id: uuid().primaryKey().notNull().defaultRandom(),
+  name: text().notNull(),
   type: organization_type().notNull(),
   is_commercial: boolean().notNull(),
   sector: text().notNull(),
@@ -17,7 +18,7 @@ export const organizations = pgTable('organizations', {
 });
 
 export const organization_representatives = pgTable('organization_representatives', {
-  id: uuid().primaryKey().notNull(),
+  id: uuid().primaryKey().notNull().defaultRandom(),
   representative_id: uuid()
     .notNull()
     .references(() => organizations.id),
@@ -27,7 +28,7 @@ export const organization_representatives = pgTable('organization_representative
 });
 
 export const lobbyists = pgTable('lobbyists', {
-  id: uuid().primaryKey().notNull(),
+  id: uuid().primaryKey().notNull().defaultRandom(),
   organization_id: uuid()
     .notNull()
     .references(() => organizations.id),
@@ -36,14 +37,14 @@ export const lobbyists = pgTable('lobbyists', {
 });
 
 export const meetings = pgTable('meetings', {
-  id: uuid().primaryKey().notNull(),
+  id: uuid().primaryKey().notNull().defaultRandom(),
   type: meeting_type().notNull(),
   location: text(),
   description: text().notNull(),
 });
 
 export const officials = pgTable('officials', {
-  id: uuid().primaryKey(),
+  id: uuid().primaryKey().notNull().defaultRandom(),
   name: text().notNull(),
   function: text().notNull(),
   department: text().notNull(),
@@ -63,7 +64,7 @@ export const meeting_officials = pgTable(
 );
 
 export const meeting_lobbyists = pgTable('meeting_lobbyists', {
-  id: uuid().primaryKey().notNull(),
+  id: uuid().primaryKey().notNull().defaultRandom(),
   meeting_id: uuid()
     .notNull()
     .references(() => meetings.id),
@@ -72,12 +73,15 @@ export const meeting_lobbyists = pgTable('meeting_lobbyists', {
     .references(() => lobbyists.id),
 });
 
-export const meeting_representatives = pgTable('meeting_representatives', {
-  meeting_lobbyist_id: uuid()
-    .primaryKey()
-    .notNull()
-    .references(() => meeting_lobbyists.id),
-  representation_id: uuid()
-    .notNull()
-    .references(() => organization_representatives.id),
-});
+export const meeting_representatives = pgTable(
+  'meeting_representatives',
+  {
+    meeting_lobbyist_id: uuid()
+      .notNull()
+      .references(() => meeting_lobbyists.id),
+    representation_id: uuid()
+      .notNull()
+      .references(() => organization_representatives.id),
+  },
+  (t) => [primaryKey({ columns: [t.meeting_lobbyist_id, t.representation_id] })],
+);
