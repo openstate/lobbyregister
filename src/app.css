@@ -1,2 +1,6 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/forms';
+
+@theme {
+  --font-sans: 'Source Sans 3 Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
