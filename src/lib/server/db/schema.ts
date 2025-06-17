@@ -1,4 +1,5 @@
-import { pgTable, uuid, pgEnum, boolean, text, primaryKey } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
+import { pgTable, uuid, pgEnum, boolean, text, primaryKey, date, integer } from 'drizzle-orm/pg-core';
 
 export const organization_type = pgEnum('organization_type', [
   'inhouse',
@@ -8,6 +9,9 @@ export const organization_type = pgEnum('organization_type', [
 
 export const meeting_type = pgEnum('meeting_type', ['in_person', 'phone_call', 'video_call']);
 
+const registered_at = () => date().notNull().defaultNow();
+const updated_at = () => registered_at().$onUpdate(() => sql`now()`);
+
 export const organizations = pgTable('organizations', {
   id: uuid().primaryKey().notNull().defaultRandom(),
   name: text().notNull(),
@@ -15,6 +19,9 @@ export const organizations = pgTable('organizations', {
   is_commercial: boolean().notNull(),
   sector: text().notNull(),
   address: text(),
+  active: boolean().notNull().default(true),
+  registered_at: registered_at(),
+  updated_at: updated_at(),
 });
 
 export const organization_representatives = pgTable('organization_representatives', {
@@ -25,6 +32,9 @@ export const organization_representatives = pgTable('organization_representative
   client_id: uuid()
     .notNull()
     .references(() => organizations.id),
+  active: boolean().notNull().default(true),
+  registered_at: registered_at(),
+  updated_at: updated_at(),
 });
 
 export const lobbyists = pgTable('lobbyists', {
@@ -34,13 +44,20 @@ export const lobbyists = pgTable('lobbyists', {
     .references(() => organizations.id),
   name: text().notNull(),
   function: text().notNull(),
+  active: boolean().notNull().default(true),
+  registered_at: registered_at(),
+  updated_at: updated_at(),
 });
 
 export const meetings = pgTable('meetings', {
   id: uuid().primaryKey().notNull().defaultRandom(),
   type: meeting_type().notNull(),
-  location: text(),
+  date: date().notNull(),
+  duration_minutes: integer().notNull(),
   description: text().notNull(),
+  location: text(),
+  registered_at: registered_at(),
+  updated_at: updated_at(),
 });
 
 export const officials = pgTable('officials', {
@@ -48,6 +65,9 @@ export const officials = pgTable('officials', {
   name: text().notNull(),
   function: text().notNull(),
   department: text().notNull(),
+  active: boolean().notNull().default(true),
+  registered_at: registered_at(),
+  updated_at: updated_at(),
 });
 
 export const meeting_officials = pgTable(

@@ -28,6 +28,24 @@
       selectedLobbyists = selectedLobbyists.filter((id) => id !== lobbyistId);
     }
   }
+
+  function formatDate(dateString: string) {
+    return new Date(dateString).toLocaleDateString();
+  }
+
+  function formatDuration(minutes: number) {
+    if (minutes < 60) {
+      return `${minutes} minutes`;
+    } else {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      if (remainingMinutes === 0) {
+        return `${hours} hour${hours > 1 ? 's' : ''}`;
+      } else {
+        return `${hours}h ${remainingMinutes}m`;
+      }
+    }
+  }
 </script>
 
 <div class="container mx-auto p-6">
@@ -66,6 +84,35 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <!-- Meeting Details -->
           <div class="space-y-4">
+            <div>
+              <label for="meeting_date" class="block text-sm font-medium mb-1">
+                Meeting Date
+              </label>
+              <input
+                type="date"
+                name="date"
+                id="meeting_date"
+                required
+                class="w-full p-2 border rounded"
+              />
+            </div>
+
+            <div>
+              <label for="duration_minutes" class="block text-sm font-medium mb-1">
+                Duration (minutes)
+              </label>
+              <input
+                type="number"
+                name="duration_minutes"
+                id="duration_minutes"
+                required
+                min="1"
+                max="1440"
+                placeholder="e.g., 60"
+                class="w-full p-2 border rounded"
+              />
+            </div>
+
             <div>
               <label for="type" class="block text-sm font-medium mb-1">Meeting Type</label>
               <select name="type" id="type" required class="w-full p-2 border rounded">
@@ -210,6 +257,16 @@
             <div>
               <h3 class="text-lg font-semibold">{meeting.description}</h3>
               <div class="flex items-center space-x-4 text-sm text-gray-600 mt-1">
+                {#if meeting.date}
+                  <span class="px-2 py-1 bg-indigo-100 text-indigo-800 rounded text-xs">
+                    📅 {formatDate(meeting.date)}
+                  </span>
+                {/if}
+                {#if meeting.duration_minutes}
+                  <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs">
+                    ⏱️ {formatDuration(meeting.duration_minutes)}
+                  </span>
+                {/if}
                 <span class="px-2 py-1 bg-blue-100 text-blue-800 rounded text-xs">
                   {meeting.type.replace('_', ' ')}
                 </span>

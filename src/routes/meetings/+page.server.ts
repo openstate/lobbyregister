@@ -66,6 +66,8 @@ export const load = async () => {
 
 const createMeetingSchema = zfd.formData({
   type: zfd.text(z.enum(['in_person', 'phone_call', 'video_call'])),
+  date: zfd.text(z.iso.date()),
+  duration_minutes: zfd.numeric(z.number().int().min(1).max(1440)), // 1 minute to 24 hours
   location: zfd.text(z.string().optional()),
   description: zfd.text(),
   official_ids: zfd.repeatable(z.array(zfd.text(z.uuid())).min(1)),
@@ -89,7 +91,7 @@ export const actions: Actions = {
       return fail(400, { message: 'Invalid data', errors: parsed.error });
     }
 
-    const { type, location, description, official_ids, lobbyist_ids, representations } =
+    const { date, duration_minutes, type, location, description, official_ids, lobbyist_ids, representations } =
       parsed.data;
 
     console.dir(parsed.data);
@@ -100,7 +102,7 @@ export const actions: Actions = {
       // Create the meeting
       const [meeting] = await db
         .insert(schema.meetings)
-        .values({ id: meeting_id, type, location, description })
+        .values({ id: meeting_id, date, duration_minutes, type, location, description })
         .returning();
 
       // Add officials to meeting
