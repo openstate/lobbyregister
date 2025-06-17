@@ -88,7 +88,7 @@ export const actions: Actions = {
     const parsed = createMeetingSchema.safeParse(await request.formData());
 
     if (!parsed.success) {
-      return fail(400, { message: 'Invalid data', errors: parsed.error });
+      return fail(400, { message: 'Ongeldige gegevens', errors: parsed.error });
     }
 
     const { date, duration_minutes, type, location, description, official_ids, lobbyist_ids, representations } =
@@ -135,7 +135,7 @@ export const actions: Actions = {
       return { success: true, meeting };
     } catch (error) {
       console.error('Error creating meeting:', error);
-      return fail(500, { message: 'Failed to create meeting' });
+      return fail(500, { message: 'Vergadering aanmaken mislukt' });
     }
   },
 };

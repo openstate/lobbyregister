@@ -45,7 +45,7 @@ export const actions = {
     const parsed = createOrganizationSchema.safeParse(await request.formData());
 
     if (!parsed.success) {
-      return fail(400, { message: 'Invalid data' });
+      return fail(400, { message: 'Ongeldige gegevens' });
     }
 
     try {
@@ -54,7 +54,7 @@ export const actions = {
       return { success: true, organization };
     } catch (error) {
       console.error('Error creating organization:', error);
-      return fail(500, { message: 'Failed to create organization' });
+      return fail(500, { message: 'Organisatie aanmaken mislukt' });
     }
   },
 
@@ -62,7 +62,7 @@ export const actions = {
     const parsed = createOfficialSchema.safeParse(await request.formData());
 
     if (!parsed.success) {
-      return fail(400, { message: 'Invalid data' });
+      return fail(400, { message: 'Ongeldige gegevens' });
     }
 
     try {
@@ -71,7 +71,7 @@ export const actions = {
       return { success: true, official };
     } catch (error) {
       console.error('Error creating official:', error);
-      return fail(500, { message: 'Failed to create official' });
+      return fail(500, { message: 'Functionaris aanmaken mislukt' });
     }
   },
 
@@ -79,7 +79,7 @@ export const actions = {
     const parsed = createLobbyistSchema.safeParse(await request.formData());
 
     if (!parsed.success) {
-      return fail(400, { message: 'Invalid data' });
+      return fail(400, { message: 'Ongeldige gegevens' });
     }
 
     try {
@@ -88,7 +88,7 @@ export const actions = {
       return { success: true, lobbyist };
     } catch (error) {
       console.error('Error creating lobbyist:', error);
-      return fail(500, { message: 'Failed to create lobbyist' });
+      return fail(500, { message: 'Lobbyist aanmaken mislukt' });
     }
   },
 
@@ -96,7 +96,7 @@ export const actions = {
     const parsed = addRepresentationSchema.safeParse(await request.formData());
 
     if (!parsed.success) {
-      return fail(400, { message: 'Invalid data' });
+      return fail(400, { message: 'Ongeldige gegevens' });
     }
 
     try {
@@ -108,7 +108,7 @@ export const actions = {
       return { success: true, representation };
     } catch (error) {
       console.error('Error adding representation:', error);
-      return fail(500, { message: 'Failed to add representation' });
+      return fail(500, { message: 'Vertegenwoordiging toevoegen mislukt' });
     }
   },
 };

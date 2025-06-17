@@ -13,9 +13,9 @@
 
 <div class="container mx-auto p-6">
   <div class="flex justify-between items-center mb-8">
-    <h1 class="text-3xl font-bold">Dutch Government Lobby Register</h1>
+    <h1 class="text-3xl font-bold">Lobbyregister</h1>
     <a href="/meetings" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-      Manage Meetings →
+      Beheer afspraken →
     </a>
   </div>
 
@@ -29,55 +29,55 @@
     </div>
   {/if}
 
-  <!-- Navigation Buttons -->
+  <!-- Navigatie knoppen -->
   <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
     <button
       onclick={() => toggleForm('org')}
       class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
     >
-      {activeForm === 'org' ? 'Hide' : 'Add'} Organization
+      {activeForm === 'org' ? 'Verberg' : 'Registreer'} organisatie
     </button>
 
     <button
       onclick={() => toggleForm('official')}
       class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
     >
-      {activeForm === 'official' ? 'Hide' : 'Add'} Government Official
+      {activeForm === 'official' ? 'Verberg' : 'Registreer'} overheidsfunctionaris
     </button>
 
     <button
       onclick={() => toggleForm('lobbyist')}
       class="bg-purple-500 text-white px-4 py-2 rounded hover:bg-purple-600"
     >
-      {activeForm === 'lobbyist' ? 'Hide' : 'Add'} Lobbyist
+      {activeForm === 'lobbyist' ? 'Verberg' : 'Registreer'} lobbyist
     </button>
 
     <button
       onclick={() => toggleForm('representation')}
       class="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600"
     >
-      {activeForm === 'representation' ? 'Hide' : 'Add'} Client Representation
+      {activeForm === 'representation' ? 'Verberg' : 'Registreer'} vertegenwoordiging
     </button>
   </div>
 
-  <!-- Organization Form -->
+  <!-- Organisatie formulier -->
   {#if activeForm === 'org'}
     <div class="bg-gray-50 p-6 rounded-lg mb-6">
-      <h2 class="text-xl font-semibold mb-4">Register Organization</h2>
+      <h2 class="text-xl font-semibold mb-4">Registreer organisatie</h2>
       <form method="POST" action="?/createOrganization" use:enhance>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label for="name" class="block text-sm font-medium mb-1">Organization Name</label>
+            <label for="name" class="block text-sm font-medium mb-1">Organisatienaam</label>
             <input type="text" name="name" id="name" required class="w-full p-2 border rounded" />
           </div>
 
           <div>
-            <label for="type" class="block text-sm font-medium mb-1">Organization Type</label>
+            <label for="type" class="block text-sm font-medium mb-1">Organisatietype</label>
             <select name="type" id="type" required class="w-full p-2 border rounded">
-              <option value="">Select type...</option>
-              <option value="inhouse">In-house</option>
-              <option value="consultant">Consultant</option>
-              <option value="association">Association</option>
+              <option value="">Selecteer type...</option>
+              <option value="inhouse">Interne lobby</option>
+              <option value="consultant">Externe lobby</option>
+              <option value="association">Vereniging</option>
             </select>
           </div>
 
@@ -93,20 +93,20 @@
           </div>
 
           <div>
-            <label for="is_commercial" class="block text-sm font-medium mb-1">Commercial</label>
+            <label for="is_commercial" class="block text-sm font-medium mb-1">Commercieel</label>
             <select
               name="is_commercial"
               id="is_commercial"
               required
               class="w-full p-2 border rounded"
             >
-              <option value="true">Yes</option>
-              <option value="false">No</option>
+              <option value="true">Ja</option>
+              <option value="false">Nee</option>
             </select>
           </div>
 
           <div class="md:col-span-2">
-            <label for="address" class="block text-sm font-medium mb-1">Address (Optional)</label>
+            <label for="address" class="block text-sm font-medium mb-1">Adres (optioneel)</label>
             <input type="text" name="address" id="address" class="w-full p-2 border rounded" />
           </div>
         </div>
@@ -115,20 +115,20 @@
           type="submit"
           class="mt-4 bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600"
         >
-          Register Organization
+          Registreer organisatie
         </button>
       </form>
     </div>
   {/if}
 
-  <!-- Government Official Form -->
+  <!-- Overheidsfunctionaris formulier -->
   {#if activeForm === 'official'}
     <div class="bg-gray-50 p-6 rounded-lg mb-6">
-      <h2 class="text-xl font-semibold mb-4">Register Government Official</h2>
+      <h2 class="text-xl font-semibold mb-4">Registreer overheidsfunctionaris</h2>
       <form method="POST" action="?/createOfficial" use:enhance>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label for="official_name" class="block text-sm font-medium mb-1">Name</label>
+            <label for="official_name" class="block text-sm font-medium mb-1">Naam</label>
             <input
               type="text"
               name="name"
@@ -139,7 +139,7 @@
           </div>
 
           <div>
-            <label for="official_function" class="block text-sm font-medium mb-1">Function</label>
+            <label for="official_function" class="block text-sm font-medium mb-1">Functie</label>
             <input
               type="text"
               name="function"
@@ -150,7 +150,7 @@
           </div>
 
           <div>
-            <label for="department" class="block text-sm font-medium mb-1">Department</label>
+            <label for="department" class="block text-sm font-medium mb-1">Departement</label>
             <input
               type="text"
               name="department"
@@ -165,27 +165,27 @@
           type="submit"
           class="mt-4 bg-green-500 text-white px-6 py-2 rounded hover:bg-green-600"
         >
-          Register Official
+          Registreer functionaris
         </button>
       </form>
     </div>
   {/if}
 
-  <!-- Lobbyist Form -->
+  <!-- Lobbyist formulier -->
   {#if activeForm === 'lobbyist'}
     <div class="bg-gray-50 p-6 rounded-lg mb-6">
-      <h2 class="text-xl font-semibold mb-4">Register Lobbyist</h2>
+      <h2 class="text-xl font-semibold mb-4">Registreer lobbyist</h2>
       <form method="POST" action="?/createLobbyist" use:enhance>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label for="organization_id" class="block text-sm font-medium mb-1">Organization</label>
+            <label for="organization_id" class="block text-sm font-medium mb-1">Organisatie</label>
             <select
               name="organization_id"
               id="organization_id"
               required
               class="w-full p-2 border rounded"
             >
-              <option value="">Select organization...</option>
+              <option value="">Selecteer organisatie...</option>
               {#each data.organizations as org}
                 <option value={org.id}>{org.name} ({org.type})</option>
               {/each}
@@ -193,7 +193,7 @@
           </div>
 
           <div>
-            <label for="lobbyist_name" class="block text-sm font-medium mb-1">Name</label>
+            <label for="lobbyist_name" class="block text-sm font-medium mb-1">Naam</label>
             <input
               type="text"
               name="name"
@@ -204,7 +204,7 @@
           </div>
 
           <div>
-            <label for="lobbyist_function" class="block text-sm font-medium mb-1">Function</label>
+            <label for="lobbyist_function" class="block text-sm font-medium mb-1">Functie</label>
             <input
               type="text"
               name="function"
@@ -219,24 +219,24 @@
           type="submit"
           class="mt-4 bg-purple-500 text-white px-6 py-2 rounded hover:bg-purple-600"
         >
-          Register Lobbyist
+          Registreer lobbyist
         </button>
       </form>
     </div>
   {/if}
 
-  <!-- Client Representation Form -->
+  <!-- Vertegenwoordiging formulier -->
   {#if activeForm === 'representation'}
     <div class="bg-gray-50 p-6 rounded-lg mb-6">
-      <h2 class="text-xl font-semibold mb-4">Add Client Representation</h2>
+      <h2 class="text-xl font-semibold mb-4">Registreer vertegenwoordiging</h2>
       <p class="text-sm text-gray-600 mb-4">
-        For consultant lobbying firms to register their clients
+        Voor externe lobbybureaus om hun cliënten te registreren
       </p>
       <form method="POST" action="?/addRepresentation" use:enhance>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label for="representative_id" class="block text-sm font-medium mb-1">
-              Consultant Organization
+              Externe lobbyorganisatie
             </label>
             <select
               name="representative_id"
@@ -244,7 +244,7 @@
               required
               class="w-full p-2 border rounded"
             >
-              <option value="">Select consultant organization...</option>
+              <option value="">Selecteer externe lobbyorganisatie...</option>
               {#each data.organizations.filter((org) => org.type === 'consultant') as org}
                 <option value={org.id}>{org.name}</option>
               {/each}
@@ -253,10 +253,10 @@
 
           <div>
             <label for="client_id" class="block text-sm font-medium mb-1">
-              Client Organization
+              Cliëntorganisatie
             </label>
             <select name="client_id" id="client_id" required class="w-full p-2 border rounded">
-              <option value="">Select client organization...</option>
+              <option value="">Selecteer cliëntorganisatie...</option>
               {#each data.organizations as org}
                 <option value={org.id}>{org.name} ({org.type})</option>
               {/each}
@@ -268,7 +268,7 @@
           type="submit"
           class="mt-4 bg-orange-500 text-white px-6 py-2 rounded hover:bg-orange-600"
         >
-          Add Representation
+          Registreer vertegenwoordiging
         </button>
       </form>
     </div>
@@ -278,7 +278,7 @@
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
     <!-- Organizations -->
     <div>
-      <h2 class="text-2xl font-semibold mb-4">Registered Organizations</h2>
+      <h2 class="text-2xl font-semibold mb-4">Geregistreerde organisaties</h2>
       <div class="space-y-4">
         {#each data.organizations as org}
           <div class="border rounded-lg p-4 bg-white">
@@ -287,9 +287,9 @@
                 <h3 class="font-semibold">{org.name}</h3>
                 <p class="text-sm text-gray-600">Sector: {org.sector}</p>
                 <p class="text-sm text-gray-600">Type: {org.type}</p>
-                <p class="text-sm text-gray-600">Commercial: {org.is_commercial ? 'Yes' : 'No'}</p>
+                <p class="text-sm text-gray-600">Commercieel: {org.is_commercial ? 'Ja' : 'Nee'}</p>
                 {#if org.address}
-                  <p class="text-sm text-gray-600">Address: {org.address}</p>
+                  <p class="text-sm text-gray-600">Adres: {org.address}</p>
                 {/if}
               </div>
               <span
@@ -310,7 +310,7 @@
                   <strong>Lobbyist:</strong>
                   {lobbyist.name}
                 </p>
-                <p class="text-sm text-gray-600">Function: {lobbyist.function}</p>
+                <p class="text-sm text-gray-600">Functie: {lobbyist.function}</p>
               </div>
             {/each}
 
@@ -321,10 +321,10 @@
                 {#if client}
                   <div class="mt-3 ml-4 p-2 bg-blue-50 rounded">
                     <p class="text-sm">
-                      <strong>Represents:</strong>
+                      <strong>Vertegenwoordigt:</strong>
                       {client.name}
                     </p>
-                    <p class="text-sm text-gray-600">Client Type: {client.type}</p>
+                    <p class="text-sm text-gray-600">Cliënttype: {client.type}</p>
                   </div>
                 {/if}
               {/each}
@@ -336,13 +336,13 @@
 
     <!-- Government Officials -->
     <div>
-      <h2 class="text-2xl font-semibold mb-4">Government Officials</h2>
+      <h2 class="text-2xl font-semibold mb-4">Overheidsfunctionarissen</h2>
       <div class="space-y-4">
         {#each data.officials as official}
           <div class="border rounded-lg p-4 bg-white">
             <h3 class="font-semibold">{official.name}</h3>
-            <p class="text-sm text-gray-600">Function: {official.function}</p>
-            <p class="text-sm text-gray-600">Department: {official.department}</p>
+            <p class="text-sm text-gray-600">Functie: {official.function}</p>
+            <p class="text-sm text-gray-600">Departement: {official.department}</p>
           </div>
         {/each}
       </div>
