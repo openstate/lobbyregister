@@ -1,27 +1,38 @@
+import { MEETING_TYPES, OFFICIAL_TYPES, ORGANIZATION_TYPES } from '../../constants.ts';
 import { sql } from 'drizzle-orm';
-import { pgTable, uuid, pgEnum, boolean, text, primaryKey, date, integer } from 'drizzle-orm/pg-core';
+import {
+  pgTable,
+  uuid,
+  pgEnum,
+  boolean,
+  text,
+  primaryKey,
+  date,
+  integer,
+  check,
+} from 'drizzle-orm/pg-core';
 
-export const organization_type = pgEnum('organization_type', [
-  'inhouse',
-  'consultant',
-  'association',
-]);
+const registeredAt = () => date().notNull().defaultNow();
 
-export const meeting_type = pgEnum('meeting_type', ['in_person', 'phone_call', 'video_call']);
+const updatedAt = () => registeredAt().$onUpdate(() => sql`now()`);
 
-const registered_at = () => date().notNull().defaultNow();
-const updated_at = () => registered_at().$onUpdate(() => sql`now()`);
+export const organization_type = pgEnum('organization_type', ORGANIZATION_TYPES);
+
+export const meeting_type = pgEnum('meeting_type', MEETING_TYPES);
+
+export const official_type = pgEnum('official_type', OFFICIAL_TYPES);
 
 export const organizations = pgTable('organizations', {
   id: uuid().primaryKey().notNull().defaultRandom(),
   name: text().notNull(),
   type: organization_type().notNull(),
+  kvk_number: integer(),
   is_commercial: boolean().notNull(),
   sector: text().notNull(),
   address: text(),
   active: boolean().notNull().default(true),
-  registered_at: registered_at(),
-  updated_at: updated_at(),
+  registered_at: registeredAt(),
+  updated_at: updatedAt(),
 });
 
 export const organization_representatives = pgTable('organization_representatives', {
@@ -33,8 +44,8 @@ export const organization_representatives = pgTable('organization_representative
     .notNull()
     .references(() => organizations.id),
   active: boolean().notNull().default(true),
-  registered_at: registered_at(),
-  updated_at: updated_at(),
+  registered_at: registeredAt(),
+  updated_at: updatedAt(),
 });
 
 export const lobbyists = pgTable('lobbyists', {
@@ -45,8 +56,8 @@ export const lobbyists = pgTable('lobbyists', {
   name: text().notNull(),
   function: text().notNull(),
   active: boolean().notNull().default(true),
-  registered_at: registered_at(),
-  updated_at: updated_at(),
+  registered_at: registeredAt(),
+  updated_at: updatedAt(),
 });
 
 export const meetings = pgTable('meetings', {
@@ -56,18 +67,18 @@ export const meetings = pgTable('meetings', {
   duration_minutes: integer().notNull(),
   description: text().notNull(),
   location: text(),
-  registered_at: registered_at(),
-  updated_at: updated_at(),
+  registered_at: registeredAt(),
+  updated_at: updatedAt(),
 });
 
 export const officials = pgTable('officials', {
   id: uuid().primaryKey().notNull().defaultRandom(),
   name: text().notNull(),
-  function: text().notNull(),
+  type: official_type().notNull(),
   department: text().notNull(),
   active: boolean().notNull().default(true),
-  registered_at: registered_at(),
-  updated_at: updated_at(),
+  registered_at: registeredAt(),
+  updated_at: updatedAt(),
 });
 
 export const meeting_officials = pgTable(

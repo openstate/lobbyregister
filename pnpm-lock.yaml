@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@faker-js/faker':
+        specifier: ^9.8.0
+        version: 9.8.0
       '@fontsource-variable/source-sans-3':
         specifier: ^5.2.8
         version: 5.2.8
@@ -503,6 +506,10 @@ packages:
     engines: {node: '>=18'}
     cpu: [x64]
     os: [win32]
+
+  '@faker-js/faker@9.8.0':
+    resolution: {integrity: sha512-U9wpuSrJC93jZBxx/Qq2wPjCuYISBueyVUGK7qqdmj7r/nxaxwW8AQDCLeRO7wZnjj94sh3p246cAYjUKuqgfg==}
+    engines: {node: '>=18.0.0', npm: '>=9.0.0'}
 
   '@fontsource-variable/source-sans-3@5.2.8':
     resolution: {integrity: sha512-iRQD4k06Wxm1668+AbPBoVo+CbgRsOz2E0/XibDJ7kAm9UhdhmNmsMTvs9KEl/mQxUj/487tr9w47NoM/TMhZQ==}
@@ -1578,6 +1585,8 @@ snapshots:
 
   '@esbuild/win32-x64@0.25.5':
     optional: true
+
+  '@faker-js/faker@9.8.0': {}
 
   '@fontsource-variable/source-sans-3@5.2.8': {}
 
