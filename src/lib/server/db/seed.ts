@@ -166,9 +166,12 @@ async function seed() {
     console.log('🤝📅 Linking meeting lobbyists with representatives...');
     const meetingRepresentatives = [];
     for (const meetingLobbyist of insertedMeetingLobbyists) {
-      if (insertedRepresentatives.length > 0) {
-        const numRepresentations = faker.number.int({ min: 1, max: 3 });
-        const selectedRepresentatives = faker.helpers.arrayElements(insertedRepresentatives, numRepresentations);
+      const lobbyist = insertedLobbyists.find(l => l.id === meetingLobbyist.lobbyist_id);
+      if (!lobbyist) continue;
+      const validRepresentatives = insertedRepresentatives.filter(r => r.representative_id === lobbyist.organization_id);
+      if (validRepresentatives.length > 0) {
+        const numRepresentations = faker.number.int({ min: 1, max: Math.min(3, validRepresentatives.length) });
+        const selectedRepresentatives = faker.helpers.arrayElements(validRepresentatives, numRepresentations);
 
         for (const representative of selectedRepresentatives) {
           meetingRepresentatives.push({
