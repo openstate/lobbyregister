@@ -77,7 +77,6 @@ export const meetings = pgTable(
     id: uuid().primaryKey().notNull().defaultRandom(),
     type: meeting_type().notNull(),
     date: date().notNull(),
-    duration_minutes: integer().notNull(),
     description: text().notNull(),
     location: text(),
     policy_areas: text().array().notNull(),

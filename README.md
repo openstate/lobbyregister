@@ -56,7 +56,7 @@ The application tracks three main entities:
 
 ### Meetings (`meetings`)
 - Lobby meetings between organizations and officials
-- Fields: date, duration, type, location, description
+- Fields: date, type, location, description
 
 ### Relationships
 - `lobbyists`: Individual lobbyists within organizations

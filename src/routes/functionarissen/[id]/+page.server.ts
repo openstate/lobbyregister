@@ -18,7 +18,6 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
       id: schema.meetings.id,
       type: schema.meetings.type,
       date: schema.meetings.date,
-      duration_minutes: schema.meetings.duration_minutes,
       description: schema.meetings.description,
       location: schema.meetings.location,
       policy_areas: schema.meetings.policy_areas,

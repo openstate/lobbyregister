@@ -137,7 +137,6 @@ async function seed() {
       const meeting = {
         type,
         date: faker.date.between({ from: '2024-01-01', to: '2025-06-01' }).toISOString(),
-        duration_minutes: faker.helpers.arrayElement([15, 30, 45, 60, 90, 120]),
         description: generateDutchMeetingDescription(),
         location: type === 'in_person' ? generateDutchLocation() : null,
         policy_areas: faker.helpers.arrayElements(
