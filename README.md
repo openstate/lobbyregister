@@ -13,20 +13,56 @@ A demo for a lobby register application built with SvelteKit, tracking meetings 
 
 ## Environment Setup
 
+
 1. Create `.env` file:
 ```
 DATABASE_URL=postgresql://root:mysecretpassword@localhost:5432/local
 ```
 
-2. Start database:
+2. Install dependencies:
 ```bash
-pnpm db:start
+npm install
+```
+
+3. Start database:
+```bash
+npm run db:dev
 ```
 
 3. Push schema and seed data:
 ```bash
-pnpm db:push
-pnpm db:seed
+npm run db:push
+npm run db:seed
+```
+
+4. Run development server:
+```bash
+npm run dev
+```
+
+## Production
+
+1. Create docker-compose.yml from example:
+```bash
+cp docker-compose.example.yml docker-compose.yml
+```
+
+2. Replace `<PASSWORD>` with a secure database password.
+
+3. Build application:
+```bash
+docker compose build
+```
+
+4. Start application:
+```bash
+docker compose up -d
+```
+
+5. Initialize and seed the database:
+```bash
+docker compose exec app npm run db:push
+docker compose exec app npm run db:seed
 ```
 
 ## Project Structure

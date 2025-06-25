@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres
+    restart: unless-stopped
+    networks:
+      - lobbyregister
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: <PASSWORD>
+      POSTGRES_DB: local
+    volumes:
+      - db:/var/lib/postgresql/data/
+  node:
+    working_dir: /opt/lobbyregister
+    build:
+        context: .
+        dockerfile: Dockerfile
+        args:
+          - DATABASE_URL=postgres://root:<PASSWORD>@lobbyregister-db-1:5432/local
+    restart: unless-stopped
+    networks:
+      - nginx-load-balancer
+      - lobbyregister
+    environment:
+      - DATABASE_URL=postgres://root:<PASSWORD>@lobbyregister-db-1:5432/local
+      - PROTOCOL_HEADER=x-forwarded-proto
+      - HOST_HEADER=x-forwarded-host
+networks:
+  lobbyregister:
+  nginx-load-balancer:
+    name: docker_nginx-load-balancer
+volumes:
+  db:
