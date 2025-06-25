@@ -1,38 +1,66 @@
-# sv
+# Lobbyregister
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+A demo for a lobby register application built with SvelteKit, tracking meetings between lobbyists and government officials.
 
-## Creating a project
+## Libraries used
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **[SvelteKit](https://svelte.dev/docs/kit)**: Full-stack web framework with file-based routing
+- **[Drizzle ORM](https://orm.drizzle.team/)**: Type-safe SQL query builder for PostgreSQL
+- **[TailwindCSS](https://tailwindcss.com/docs)**: Utility-first CSS framework
+- **[Zod](https://zod.dev/)**: Runtime type validation
+- **[TypeScript](https://www.typescriptlang.org/docs/)**: Static typing
+- **[Prettier](https://prettier.io/docs/en/index.html)**: Code formatting
 
-```bash
-# create a new project in the current directory
-npx sv create
+## Environment Setup
 
-# create a new project in my-app
-npx sv create my-app
+1. Create `.env` file:
+```
+DATABASE_URL=postgresql://root:mysecretpassword@localhost:5432/local
 ```
 
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
+2. Start database:
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm db:start
 ```
 
-## Building
-
-To create a production version of your app:
-
+3. Push schema and seed data:
 ```bash
-npm run build
+pnpm db:push
+pnpm db:seed
 ```
 
-You can preview the production build with `npm run preview`.
+## Project Structure
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+```
+src/
+├── app.css                # Global styles and TailwindCSS imports
+├── app.html               # HTML template
+├── lib/                   # Shared utilities
+├── ├── components/        # Reusable Svelte components
+│   └── server/            # Server-only utilities
+│       └── db/            # Database schema, connection and seeding
+└── routes/                # SvelteKit file-based routing
+```
+
+## Database Schema
+
+The application tracks three main entities:
+
+### Organizations (`organizations`)
+- Lobbyist organizations (in-house, consultant, association)
+- Fields: name, type, sector, commercial status, address
+
+### Officials (`officials`)
+- Government officials who can attend meetings
+- Fields: name, type (minister, secretary, etc.), department
+
+### Meetings (`meetings`)
+- Lobby meetings between organizations and officials
+- Fields: date, duration, type, location, description
+
+### Relationships
+- `lobbyists`: Individual lobbyists within organizations
+- `organization_representatives`: Client relationships for consultant firms
+- `meeting_officials`: Many-to-many between meetings and officials
+- `meeting_lobbyists`: Many-to-many between meetings and lobbyists
+- `meeting_representatives`: Tracks which clients are represented in meetings

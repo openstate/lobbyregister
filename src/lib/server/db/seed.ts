@@ -1,7 +1,7 @@
 import { fakerNL as faker } from '@faker-js/faker';
 import * as schema from './schema.ts';
 import { db } from './index.ts';
-import { ORGANIZATION_TYPES, MEETING_TYPES, OFFICIAL_TYPES } from '../../constants.ts';
+import { ORGANIZATION_TYPES, MEETING_TYPES, OFFICIAL_TYPES, SBI_CODES } from '../../constants.ts';
 
 async function seed() {
   console.log('🌱 Starting database seeding...');
@@ -22,7 +22,11 @@ async function seed() {
     console.log('🏢 Seeding organizations...');
     const organizations = [];
     for (let i = 0; i < 50; i++) {
-      const orgType = faker.helpers.arrayElement(ORGANIZATION_TYPES);
+      const orgType = faker.helpers.weightedArrayElement([
+        { weight: 5, value: 'inhouse' },
+        { weight: 1, value: 'consultant' },
+        { weight: 2, value: 'association' },
+      ]);
       const isCommercial = orgType === 'consultant' || faker.datatype.boolean(0.7);
 
       const organization = {
@@ -35,6 +39,10 @@ async function seed() {
         sector: generateDutchSector(),
         address: `${faker.location.streetAddress()}, ${faker.location.city()}`,
         active: faker.datatype.boolean(0.95),
+        registered_at: faker.date
+          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .toISOString()
+          .split('T')[0],
       };
 
       organizations.push(organization);
@@ -55,6 +63,10 @@ async function seed() {
         type: faker.helpers.arrayElement(OFFICIAL_TYPES),
         department: generateDutchDepartment(),
         active: faker.datatype.boolean(0.95),
+        registered_at: faker.date
+          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .toISOString()
+          .split('T')[0],
       };
 
       officials.push(official);
@@ -67,14 +79,22 @@ async function seed() {
     console.log('🤝 Seeding organization representatives...');
     const representatives = [];
     for (let i = 0; i < 25; i++) {
-      const representative = faker.helpers.arrayElement(insertedOrganizations.filter(org => org.type === 'consultant'));
-      const client = faker.helpers.arrayElement(insertedOrganizations.filter(org => org.type !== 'consultant'));
+      const representative = faker.helpers.arrayElement(
+        insertedOrganizations.filter((org) => org.type === 'consultant'),
+      );
+      const client = faker.helpers.arrayElement(
+        insertedOrganizations.filter((org) => org.type !== 'consultant'),
+      );
 
       if (representative.id !== client.id) {
         representatives.push({
           representative_id: representative.id,
           client_id: client.id,
           active: faker.datatype.boolean(0.95),
+          registered_at: faker.date
+            .between({ from: '2021-01-01', to: '2025-06-30' })
+            .toISOString()
+            .split('T')[0],
         });
       }
     }
@@ -96,6 +116,10 @@ async function seed() {
           name: faker.person.fullName(),
           function: generateDutchJobTitle(),
           active: faker.datatype.boolean(0.95),
+          registered_at: faker.date
+            .between({ from: '2021-01-01', to: '2025-06-30' })
+            .toISOString()
+            .split('T')[0],
         };
 
         lobbyists.push(lobbyist);
@@ -109,12 +133,28 @@ async function seed() {
     console.log('📅 Seeding meetings...');
     const meetings = [];
     for (let i = 0; i < 100; i++) {
+      const type = faker.helpers.arrayElement(MEETING_TYPES);
       const meeting = {
-        type: faker.helpers.arrayElement(MEETING_TYPES),
+        type,
         date: faker.date.between({ from: '2024-01-01', to: '2025-06-01' }).toISOString(),
         duration_minutes: faker.helpers.arrayElement([15, 30, 45, 60, 90, 120]),
         description: generateDutchMeetingDescription(),
-        location: faker.helpers.maybe(() => generateDutchLocation(), { probability: 0.7 }),
+        location: type === 'in_person' ? generateDutchLocation() : null,
+        policy_areas: faker.helpers.arrayElements(
+          [
+            'Economische Zaken',
+            'Klimaat en Groene Groei',
+            'Sociale Zaken en Werkgelegenheid',
+            'Volksgezondheid, Welzijn en Sport',
+            'Infrastructuur en Waterstaat',
+            'Justitie en Veiligheid',
+          ],
+          { min: 1, max: 3 },
+        ),
+        registered_at: faker.date
+          .between({ from: '2024-01-01', to: '2025-06-01' })
+          .toISOString()
+          .split('T')[0],
       };
 
       meetings.push(meeting);
@@ -166,12 +206,20 @@ async function seed() {
     console.log('🤝📅 Linking meeting lobbyists with representatives...');
     const meetingRepresentatives = [];
     for (const meetingLobbyist of insertedMeetingLobbyists) {
-      const lobbyist = insertedLobbyists.find(l => l.id === meetingLobbyist.lobbyist_id);
+      const lobbyist = insertedLobbyists.find((l) => l.id === meetingLobbyist.lobbyist_id);
       if (!lobbyist) continue;
-      const validRepresentatives = insertedRepresentatives.filter(r => r.representative_id === lobbyist.organization_id);
+      const validRepresentatives = insertedRepresentatives.filter(
+        (r) => r.representative_id === lobbyist.organization_id,
+      );
       if (validRepresentatives.length > 0) {
-        const numRepresentations = faker.number.int({ min: 1, max: Math.min(3, validRepresentatives.length) });
-        const selectedRepresentatives = faker.helpers.arrayElements(validRepresentatives, numRepresentations);
+        const numRepresentations = faker.number.int({
+          min: 1,
+          max: Math.min(3, validRepresentatives.length),
+        });
+        const selectedRepresentatives = faker.helpers.arrayElements(
+          validRepresentatives,
+          numRepresentations,
+        );
 
         for (const representative of selectedRepresentatives) {
           meetingRepresentatives.push({
@@ -196,6 +244,10 @@ async function seed() {
   }
 }
 
+function capitalizeFirstLetter(str: string): string {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 function generateDutchOrganizationName(type: (typeof ORGANIZATION_TYPES)[number]): string {
   const companyTypes = ['B.V.', 'N.V.', 'Holding', 'Group'];
   const consultingNames = ['Consultancy', 'Advies', 'Partners', 'Consultants', 'Strategy'];
@@ -205,7 +257,7 @@ function generateDutchOrganizationName(type: (typeof ORGANIZATION_TYPES)[number]
     case 'consultant':
       return `${faker.company.name()} ${faker.helpers.arrayElement(consultingNames)}`;
     case 'association':
-      return `${faker.helpers.arrayElement(associationNames)} ${faker.company.buzzNoun()}`;
+      return `${capitalizeFirstLetter(faker.company.buzzNoun())} ${faker.helpers.arrayElement(associationNames)}`;
     case 'inhouse':
       return `${faker.company.name()} ${faker.helpers.arrayElement(companyTypes)}`;
     default:
@@ -214,30 +266,7 @@ function generateDutchOrganizationName(type: (typeof ORGANIZATION_TYPES)[number]
 }
 
 function generateDutchSector(): string {
-  const sectors = [
-    'Energie en duurzaamheid',
-    'Gezondheidszorg',
-    'Financiële dienstverlening',
-    'Technologie en ICT',
-    'Transport en logistiek',
-    'Bouw en vastgoed',
-    'Voedsel en landbouw',
-    'Onderwijs en onderzoek',
-    'Detailhandel',
-    'Toerisme en recreatie',
-    'Chemie en farmaceutica',
-    'Automotive',
-    'Telecommunicatie',
-    'Media en entertainment',
-    'Non-profit en maatschappij',
-    'Overheid en publieke sector',
-    'Milieu en afvalbeheer',
-    'Sport en welzijn',
-    'Mode en lifestyle',
-    'Kunst en cultuur',
-  ];
-
-  return faker.helpers.arrayElement(sectors);
+  return faker.helpers.arrayElement(Array.from(SBI_CODES.values()));
 }
 
 function generateDutchDepartment(): string {
@@ -327,8 +356,6 @@ function generateDutchLocation(): string {
     'Ministerie, Den Haag',
     'Tweede Kamer, Den Haag',
     'Binnenhof, Den Haag',
-    'Video-vergadering',
-    'Telefonisch gesprek',
     'Restaurant De Haagse Bos, Den Haag',
     'Hotel Des Indes, Den Haag',
     'Kurhaus, Scheveningen',

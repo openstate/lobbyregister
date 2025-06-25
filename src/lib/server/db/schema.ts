@@ -9,7 +9,8 @@ import {
   primaryKey,
   date,
   integer,
-  check,
+  index,
+  alias,
 } from 'drizzle-orm/pg-core';
 
 const registeredAt = () => date().notNull().defaultNow();
@@ -29,47 +30,62 @@ export const organizations = pgTable('organizations', {
   kvk_number: integer(),
   is_commercial: boolean().notNull(),
   sector: text().notNull(),
-  address: text(),
   active: boolean().notNull().default(true),
   registered_at: registeredAt(),
   updated_at: updatedAt(),
 });
 
-export const organization_representatives = pgTable('organization_representatives', {
-  id: uuid().primaryKey().notNull().defaultRandom(),
-  representative_id: uuid()
-    .notNull()
-    .references(() => organizations.id),
-  client_id: uuid()
-    .notNull()
-    .references(() => organizations.id),
-  active: boolean().notNull().default(true),
-  registered_at: registeredAt(),
-  updated_at: updatedAt(),
-});
+export const lobbyist_organizations = alias(organizations, 'lobbyist_organizations');
+export const client_organizations = alias(organizations, 'client_organizations');
 
-export const lobbyists = pgTable('lobbyists', {
-  id: uuid().primaryKey().notNull().defaultRandom(),
-  organization_id: uuid()
-    .notNull()
-    .references(() => organizations.id),
-  name: text().notNull(),
-  function: text().notNull(),
-  active: boolean().notNull().default(true),
-  registered_at: registeredAt(),
-  updated_at: updatedAt(),
-});
+export const organization_representatives = pgTable(
+  'organization_representatives',
+  {
+    id: uuid().primaryKey().notNull().defaultRandom(),
+    representative_id: uuid()
+      .notNull()
+      .references(() => organizations.id),
+    client_id: uuid()
+      .notNull()
+      .references(() => organizations.id),
+    active: boolean().notNull().default(true),
+    registered_at: registeredAt(),
+    updated_at: updatedAt(),
+  },
+  (t) => [index().on(t.client_id)],
+);
 
-export const meetings = pgTable('meetings', {
-  id: uuid().primaryKey().notNull().defaultRandom(),
-  type: meeting_type().notNull(),
-  date: date().notNull(),
-  duration_minutes: integer().notNull(),
-  description: text().notNull(),
-  location: text(),
-  registered_at: registeredAt(),
-  updated_at: updatedAt(),
-});
+export const lobbyists = pgTable(
+  'lobbyists',
+  {
+    id: uuid().primaryKey().notNull().defaultRandom(),
+    organization_id: uuid()
+      .notNull()
+      .references(() => organizations.id),
+    name: text().notNull(),
+    function: text().notNull(),
+    active: boolean().notNull().default(true),
+    registered_at: registeredAt(),
+    updated_at: updatedAt(),
+  },
+  (t) => [index().on(t.organization_id)],
+);
+
+export const meetings = pgTable(
+  'meetings',
+  {
+    id: uuid().primaryKey().notNull().defaultRandom(),
+    type: meeting_type().notNull(),
+    date: date().notNull(),
+    duration_minutes: integer().notNull(),
+    description: text().notNull(),
+    location: text(),
+    policy_areas: text().array().notNull(),
+    registered_at: registeredAt(),
+    updated_at: updatedAt(),
+  },
+  (t) => [index().on(t.date.desc())],
+);
 
 export const officials = pgTable('officials', {
   id: uuid().primaryKey().notNull().defaultRandom(),
@@ -94,15 +110,19 @@ export const meeting_officials = pgTable(
   (table) => [primaryKey({ columns: [table.official_id, table.meeting_id] })],
 );
 
-export const meeting_lobbyists = pgTable('meeting_lobbyists', {
-  id: uuid().primaryKey().notNull().defaultRandom(),
-  meeting_id: uuid()
-    .notNull()
-    .references(() => meetings.id),
-  lobbyist_id: uuid()
-    .notNull()
-    .references(() => lobbyists.id),
-});
+export const meeting_lobbyists = pgTable(
+  'meeting_lobbyists',
+  {
+    id: uuid().primaryKey().notNull().defaultRandom(),
+    meeting_id: uuid()
+      .notNull()
+      .references(() => meetings.id),
+    lobbyist_id: uuid()
+      .notNull()
+      .references(() => lobbyists.id),
+  },
+  (t) => [index().on(t.meeting_id), index().on(t.lobbyist_id)],
+);
 
 export const meeting_representatives = pgTable(
   'meeting_representatives',

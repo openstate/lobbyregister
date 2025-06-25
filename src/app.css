@@ -1,6 +1,10 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
+/* @plugin '@tailwindcss/forms'; */
 
 @theme {
   --font-sans: 'Source Sans 3 Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+  --color-gov-blue: #01689b;
+  --color-gov-dark-blue: #154273;
+  --color-gov-light-blue: #e6f3ff;
 }

@@ -8,28 +8,28 @@ import { OFFICIAL_TYPES } from '$lib/constants';
 
 const createOfficialSchema = zfd.formData({
   name: zfd.text(),
-  type: zfd.text(z.enum(OFFICIAL_TYPES)),
   department: zfd.text(),
+  type: zfd.text(z.enum(OFFICIAL_TYPES)),
 });
 
 export const actions: Actions = {
-  createOfficial: async ({ request }) => {
+  default: async ({ request }) => {
     const parsed = createOfficialSchema.safeParse(await request.formData());
 
     if (!parsed.success) {
-      return fail(400, { message: 'Ongeldige gegevens' });
+      console.error('Validation error:', parsed.error);
+      return fail(400, {
+        message: 'Ongeldige gegevens. Controleer of alle vereiste velden zijn ingevuld.',
+      });
     }
 
-    try {
-      const [official] = await db.insert(schema.officials).values(parsed.data).returning();
+    const { name, department, type } = parsed.data;
 
-      throw redirect(302, `/?created=official&id=${official.id}`);
-    } catch (error) {
-      if (error instanceof Response) {
-        throw error;
-      }
-      console.error('Error creating official:', error);
-      return fail(500, { message: 'Functionaris aanmaken mislukt' });
-    }
+    const [official] = await db
+      .insert(schema.officials)
+      .values({ name: name.trim(), department: department.trim(), type })
+      .returning();
+
+    return redirect(302, '/');
   },
 };
