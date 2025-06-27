@@ -14,10 +14,7 @@ A demo for a lobby register application built with SvelteKit, tracking meetings 
 ## Environment Setup
 
 
-1. Create `.env` file:
-```
-DATABASE_URL=postgresql://root:mysecretpassword@localhost:5432/local
-```
+1. Copy `.env.example` to `.env` and change `mysecretpassword`
 
 2. Install dependencies:
 ```bash
