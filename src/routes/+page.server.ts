@@ -3,6 +3,7 @@ import * as schema from '$lib/server/db/schema';
 import { redirect } from '@sveltejs/kit';
 import { desc, eq, sql } from 'drizzle-orm';
 import { off } from 'process';
+import type { RequestEvent } from './$types.js';
 
 type Meeting = { id: string; date: string; description: string; departments: string[] };
 
@@ -55,7 +56,7 @@ export async function load() {
 }
 
 export const actions = {
-  search: async ({ request }) => {
+  search: async ({ request }: RequestEvent) => {
     const formData = await request.formData();
     const searchTerm = formData.get('search')?.toString().trim() || '';
     redirect(307, `/afspraken?search=${encodeURIComponent(searchTerm)}`);
