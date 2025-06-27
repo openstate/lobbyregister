@@ -2,10 +2,8 @@ import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
 import { redirect } from '@sveltejs/kit';
 import { desc, eq, sql } from 'drizzle-orm';
-import { off } from 'process';
 import type { RequestEvent } from './$types.js';
-
-type Meeting = { id: string; date: string; description: string; departments: string[] };
+import type { Meeting } from '../types.js';
 
 async function getMeetings() {
   const meetings = await db
