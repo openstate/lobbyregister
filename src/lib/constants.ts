@@ -1,6 +1,6 @@
 export const ORGANIZATION_TYPES = ['inhouse', 'consultant', 'association'] as const;
 
-export const MEETING_TYPES = ['in_person', 'phone_call', 'video_call'] as const;
+export enum MEETING_TYPES {in_person='in_person', phone_call='phone_call', video_call='video_call'};
 
 export const OFFICIAL_TYPES = [
   'minister',
@@ -46,3 +46,9 @@ export const SBI_CODES = new Map([
   ],
   ['V', 'Activiteiten van extraterritoriale organisaties en instanties'],
 ]);
+
+export function enumToPgEnum<T extends Record<string, any>>(
+  myEnum: T,
+): [T[keyof T], ...T[keyof T][]] {
+  return Object.values(myEnum).map((value: any) => `${value}`) as any
+}

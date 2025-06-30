@@ -1,10 +1,9 @@
 <script lang="ts">
-    import { enhance } from '$app/forms';
+  import { enhance } from '$app/forms';
   import Button from '$lib/components/Button.svelte';
+  import { listFormat } from '../utils/stringUtils.js';
 
   const { data } = $props();
-
-  const listFormat = new Intl.ListFormat('nl-NL', { style: 'long', type: 'conjunction' });
 </script>
 
 <div class="my-12">

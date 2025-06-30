@@ -2,14 +2,9 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import { SBI_CODES } from '$lib/constants';
+  import { organizationTypeLabels } from '../../../types.js';
 
   let { data } = $props();
-
-  const typeLabels = {
-    inhouse: 'Belangen van eigen organisatie',
-    consultant: 'Belangen van cliënten',
-    association: 'Belangen van sector of branche',
-  };
 
   const getSectorName = (sectorCode: string) => {
     return SBI_CODES.get(sectorCode) || sectorCode;
@@ -35,7 +30,7 @@
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button
       onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1"
+      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
     >
       ← Terug naar overzicht
     </button>
@@ -66,7 +61,7 @@
       <div class="p-4 border border-gray-300">
         <p class="text-sm font-medium text-gray-700 mb-1">Belangenbehartiging</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
-          {typeLabels[data.organization.type]}
+          {organizationTypeLabels[data.organization.type]}
         </p>
       </div>
 

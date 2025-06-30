@@ -6,7 +6,7 @@ import type { Actions } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 import type { Official } from '../../types';
-import { loginUser } from '../../utils/authentication';
+import { loginUser } from '../../utils/authenticationUtils';
 
 const createOfficialSchema = zfd.formData({
   username: zfd.text(),

@@ -8,3 +8,8 @@
   --color-gov-dark-blue: #154273;
   --color-gov-light-blue: #e6f3ff;
 }
+
+.date-time-field input {
+  padding: 10px 12px !important;
+}
+.multiselect {margin-top: 0; margin-bottom: 0; min-height: 3em;}

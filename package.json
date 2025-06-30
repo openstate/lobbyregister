@@ -42,6 +42,8 @@
     "drizzle-orm": "^0.40.0",
     "postgres": "^3.4.5",
     "zod": "^3.25.67",
-    "zod-form-data": "^3.0.0"
+    "zod-form-data": "^3.0.0",
+    "date-picker-svelte": "^2.16.0",
+    "svelte-multiselect": "^5.0.0"
   }
 }

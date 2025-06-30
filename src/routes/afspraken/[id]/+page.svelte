@@ -1,40 +1,11 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
+  import { meetingTypeLabels, officialTypeLabels } from '../../../types';
+  import { formatDate, formatRegistrationDate } from '../../../utils/dateUtils';
+  import { listFormat } from '../../../utils/stringUtils';
   import type { PageData } from './$types';
 
   let { data }: { data: PageData } = $props();
-
-  const typeLabels: Record<string, string> = {
-    in_person: 'Fysiek gesprek',
-    phone_call: 'Telefoongesprek',
-    video_call: 'Videogesprek',
-  };
-
-  const officialTypeLabels: Record<string, string> = {
-    minister: 'Minister',
-    state_secretary: 'Staatssecretaris',
-    secretary_general: 'Secretaris-generaal',
-    director_general: 'Directeur-generaal',
-    political_assistant: 'Politiek assistent',
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('nl-NL', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
-
-  const formatRegistrationDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('nl-NL', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    });
-  };
-
-  const listFormat = new Intl.ListFormat('nl-NL', { style: 'long', type: 'conjunction' });
 </script>
 
 <!-- Header -->
@@ -48,7 +19,7 @@
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button
       onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1"
+      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
     >
       ← Terug naar overzicht
     </button>
@@ -88,7 +59,7 @@
       <div class="p-4 border border-gray-300">
         <p class="text-sm font-medium text-gray-700 mb-1">Type afspraak</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
-          {typeLabels[data.meeting.type]}
+          {meetingTypeLabels[data.meeting.type]}
         </p>
       </div>
 

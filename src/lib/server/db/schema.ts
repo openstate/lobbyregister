@@ -1,4 +1,4 @@
-import { MEETING_TYPES, OFFICIAL_TYPES, ORGANIZATION_TYPES } from '../../constants.ts';
+import { enumToPgEnum, MEETING_TYPES, OFFICIAL_TYPES, ORGANIZATION_TYPES } from '../../constants.ts';
 import { sql } from 'drizzle-orm';
 import {
   pgTable,
@@ -19,7 +19,7 @@ const updatedAt = () => registeredAt().$onUpdate(() => sql`now()`);
 
 export const organization_type = pgEnum('organization_type', ORGANIZATION_TYPES);
 
-export const meeting_type = pgEnum('meeting_type', MEETING_TYPES);
+export const meeting_type = pgEnum('meeting_type', enumToPgEnum(MEETING_TYPES));
 
 export const official_type = pgEnum('official_type', OFFICIAL_TYPES);
 

@@ -2,6 +2,7 @@
   import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
+  import { meetingTypeLabels } from '../../types.js';
 
   const { data } = $props();
 
@@ -104,13 +105,6 @@
     updateFilter(searchParams);
   }
 
-  // Meeting type labels
-  const meetingTypeLabels: Record<string, string> = {
-    in_person: 'Fysiek gesprek',
-    phone_call: 'Telefoongesprek',
-    video_call: 'Videogesprek',
-  };
-
   // Check if any filters are active
   const activeFiltersCount = $derived(
     (data.filters.search ? 1 : 0) +
@@ -125,7 +119,13 @@
 </script>
 
 <div class="my-8">
-  <h1 class="text-3xl font-semibold text-gray-800 mb-4">Afspraken</h1>
+  <div class="flex items-center justify-between mb-4">
+  <h1 class="text-3xl font-semibold text-gray-800">Afspraken</h1>
+  <form action="/afspraken/toevoegen">
+    <Button type="submit">Toevoegen</Button>
+  </form>
+
+  </div>
   <p class="text-xl text-gray-700">
     Overzicht van alle geregistreerde afspraken tussen lobbyisten en overheidsfunctionarissen.
   </p>

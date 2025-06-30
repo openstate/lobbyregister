@@ -2,6 +2,7 @@ import { fakerNL as faker } from '@faker-js/faker';
 import * as schema from './schema.ts';
 import { db } from './index.ts';
 import { ORGANIZATION_TYPES, MEETING_TYPES, OFFICIAL_TYPES, SBI_CODES } from '../../constants.ts';
+import { policyAreaLabels } from '../../../types.ts';
 
 async function seed() {
   console.log('🌱 Starting database seeding...');
@@ -140,14 +141,7 @@ async function seed() {
         description: generateDutchMeetingDescription(),
         location: type === 'in_person' ? generateDutchLocation() : null,
         policy_areas: faker.helpers.arrayElements(
-          [
-            'Economische Zaken',
-            'Klimaat en Groene Groei',
-            'Sociale Zaken en Werkgelegenheid',
-            'Volksgezondheid, Welzijn en Sport',
-            'Infrastructuur en Waterstaat',
-            'Justitie en Veiligheid',
-          ],
+          policyAreaLabels,
           { min: 1, max: 3 },
         ),
         registered_at: faker.date
