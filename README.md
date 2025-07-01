@@ -44,19 +44,17 @@ npm run dev
 cp docker-compose.example.yml docker-compose.yml
 ```
 
-2. Replace `<PASSWORD>` with a secure database password.
-
-3. Build application:
+2. Build application:
 ```bash
 docker compose build
 ```
 
-4. Start application:
+3. Start application:
 ```bash
 docker compose up -d
 ```
 
-5. Initialize and seed the database:
+4. Initialize and seed the database:
 ```bash
 docker compose exec app npm run db:push
 docker compose exec app npm run db:seed

@@ -134,9 +134,9 @@ async function seed() {
     console.log('📅 Seeding meetings...');
     const meetings = [];
     for (let i = 0; i < 100; i++) {
-      const type = faker.helpers.arrayElement(MEETING_TYPES);
+      const type = faker.helpers.arrayElement(Object.keys(MEETING_TYPES));
       const meeting = {
-        type,
+        type: type as MEETING_TYPES,
         date: faker.date.between({ from: '2024-01-01', to: '2025-06-01' }).toISOString(),
         description: generateDutchMeetingDescription(),
         location: type === 'in_person' ? generateDutchLocation() : null,
