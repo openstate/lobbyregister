@@ -12,8 +12,8 @@
   let organizationSearch = $state('');
   let policyAreaSearch = $state('');
   let searchMeetings = $state(true);
-  let searchOrganizations = $state(true);
-  let searchLobbyists = $state(true);
+  let searchOrganizations = $state(false);
+  let searchLobbyists = $state(false);
 
   // Filtered lists based on search
   const filteredOfficials = $derived(

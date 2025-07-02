@@ -16,6 +16,7 @@ export const load: PageServerLoad = async ({ url }) => {
   // Get filter parameters - handle multiple values
   const search = searchParams.get('search')?.trim().toLocaleLowerCase() || '';
   const searchCategories = searchParams.getAll('searchCategories').filter((id) => id.trim()) as searchCategoryTypes[];
+  if (searchCategories.length == 0) searchCategories.push(searchCategoryTypes.searchMeetingsId);
   const officialIds = searchParams.getAll('official').filter((id) => id.trim());
   const lobbyistIds = searchParams.getAll('lobbyist').filter((id) => id.trim());
   const organizationIds = searchParams.getAll('organization').filter((id) => id.trim());
