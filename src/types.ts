@@ -4,6 +4,17 @@ export type Meeting = { id: string; date: string; description: string; departmen
 
 export type Official = { id: string, name: string, type: string };
 
+export enum searchCategoryTypes {
+  searchMeetingsId='searchMeetingsId',
+  searchOrganizationsId='searchOrganizationsId',
+  searchLobbyistsId='searchLobbyistsId'
+}
+export const searchCategoryTexts: Record<keyof typeof searchCategoryTypes, string> = {
+  searchMeetingsId: "Afspraak beschrijvingen",
+  searchOrganizationsId: "Namen organisaties",
+  searchLobbyistsId: "Namen lobbyisten"
+}
+
 export const meetingTypeLabels: Record<keyof typeof MEETING_TYPES, string> = {
   in_person: 'Fysiek gesprek',
   phone_call: 'Telefoongesprek',

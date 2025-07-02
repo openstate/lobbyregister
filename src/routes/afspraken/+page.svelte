@@ -2,7 +2,7 @@
   import Button from '$lib/components/Button.svelte';
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
-  import { meetingTypeLabels } from '../../types.js';
+  import { meetingTypeLabels, searchCategoryTexts, searchCategoryTypes } from '../../types.js';
 
   const { data } = $props();
 
@@ -11,6 +11,9 @@
   let lobbyistSearch = $state('');
   let organizationSearch = $state('');
   let policyAreaSearch = $state('');
+  let searchMeetings = $state(true);
+  let searchOrganizations = $state(true);
+  let searchLobbyists = $state(true);
 
   // Filtered lists based on search
   const filteredOfficials = $derived(
@@ -46,11 +49,22 @@
     goto(`/afspraken?${params?.toString() ?? ''}`, { replaceState: true });
   }
 
+  function searchCategoriesDescription(searchCategories: searchCategoryTypes[]) {
+    return searchCategories.map((category) => searchCategoryTexts[category])
+    .join(', ')
+  }
+
   // Handle form submission for filters
   function handleFilterSubmit(event: Event) {
     event.preventDefault();
     const formData = new FormData(event.target as HTMLFormElement);
     const searchParams = new URLSearchParams();
+
+    // Add categories to search in
+    const searchCategories = formData.getAll('search_categories');
+    searchCategories.forEach((id) => {
+      searchParams.append('searchCategories', id.toString());
+    });
 
     // Add text fields
     const search = formData.get('search');
@@ -108,6 +122,7 @@
   // Check if any filters are active
   const activeFiltersCount = $derived(
     (data.filters.search ? 1 : 0) +
+      data.filters.searchCategories.length +
       data.filters.officialIds.length +
       data.filters.lobbyistIds.length +
       data.filters.organizationIds.length +
@@ -134,23 +149,65 @@
 <div class="flex flex-col lg:flex-row gap-8">
   <!-- Filters sidebar -->
   <div class="lg:w-80 flex-shrink-0">
-    <div class="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto p-1 -m-1">
+    <div class="sticky top-4 max-h-[calc(150vh-2rem)] overflow-y-auto p-1 -m-1">
       <h2 class="text-xl font-medium text-gray-800 mb-4">Filters</h2>
 
       <form onsubmit={handleFilterSubmit} class="space-y-4">
-        <!-- Search field -->
+          <!-- Search field -->
         <div>
           <label for="search" class="block font-medium text-gray-700 mb-2">
-            Zoeken in beschrijving
+            Zoekterm
           </label>
           <input
             id="search"
             name="search"
             type="text"
             value={data.filters.search}
-            placeholder="Zoek in afspraakbeschrijving..."
+            placeholder="Vul zoekterm in..."
             class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
           />
+        </div>
+
+        <div>
+          <label for="" class="block font-medium text-gray-700 mb-2">
+            Zoeken in:
+          </label>
+          <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+            <input
+              type="checkbox"
+              name="search_categories"
+              value={searchCategoryTypes.searchMeetingsId}
+              checked={searchMeetings}
+              class="mr-3 text-gov-blue focus:ring-gov-blue"
+            />
+            <div class="min-w-0 flex-1">
+              <div class="font-medium text-gray-900 truncate">{searchCategoryTexts.searchMeetingsId}</div>
+            </div>
+          </label>
+          <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+            <input
+              type="checkbox"
+              name="search_categories"
+              value={searchCategoryTypes.searchOrganizationsId}
+              checked={searchOrganizations}
+              class="mr-3 text-gov-blue focus:ring-gov-blue"
+            />
+            <div class="min-w-0 flex-1">
+              <div class="font-medium text-gray-900 truncate">{searchCategoryTexts.searchOrganizationsId}</div>
+            </div>
+          </label>
+          <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
+            <input
+              type="checkbox"
+              name="search_categories"
+              value={searchCategoryTypes.searchLobbyistsId}
+              checked={searchLobbyists}
+              class="mr-3 text-gov-blue focus:ring-gov-blue"
+            />
+            <div class="min-w-0 flex-1">
+              <div class="font-medium text-gray-900 truncate">{searchCategoryTexts.searchLobbyistsId}</div>
+            </div>
+          </label>
         </div>
 
         <!-- Meeting type filter -->
@@ -412,6 +469,9 @@
           {#if data.filters.search}
             {@render filterCard(`Zoekterm: "${data.filters.search}"`, 'search')}
           {/if}
+          {#if data.filters.searchCategories.length > 0}
+            {@render filterCard(`Zoek in: "${searchCategoriesDescription(data.filters.searchCategories)}"`, 'search')}
+          {/if}          
           {#if data.filters.meetingType}
             {@render filterCard(`Type: ${meetingTypeLabels[data.filters.meetingType]}`, 'type')}
           {/if}

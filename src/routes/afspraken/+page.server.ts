@@ -1,7 +1,8 @@
 import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
-import { and, desc, eq, ilike, inArray, sql } from 'drizzle-orm';
+import { and, desc, eq, ilike, inArray, or, sql } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
+import { searchCategoryTypes } from '../../types';
 
 const MEETINGS_PER_PAGE = 10;
 
@@ -14,6 +15,7 @@ export const load: PageServerLoad = async ({ url }) => {
 
   // Get filter parameters - handle multiple values
   const search = searchParams.get('search')?.trim().toLocaleLowerCase() || '';
+  const searchCategories = searchParams.getAll('searchCategories').filter((id) => id.trim()) as searchCategoryTypes[];
   const officialIds = searchParams.getAll('official').filter((id) => id.trim());
   const lobbyistIds = searchParams.getAll('lobbyist').filter((id) => id.trim());
   const organizationIds = searchParams.getAll('organization').filter((id) => id.trim());
@@ -23,7 +25,18 @@ export const load: PageServerLoad = async ({ url }) => {
   // Build base WHERE conditions
   const baseConditions = [];
   if (search) {
-    baseConditions.push(ilike(schema.meetings.description, `%${search}%`));
+    let searchConditions = [];
+    if (searchCategories.includes(searchCategoryTypes.searchMeetingsId)) {
+      searchConditions.push(ilike(schema.meetings.description, `%${search}%`));
+    }
+    if (searchCategories.includes(searchCategoryTypes.searchOrganizationsId)) {
+      searchConditions.push(ilike(schema.organizations.name, `%${search}%`));
+      searchConditions.push(ilike(schema.client_organizations.name, `%${search}%`));
+    }
+    if (searchCategories.includes(searchCategoryTypes.searchLobbyistsId)) {
+      searchConditions.push(ilike(schema.lobbyists.name, `%${search}%`));
+    }
+    if (searchConditions.length > 0) baseConditions.push(or(...searchConditions));
   }
   if (meetingType) {
     baseConditions.push(eq(schema.meetings.type, meetingType as any));
@@ -77,7 +90,7 @@ export const load: PageServerLoad = async ({ url }) => {
   const [meetings, countResult, filterOptions] = await Promise.all([
     // Main meetings query
     db
-      .select({
+      .selectDistinct({
         id: schema.meetings.id,
         type: schema.meetings.type,
         date: schema.meetings.date,
@@ -87,15 +100,27 @@ export const load: PageServerLoad = async ({ url }) => {
       })
       .from(schema.meetings)
       .where(whereClause)
+      .leftJoin(schema.meeting_lobbyists, eq(schema.meetings.id, schema.meeting_lobbyists.meeting_id))
+      .leftJoin(schema.lobbyists, eq(schema.meeting_lobbyists.lobbyist_id, schema.lobbyists.id))
+      .leftJoin(schema.organizations, eq(schema.lobbyists.organization_id, schema.organizations.id))
+      .leftJoin(schema.meeting_representatives, eq(schema.meeting_lobbyists.id, schema.meeting_representatives.meeting_lobbyist_id))
+      .leftJoin(schema.organization_representatives, eq(schema.meeting_representatives.representation_id, schema.organization_representatives.id))
+      .leftJoin(schema.client_organizations, eq(schema.organization_representatives.client_id, schema.client_organizations.id))
       .orderBy(desc(schema.meetings.date))
       .limit(MEETINGS_PER_PAGE)
       .offset(offset),
 
     // Count query
     db
-      .select({ count: sql<number>`count(*)` })
+      .select({ count: sql<number>`count(distinct ${schema.meetings.id})` })
       .from(schema.meetings)
-      .where(whereClause),
+      .where(whereClause)
+      .leftJoin(schema.meeting_lobbyists, eq(schema.meetings.id, schema.meeting_lobbyists.meeting_id))
+      .leftJoin(schema.lobbyists, eq(schema.meeting_lobbyists.lobbyist_id, schema.lobbyists.id))
+      .leftJoin(schema.organizations, eq(schema.lobbyists.organization_id, schema.organizations.id))
+      .leftJoin(schema.meeting_representatives, eq(schema.meeting_lobbyists.id, schema.meeting_representatives.meeting_lobbyist_id))
+      .leftJoin(schema.organization_representatives, eq(schema.meeting_representatives.representation_id, schema.organization_representatives.id))
+      .leftJoin(schema.client_organizations, eq(schema.organization_representatives.client_id, schema.client_organizations.id)),
 
     // Filter options
     Promise.all([
@@ -230,6 +255,7 @@ export const load: PageServerLoad = async ({ url }) => {
     },
     filters: {
       search,
+      searchCategories,
       officialIds,
       lobbyistIds,
       organizationIds,
