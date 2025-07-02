@@ -1,17 +1,64 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import { goto } from '$app/navigation';
-  import { meetingTypeLabels, officialTypeLabels } from '../../../types';
-  import { formatDate, formatRegistrationDate } from '../../../utils/dateUtils';
   import { enhance } from '$app/forms';
-  import { listFormat } from '../../../utils/stringUtils';
 	import { DateInput } from 'date-picker-svelte'
   import MultiSelect from 'svelte-multiselect'  
+  import type { Option } from "svelte-multiselect";
+  import Consultant from '$lib/components/Consultant.svelte';
 
   const { data, form } = $props();
   let date = $state(new Date());
   let selectedOfficials = $state([]);
+  let selectedLobbyists = $state([]);
   let selectedPolicyAreas = $state([]);
+
+  let allSelectedClientsVar: { [key: string]: Option[]} = Object.assign({}, ...Object.entries(data.allRepresentativeNames).map((x) => ({[x[0]]: []})));
+  
+  let allSelectedClients = $state(allSelectedClientsVar);
+  $inspect(allSelectedClients);
+  let consultantIds = $state.raw(new Array<string>()); // Keeps track of selected lobbyists for consultant organizations
+
+  function lobbyistAdded(event: CustomEvent) {
+    let lobbyistId = event.detail.option.value as string;
+    if (lobbyistId in data.consultantsToOrganizations){
+      let consultantId = data.consultantsToOrganizations[lobbyistId];
+      if (!(consultantIds.includes(consultantId))){
+        consultantIds = [...consultantIds, consultantId];
+      }
+    }
+  };
+
+  function lobbyistRemoved(event: CustomEvent) {
+    let lobbyistId = event.detail.option.value as string;
+    if (lobbyistId in data.consultantsToOrganizations){
+      let consultantId = data.consultantsToOrganizations[lobbyistId];
+      // Remove consultantId but only if not referred to by other lobbyist
+      let consultantIdsForSelectedLobbyists = selectedLobbyists.map((lobbyist) => {
+        let lobbyistId = lobbyist.value;
+        if (lobbyistId in data.consultantsToOrganizations){
+          return data.consultantsToOrganizations[lobbyistId];
+        }
+      });
+      if (!consultantIdsForSelectedLobbyists.includes(consultantId)) {
+        const index = consultantIds.indexOf(consultantId, 0);
+        if (index > -1) {
+          consultantIds.splice(index, 1);
+          consultantIds = [...consultantIds];
+        }
+      }
+    }
+  };
+
+  function enHanceForm(formData: FormData) {
+    formData.append('meeting_date', date.toISOString());
+    formData.append('selected_officials', JSON.stringify(selectedOfficials.map((official) => official.value)));
+    formData.append('selected_lobbyists', JSON.stringify(selectedLobbyists.map((lobbyist) => lobbyist.value)));
+    let selectedClients: { [key: string]: Option[] } = Object.fromEntries(
+      Object.entries($state.snapshot(allSelectedClients)).filter(([key, value]) => consultantIds.includes(key)));
+    formData.append('selected_clients', JSON.stringify(selectedClients));
+    formData.append('policy_areas', JSON.stringify(selectedPolicyAreas.map((spa) => spa.value)));    
+  }
 </script>
 
 <div class="flex flex-wrap gap-x-16 gap-y-4 justify-between items-start mb-8">
@@ -32,10 +79,7 @@
   </div>
 {/if}
 
-<form method="POST" use:enhance={({formData}) => {
-        formData.append('meeting_date', date.toISOString());
-        formData.append('selected_officials', JSON.stringify(selectedOfficials.map((official) => official.value)));
-        formData.append('policy_areas', JSON.stringify(selectedPolicyAreas.map((spa) => spa.value)));}}>
+<form method="POST" use:enhance={({formData}) => enHanceForm(formData)}>
   <!-- Primary Details -->
   <div class="lg:col-span-2 grid gap-8">
     <!-- Basic Information -->
@@ -109,7 +153,7 @@
       <!-- Officials -->
       <div class="@container mt-4">
         <h2 class="text-xl text-gray-800 mb-4 font-medium">Overheidsfunctionarissen</h2>
-        <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
+        <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4 p-4">
           <div class="@lg:col-span-2">
             <MultiSelect bind:selected={selectedOfficials} options={data.allOfficialsOptions} 
             placeholder="Selecteer 1 of meerdere functionarissen" required />                
@@ -120,9 +164,28 @@
       <!-- Lobbyists -->
       <div class="@container mt-4">
         <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
-      </div>
-      <div>TODO</div>
+        <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4 p-4">
+          <div class="@lg:col-span-2">
+            <MultiSelect bind:selected={selectedLobbyists} options={data.allLobbyistsOptions} 
+            placeholder="Selecteer 1 of meerdere lobbyisten" required on:add={lobbyistAdded}
+            on:remove={lobbyistRemoved} />                
+          </div>
+        </div>
 
+        {#if consultantIds.length > 0}
+          <h2 class="text-xl text-gray-800 mb-2 font-medium mt-4 p-4">Namens</h2>
+          <p class="p-4">Kies voor onderstaande lobbyisten welke klanten zij vertegenwoordigen tijdens deze afspraak.</p>
+          <div class="p-8 border border-gray-300">
+            <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4 p-4">
+            {#each consultantIds as consultantId}
+              <Consultant representativeName={data.allRepresentativeNames[consultantId]} bind:allSelectedClients={allSelectedClients}
+                      consultantId={consultantId}
+                      allClientsOptions={data.clientsForRepresentatives[consultantId]} />
+            {/each}
+            </div>
+          </div>
+        {/if}
+      </div>
       <div class="mt-4">
         <Button type="submit">
           Opslaan
