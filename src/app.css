@@ -13,3 +13,21 @@
   padding: 10px 12px !important;
 }
 .multiselect {margin-top: 0; margin-bottom: 0; min-height: 3em;}
+
+.logo {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  background-image: url("/header_background.jpg");
+  background-position: center;
+}
+
+.logo .logo_wrapper {
+  margin-inline-start: calc(50% - 25px);
+}
+
+nav.main {
+  background-color: #154273;
+  a, p {color: white;}
+}

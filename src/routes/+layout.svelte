@@ -6,7 +6,14 @@
   let { data, children } = $props();
 </script>
 
-<nav class="px-6 py-3.5 border-b border-gray-300 mb-8">
+<div class="logo">
+  <div class="logo__wrapper">
+    <figure class="logo__figure">
+      <img src="/beeldmerk-rijksoverheid-desktop.svg" alt="Logo Rijksoverheid" id="logotype">
+    </figure>
+  </div>
+</div>
+<nav class="px-6 py-3.5 border-b border-gray-300 mb-8 main">
   <div class="container max-w-320 mx-auto flex items-center justify-between">
     <a href="/" class="mr-8">
       <p class="text-gov-blue text-2xl font-semibold">Lobbyregister</p>
@@ -38,7 +45,7 @@
 
 <div class="px-6">
   <div class="container max-w-320 mx-auto">
-    <div class="mb-16 bg-yellow-100 text-yellow-800 px-6 sm:px-8 py-4 sm:py-5">
+    <div class="mb-8 bg-yellow-100 text-yellow-800 px-6 sm:px-8 py-4 sm:py-5">
       <strong class="font-semibold">Let op:</strong>
       Dit is een demonstratie van een lobbyregister, ontwikkeld door
       <a href="//openstate.eu/nl" target="_blank" class="font-medium hover:underline">
