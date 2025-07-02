@@ -150,8 +150,6 @@
   <!-- Filters sidebar -->
   <div class="lg:w-80 flex-shrink-0">
     <div class="sticky top-4 max-h-[calc(150vh-2rem)] overflow-y-auto p-1 -m-1">
-      <h2 class="text-xl font-medium text-gray-800 mb-4">Filters</h2>
-
       <form onsubmit={handleFilterSubmit} class="space-y-4">
           <!-- Search field -->
         <div>
@@ -168,6 +166,7 @@
           />
         </div>
 
+        <h2 class="text-xl font-medium text-gray-800 mb-4">Filters</h2>
         <div>
           <label for="" class="block font-medium text-gray-700 mb-2">
             Zoeken in:
