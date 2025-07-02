@@ -26,6 +26,9 @@
       <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/organisaties">
         Organisaties
       </a>
+      <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/faqs">
+        FAQs
+      </a>
       {#if data.authenticatedUser}
       <form method="post" action="/uitloggen" class="inline">
         <input type="hidden" name="extra_submit_param" value="extra_submit_value">
