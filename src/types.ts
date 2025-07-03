@@ -39,10 +39,22 @@ export const organizationTypeLabels = {
 
 
 export const policyAreaLabels = [
-  'Economische Zaken',
-  'Klimaat en Groene Groei',
-  'Sociale Zaken en Werkgelegenheid',
-  'Volksgezondheid, Welzijn en Sport',
-  'Infrastructuur en Waterstaat',
-  'Justitie en Veiligheid',
+  'volksgezondheid',
+  'wonen',
+  'migratie',
+  'justitie',
+  'economie',
+  'openbaar bestuur',
+  'milieu/klimaat/natuur',
+  'buitenlandse zaken',
+  'defensie',
+  'digitalisering',
+  'sociale zaken & werkgelegenheid',
+  'sport',
+  'welzijn',
+  'onderwijs',
+  'infrastructuur',
+  'landbouw',
+  'cultuur',
+  'financiën & belastingen/toeslagen',
 ];
