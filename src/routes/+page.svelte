@@ -10,7 +10,8 @@
   <h1 class="text-4xl font-semibold text-gray-800 mb-5">Lobbyregister</h1>
   <p class="sm:text-balance text-lg sm:text-xl text-gray-700 max-w-2xl">
     Het lobbyregister geeft inzicht in de contacten van organisaties die belangen behartigen bij
-    ministers, staatssecretarissen en topambtenaren.
+    ministers, staatssecretarissen en topambtenaren. Belangenbehartigers/lobbyisten moeten zich hier registreren;
+    de overheidsfunctionaris registreert vervolgens de specifieke afspraak.
   </p>
 </div>
 
