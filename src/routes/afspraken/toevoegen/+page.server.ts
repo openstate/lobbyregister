@@ -100,7 +100,9 @@ const createOfficialSchema = zfd.formData({
   meeting_date: zfd.text(),
   selected_officials: z.preprocess((value) => JSON.parse(value as string), z.array(z.string())),
   selected_lobbyists: z.preprocess((value) => JSON.parse(value as string), z.array(z.string())),
-  selected_clients: z.preprocess((value) => JSON.parse(value as string), z.record(z.string(), z.array(z.object({value: z.string(), label: z.string()}))))
+  selected_clients: z.preprocess((value) => JSON.parse(value as string), z.record(z.string(), z.array(z.object({value: z.string(), label: z.string()})))),
+  contact_name: zfd.text(),
+  contact_method: zfd.text()
 });
 
 export const actions: Actions = {
@@ -115,7 +117,7 @@ export const actions: Actions = {
     }
 
     const { description, meeting_type, meeting_location, meeting_date, policy_areas, 
-      selected_officials, selected_lobbyists, selected_clients } = parsed.data;
+      selected_officials, selected_lobbyists, selected_clients, contact_name, contact_method } = parsed.data;
 
     const [meeting] = await db
       .insert(schema.meetings)
@@ -125,6 +127,8 @@ export const actions: Actions = {
         type: meeting_type,
         location: meeting_location.trim(),
         policy_areas: policy_areas,
+        contact_name: contact_name,
+        contact_method: contact_method,
       })
       .returning();
 
@@ -193,7 +197,9 @@ export const actions: Actions = {
     for (let [organizationId, clients] of Object.entries(selected_clients)) {
       for (let clientOption of clients) {
         // Get id from organization_representatives table
-        let orgRepId = allRepresentatives.filter((rep) => {return rep.representative_id == organizationId && rep.client_id == clientOption.value})[0].id;
+        let orgRepId = allRepresentatives.filter((rep) => {
+          return rep.representative_id == organizationId && rep.client_id == clientOption.value
+        })[0].id;
         for (let lobbyistId of organizationsToLobbyists[organizationId]) {
           if (!meetingLobbyistIds[lobbyistId]) continue;
           const [meeting_representative] = await db

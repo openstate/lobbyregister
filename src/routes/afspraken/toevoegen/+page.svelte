@@ -145,7 +145,7 @@
       </div>
 
       <!-- Officials -->
-      <div class="@container mt-8">
+      <div class="@container mt-12">
         <h2 class="text-xl text-gray-800 mb-4 font-medium">Overheidsfunctionarissen</h2>
         <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
@@ -156,7 +156,7 @@
       </div>
 
       <!-- Lobbyists -->
-      <div class="@container mt-8">
+      <div class="@container mt-12">
         <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
         <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
@@ -179,6 +179,40 @@
           </div>
         {/if}
       </div>
+
+      <!-- Contact for more info -->
+      <div class="@container mt-12">
+        <h2 class="text-xl text-gray-800 mb-4 font-medium">Contact voor meer informatie</h2>
+        <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
+          <div>
+            <label for="contact_name" class="block text-base font-medium text-gray-800 mb-2">
+              Naam/afdeling
+            </label>
+            <input
+              type="text"
+              name="contact_name"
+              id="contact_name"
+              required
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              placeholder="Vul naam en/of afdeling in"
+            />
+          </div>
+          <div>
+            <label for="contact_method" class="block text-base font-medium text-gray-800 mb-2">
+              Naam/afdeling
+            </label>
+            <input
+              type="text"
+              name="contact_method"
+              id="contact_method"
+              required
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              placeholder="Telefoonnummer of e-mailadres"
+            />
+          </div>
+        </div>
+      </div>
+
       <div class="mt-4">
         <Button type="submit">
           Opslaan

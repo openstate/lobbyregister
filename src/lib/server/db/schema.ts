@@ -80,6 +80,8 @@ export const meetings = pgTable(
     description: text().notNull(),
     location: text(),
     policy_areas: text().array().notNull(),
+    contact_name: text().notNull(),
+    contact_method: text().notNull(),
     registered_at: registeredAt(),
     updated_at: updatedAt(),
   },

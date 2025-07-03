@@ -143,4 +143,24 @@
       {/each}
     </div>
   </div>
+
+    <!-- Contact for more info -->
+  <div class="@container">
+    <h2 class="text-xl text-gray-800 mb-4 font-medium">Contact voor meer informatie</h2>
+    <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
+      <div class="p-4 border border-gray-300">
+        <p class="text-sm font-medium text-gray-700 mb-1">Naam/afdeling</p>
+        <p class="text-lg text-gray-900 leading-snug line-clamp-2">
+          {data.meeting.contact_name}
+        </p>
+      </div>
+
+      <div class="p-4 border border-gray-300">
+        <p class="text-sm font-medium text-gray-700 mb-1">Telefoon of e-mail</p>
+        <p class="text-lg text-gray-900 leading-snug line-clamp-2">
+          {data.meeting.contact_method}
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

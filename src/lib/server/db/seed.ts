@@ -144,6 +144,8 @@ async function seed() {
           policyAreaLabels,
           { min: 1, max: 3 },
         ),
+        contact_name: faker.person.fullName(),
+        contact_method: faker.phone.number({style: 'human'}),
         registered_at: faker.date
           .between({ from: '2024-01-01', to: '2025-06-01' })
           .toISOString()
