@@ -87,9 +87,9 @@
       <h2 class="text-xl font-medium text-gray-800 mb-4">Informatie</h2>
 
       <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
-        <div class="@lg:col-span-2 p-4">
-          <label for="description" class="block text-lg font-medium text-gray-800 mb-2">
-            Beschrijving
+        <div class="@lg:col-span-2">
+          <label for="description" class="block text-base font-medium text-gray-800 mb-2">
+            Onderwerp en toelichting
           </label>
           <input
             type="text"
@@ -97,18 +97,18 @@
             id="description"
             required
             class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
-            placeholder="Beschrijving van afspraak"
+            placeholder="Onderwerp en toelichting van afspraak"
           />
         </div>
-        <div class="@lg:col-span-2 p-4">
-          <label for="policy_areas" class="block text-lg font-medium text-gray-800 mb-2">
+        <div class="@lg:col-span-2">
+          <label for="policy_areas" class="block text-base font-medium text-gray-800 mb-2">
             Beleidsgebieden
           </label>
           <MultiSelect bind:selected={selectedPolicyAreas} options={data.allPolicyAreaOptions}
-          placeholder="Selecteer 1 of meerdere beleidsgebieden" required />             
+          placeholder="Selecteer 1 of meerdere beleidsgebieden" required />
         </div>
-        <div class="p-4">
-          <label for="meeting_type" class="block text-lg font-medium text-gray-800 mb-2">
+        <div class="">
+          <label for="meeting_type" class="block text-base font-medium text-gray-800 mb-2">
             Type afspraak
           </label>
           <select
@@ -123,8 +123,8 @@
             {/each}
           </select>
         </div>
-        <div class="p-4">
-          <label for="meeting_location" class="block text-lg font-medium text-gray-800 mb-2">
+        <div>
+          <label for="meeting_location" class="block text-base font-medium text-gray-800 mb-2">
             Locatie
           </label>
           <input
@@ -136,13 +136,13 @@
             placeholder="Bv Tweede Kamer, Den Haag"
           />
         </div>
-        <div class="p-4">
-          <label for="meeting_date" class="block text-lg font-medium text-gray-800 mb-2">
+        <div>
+          <label for="meeting_date" class="block text-base font-medium text-gray-800 mb-2">
             Datum
           </label>
           <DateInput bind:value={date} format="dd-MM-yyyy" required />          
         </div>
-        <div class="p-4">
+        <div>
           <p class="text-sm font-medium text-gray-700 mb-1">Geregistreerd op</p>
           <p class="text-lg text-gray-900 leading-snug line-clamp-2">
             {new Date()}
@@ -151,31 +151,30 @@
       </div>
 
       <!-- Officials -->
-      <div class="@container mt-4">
+      <div class="@container mt-8">
         <h2 class="text-xl text-gray-800 mb-4 font-medium">Overheidsfunctionarissen</h2>
-        <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4 p-4">
+        <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
             <MultiSelect bind:selected={selectedOfficials} options={data.allOfficialsOptions} 
-            placeholder="Selecteer 1 of meerdere functionarissen" required />                
+            placeholder="Selecteer 1 of meerdere functionarissen" required />
           </div>
         </div>
       </div>
 
       <!-- Lobbyists -->
-      <div class="@container mt-4">
+      <div class="@container mt-8">
         <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
-        <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4 p-4">
+        <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
             <MultiSelect bind:selected={selectedLobbyists} options={data.allLobbyistsOptions} 
             placeholder="Selecteer 1 of meerdere lobbyisten" required on:add={lobbyistAdded}
-            on:remove={lobbyistRemoved} />                
+            on:remove={lobbyistRemoved} />
           </div>
         </div>
 
         {#if consultantIds.length > 0}
-          <h2 class="text-xl text-gray-800 mb-2 font-medium mt-4 p-4">Namens</h2>
-          <p class="p-4">Kies voor onderstaande lobbyisten welke klanten zij vertegenwoordigen tijdens deze afspraak.</p>
-          <div class="p-8 border border-gray-300">
+          <p class="mt-4">Kies voor onderstaande lobbyisten welke klanten zij vertegenwoordigen tijdens deze afspraak.</p>
+          <div class="border border-gray-300">
             <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4 p-4">
             {#each consultantIds as consultantId}
               <Consultant representativeName={data.allRepresentativeNames[consultantId]} bind:allSelectedClients={allSelectedClients}

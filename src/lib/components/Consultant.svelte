@@ -7,11 +7,11 @@
    consultantId: string, allClientsOptions: Option[] } = $props();
 </script>
 
-<div class="text-lg @lg:col-span-2">{representativeName}</div>
+<div class="text-lg @lg:col-span-2 mt-2">{representativeName}</div>
 <div class="@lg:col-span-2">
   <MultiSelect bind:selected={
     () => allSelectedClients[consultantId],
     (v) => {allSelectedClients[consultantId] = v;}
   } options={allClientsOptions} 
-  placeholder="Selecteer 1 of meerdere klanten" required />                
+  placeholder="Selecteer 1 of meerdere klanten" required />
 </div>

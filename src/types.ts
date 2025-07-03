@@ -10,7 +10,7 @@ export enum searchCategoryTypes {
   searchLobbyistsId='searchLobbyistsId'
 }
 export const searchCategoryTexts: Record<keyof typeof searchCategoryTypes, string> = {
-  searchMeetingsId: "Afspraak beschrijvingen",
+  searchMeetingsId: "Onderwerpen",
   searchOrganizationsId: "Namen organisaties",
   searchLobbyistsId: "Namen lobbyisten"
 }

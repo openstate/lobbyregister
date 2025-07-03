@@ -21,7 +21,7 @@
       type="search"
       name="search"
       value=""
-      placeholder="Zoeken in beschrijving van afspraken"
+      placeholder="Zoeken in onderwerpen"
       class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
     />
     <Button type="submit">Zoeken</Button>
