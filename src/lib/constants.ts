@@ -16,6 +16,10 @@ export const OFFICIAL_TYPES = [
   'political_assistant',
 ] as const;
 
+export enum REDIRECTS {
+  add_meeting='add_meeting',
+}
+
 export const SBI_CODES = new Map([
   ['A', 'Landbouw, bosbouw en visserij'],
   ['B', 'Winning van delfstoffen'],

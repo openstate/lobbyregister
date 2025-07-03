@@ -16,6 +16,9 @@
   {/if}
 
     <form method="POST" use:enhance class="space-y-6">
+      {#if data.redirectTo}
+        <input type="hidden" id="redirectTo" name="redirectTo" value={data.redirectTo} />
+      {/if}
     <div>
       <label for="username" class="block text-lg font-medium text-gray-800 mb-2">
         Gebruikersnaam <em>(in deze demo een eenvoudige dropdown)</em>

@@ -31,5 +31,5 @@
 
 nav.main {
   background-color: #154273;
-  a, p {color: white;}
+  a, p, button {color: white;}
 }

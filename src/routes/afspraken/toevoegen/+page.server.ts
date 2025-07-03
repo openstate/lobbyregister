@@ -7,11 +7,14 @@ import { zfd } from 'zod-form-data';
 import { z } from 'zod/v4';
 import type { Actions } from '@sveltejs/kit';
 import { meetingTypeLabels, policyAreaLabels } from '../../../types';
-import { MEETING_TYPES } from '$lib/constants';
+import { MEETING_TYPES, REDIRECTS } from '$lib/constants';
 
 export type clientData = { label: string, value: string};
 
-export const load: PageServerLoad = async () => {
+export const load: PageServerLoad = async (event) => {
+  // Check authorization
+  if (!event.locals.user) redirect(302, `/inloggen?redirectTo=${REDIRECTS.add_meeting}`)
+
   // Fetch all lobbyists and their organizations
   const allLobbyistsPromise = db
     .select({

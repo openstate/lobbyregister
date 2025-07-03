@@ -7,10 +7,12 @@ import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 import type { Official } from '../../types';
 import { loginUser } from '../../utils/authenticationUtils';
+import { REDIRECTS } from '$lib/constants';
 
 const createOfficialSchema = zfd.formData({
   username: zfd.text(),
-  password: zfd.text()
+  password: zfd.text(),
+  redirectTo: zfd.text().optional()
 });
 
 async function getOfficials() {
@@ -34,6 +36,15 @@ async function getOfficials() {
   });
 }
 
+function redirectPath(redirectTo?: REDIRECTS): string {
+  if (!redirectTo) return '/';
+
+  switch(redirectTo) {
+    case REDIRECTS.add_meeting:
+      return '/afspraken/toevoegen';
+  }
+}
+
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
     const parsed = createOfficialSchema.safeParse(await request.formData());
@@ -46,10 +57,11 @@ export const actions: Actions = {
     }
 
     // Note that in this demo the username is the user_id
-    const { username, password } = parsed.data;
+    const { username, password, redirectTo } = parsed.data;
+
     if (password == process.env.DEMO_LOGIN_PASSWORD) {
       loginUser(cookies, username);
-      return redirect(302, '/');
+      return redirect(302, redirectPath(redirectTo as REDIRECTS));
     } else {
       console.error("Credentials not correct for " + username);
       return fail(400, {
@@ -59,7 +71,8 @@ export const actions: Actions = {
   },
 };
 
-export const load: PageServerLoad = async ({ params }) => {
+export const load: PageServerLoad = async ({ params, url }) => {
+  const redirectTo = url.searchParams.get('redirectTo')
   const users = await getOfficials();
-	return { users };
+	return { users, redirectTo };
 };
