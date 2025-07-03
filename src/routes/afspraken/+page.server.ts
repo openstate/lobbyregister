@@ -268,7 +268,7 @@ export const load: PageServerLoad = async ({ url }) => {
       lobbyists,
       organizations,
       policyAreas: policyAreasFromDB.map((row) => row.policy_area).filter(Boolean),
-      meetingTypes: Object.entries(meetingTypeLabels).map((key, value) => ({value: key, label: value})),
+      meetingTypes: meetingTypeLabels,
     },
   };
 };

@@ -219,9 +219,9 @@
             class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
           >
             <option value="">Alle types</option>
-            {#each data.filterOptions.meetingTypes as type}
-              <option value={type.value} selected={data.filters.meetingType === type.value}>
-                {type.label}
+            {#each Object.entries(data.filterOptions.meetingTypes) as type}
+              <option value={type[0]} selected={data.filters.meetingType === type[0]}>
+                {type[1]}
               </option>
             {/each}
           </select>
