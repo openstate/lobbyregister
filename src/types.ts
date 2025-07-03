@@ -4,6 +4,8 @@ export type Meeting = { id: string; date: string; description: string; departmen
 
 export type Official = { id: string, name: string, type: string };
 
+export type AuthenticatedUser = { id: string, name: string, type: string };
+
 export enum searchCategoryTypes {
   searchMeetingsId='searchMeetingsId',
   searchOrganizationsId='searchOrganizationsId',
@@ -36,7 +38,6 @@ export const organizationTypeLabels = {
   consultant: 'Belangen van cliënten',
   association: 'Belangen van sector of branche',
 };
-
 
 export const policyAreaLabels = [
   'volksgezondheid',

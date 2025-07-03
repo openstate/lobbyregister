@@ -2,6 +2,7 @@ import type { Cookies } from "@sveltejs/kit";
 import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
 import { eq, and } from 'drizzle-orm';
+import type { AuthenticatedUser } from "../types";
 
 let USER_ID_COOKIE = 'userId';
 let AUTHENTICATION_COOKIE_PATH = '/';
@@ -9,7 +10,7 @@ let AUTHENTICATION_COOKIE_PATH = '/';
 export async function getAuthenticatedUser(cookies: Cookies) {
   let userId = cookies.get(USER_ID_COOKIE);
 
-  if (!userId) return null;
+  if (!userId) return;
 
   let filters = [
     eq(schema.officials.id, userId),
@@ -25,9 +26,9 @@ export async function getAuthenticatedUser(cookies: Cookies) {
     .where(and(...filters));
 
   if (user.length == 1) {
-    return user[0] 
+    return user[0] as AuthenticatedUser
   } else {
-    return null;
+    return;
   }
 }
 

@@ -45,6 +45,13 @@
     </div>
   </div>
 </nav>
+{#if data.authenticatedUser}
+<div class="px-6 py-3.5 border-b border-gray-300 -mt-8 mb-8">
+  <div class="container max-w-320 mx-auto text-right">
+    <em>U bent ingelogd als {data.authenticatedUser.name}</em>
+  </div>
+</div>
+{/if}
 
 <div class="px-6">
   <div class="container max-w-320 mx-auto">
