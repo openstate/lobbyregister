@@ -34,7 +34,7 @@
     <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
       <div class="@lg:col-span-2 p-4 border border-gray-300">
         <p class="text-sm font-medium text-gray-700 mb-1">Onderwerp en toelichting</p>
-        <p class="text-lg text-gray-900 leading-snug">{data.meeting.description}</p>
+        <p class="text-lg text-gray-900 leading-snug preserve_whitespace">{data.meeting.description}</p>
       </div>
 
       <div class="@lg:col-span-2 p-4 border border-gray-300">

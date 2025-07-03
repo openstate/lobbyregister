@@ -91,14 +91,14 @@
           <label for="description" class="block text-base font-medium text-gray-800 mb-2">
             Onderwerp en toelichting
           </label>
-          <input
-            type="text"
+          <textarea
             name="description"
             id="description"
             required
+            rows=3
             class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
             placeholder="Onderwerp en toelichting van afspraak"
-          />
+          ></textarea>
         </div>
         <div class="@lg:col-span-2">
           <label for="policy_areas" class="block text-base font-medium text-gray-800 mb-2">
@@ -141,12 +141,6 @@
             Datum
           </label>
           <DateInput bind:value={date} format="dd-MM-yyyy" required />          
-        </div>
-        <div>
-          <p class="text-sm font-medium text-gray-700 mb-1">Geregistreerd op</p>
-          <p class="text-lg text-gray-900 leading-snug line-clamp-2">
-            {new Date()}
-          </p>
         </div>
       </div>
 
