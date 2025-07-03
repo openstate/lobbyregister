@@ -34,6 +34,11 @@
   {#if form?.message}
     <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
       {form.message}
+      <ul>
+        {#each form?.issues as { message, path }}
+          <li class="pl-4">- {path[0]} - {message}</li>
+        {/each}
+      </ul>
     </div>
   {/if}
 
@@ -85,22 +90,6 @@
         {#each SBI_CODES as [sbiCode, label]}
           <option value={sbiCode}>{label}</option>
         {/each}
-      </select>
-    </div>
-
-    <div>
-      <label for="is_commercial" class="block text-lg font-medium text-gray-800 mb-2">
-        Behartiging van commerciële belangen
-      </label>
-      <select
-        name="is_commercial"
-        id="is_commercial"
-        required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
-      >
-        <option value="">Selecteer commerciëel belang...</option>
-        <option value="true">Ja</option>
-        <option value="false">Nee</option>
       </select>
     </div>
 

@@ -19,7 +19,8 @@ export const actions: Actions = {
     if (!parsed.success) {
       console.error('Validation error:', parsed.error);
       return fail(400, {
-        message: 'Ongeldige gegevens. Controleer of alle vereiste velden zijn ingevuld.',
+        message: 'Ongeldige gegevens:',
+        issues: parsed.error.issues
       });
     }
 

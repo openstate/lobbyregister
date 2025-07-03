@@ -65,13 +65,6 @@
         </p>
       </div>
 
-      <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Commerciële belangen</p>
-        <p class="text-lg text-gray-900 leading-snug line-clamp-2">
-          {data.organization.is_commercial ? 'Ja' : 'Nee'}
-        </p>
-      </div>
-
       {#if data.organization.kvk_number}
         <div class="p-4 border border-gray-300">
           <p class="text-sm font-medium text-gray-700 mb-1">KVK-nummer</p>

@@ -5,6 +5,8 @@ import type { PageServerLoad } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod/v4';
+import nl from "zod/v4/locales/nl.js"
+z.config(nl());
 import type { Actions } from '@sveltejs/kit';
 import { meetingTypeLabels, policyAreaLabels } from '../../../types';
 import { MEETING_TYPES, REDIRECTS } from '$lib/constants';
@@ -112,7 +114,8 @@ export const actions: Actions = {
     if (!parsed.success) {
       console.error('Validation error:', parsed.error);
       return fail(400, {
-        message: 'Ongeldige gegevens. Controleer of alle vereiste velden zijn ingevuld.',
+        message: 'Ongeldige gegevens:',
+        issues: parsed.error.issues
       });
     }
 
