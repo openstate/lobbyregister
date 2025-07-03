@@ -1,6 +1,12 @@
 export const ORGANIZATION_TYPES = ['inhouse', 'consultant', 'association'] as const;
 
-export enum MEETING_TYPES {in_person='in_person', phone_call='phone_call', video_call='video_call'};
+export enum MEETING_TYPES {
+  in_person='in_person',
+  phone_call='phone_call',
+  video_call='video_call',
+  working_visit='working_visit',
+  other_external='other_external'
+};
 
 export const OFFICIAL_TYPES = [
   'minister',

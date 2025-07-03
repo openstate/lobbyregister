@@ -19,6 +19,8 @@ export const meetingTypeLabels: Record<keyof typeof MEETING_TYPES, string> = {
   in_person: 'Fysiek gesprek',
   phone_call: 'Telefoongesprek',
   video_call: 'Videogesprek',
+  working_visit: 'Werkbezoek',
+  other_external: 'Andere externe activiteit (bv congres, beurs)'
 };
 
 export const officialTypeLabels: Record<string, string> = {

@@ -2,7 +2,7 @@ import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
 import { and, desc, eq, ilike, inArray, or, sql } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
-import { searchCategoryTypes } from '../../types';
+import { meetingTypeLabels, searchCategoryTypes } from '../../types';
 
 const MEETINGS_PER_PAGE = 10;
 
@@ -268,11 +268,7 @@ export const load: PageServerLoad = async ({ url }) => {
       lobbyists,
       organizations,
       policyAreas: policyAreasFromDB.map((row) => row.policy_area).filter(Boolean),
-      meetingTypes: [
-        { value: 'in_person', label: 'Fysiek gesprek' },
-        { value: 'phone_call', label: 'Telefoongesprek' },
-        { value: 'video_call', label: 'Videogesprek' },
-      ],
+      meetingTypes: Object.entries(meetingTypeLabels).map((key, value) => ({value: key, label: value})),
     },
   };
 };
