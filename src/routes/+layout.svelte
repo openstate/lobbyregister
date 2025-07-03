@@ -1,10 +1,14 @@
 <script lang="ts">
   import Button from '$lib/components/Button.svelte';
   import '@fontsource-variable/source-sans-3';
-  import '../app.css';
+  import { SvelteToast } from '@zerodevx/svelte-toast'
+  import { toast } from '@zerodevx/svelte-toast'
 
+  import '../app.css';
   let { data, children } = $props();
 </script>
+
+<SvelteToast />
 
 <div class="logo">
   <div class="logo__wrapper">
@@ -28,6 +32,10 @@
       </a>
       <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/faqs">
         FAQs
+      </a>
+      <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="."
+      onclick="{() => {toast.push("Deze demo versie bevat nog geen API", {duration: 10000})}}">
+        API
       </a>
       {#if data.authenticatedUser}
       <form method="post" action="/uitloggen" class="inline">
