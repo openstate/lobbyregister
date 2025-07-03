@@ -3,6 +3,7 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { meetingTypeLabels, searchCategoryTexts, searchCategoryTypes } from '../../types.js';
+  import { toast } from '@zerodevx/svelte-toast'
 
   const { data } = $props();
 
@@ -460,6 +461,16 @@
           <span class="text-gray-500">
             met {activeFiltersCount} actieve filter{activeFiltersCount === 1 ? '' : 's'}
           </span>
+        {/if}
+        {#if data.pagination.totalCount > 0}
+        <a href="." 
+           onclick="{(event) => {
+            toast.push("Deze demo versie bevat nog geen mogelijkheid om de resultaten te downloaden", {duration: 10000});
+            event.preventDefault();
+           }}"
+           title="Resultaten downloaden">
+          <img src="/download.svg" alt="Resultaten downloaden" class="w-8 inline ml-4" />
+        </a>
         {/if}
       </p>
 

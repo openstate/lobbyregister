@@ -34,7 +34,10 @@
         FAQs
       </a>
       <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="."
-      onclick="{() => {toast.push("Deze demo versie bevat nog geen API", {duration: 10000})}}">
+         onclick="{(event) => {
+          toast.push("Deze demo versie bevat nog geen API", {duration: 10000});
+          event.preventDefault();
+        }}">
         API
       </a>
       {#if data.authenticatedUser}
