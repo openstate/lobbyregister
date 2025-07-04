@@ -57,63 +57,28 @@
     .join(', ')
   }
 
-  // // Handle form submission for filters
-  // function handleFilterSubmit(event: Event) {
-  //   event.preventDefault();
-  //   const formData = new FormData(event.target as HTMLFormElement);
-  //   const searchParams = new URLSearchParams();
+  // Handle form submission for filters
+  function handleFilterSubmit(event: Event) {
+    event.preventDefault();
+    const formData = new FormData(event.target as HTMLFormElement);
+    const searchParams = new URLSearchParams();
 
-  //   // Add categories to search in
-  //   const searchCategories = formData.getAll('search_categories');
-  //   searchCategories.forEach((id) => {
-  //     searchParams.append('searchCategories', id.toString());
-  //   });
+    // Add text fields
+    const search = formData.get('search');
+    if (search && search.toString().trim()) {
+      searchParams.set('search', search.toString());
+    }
 
-  //   // Add text fields
-  //   const search = formData.get('search');
-  //   if (search && search.toString().trim()) {
-  //     searchParams.set('search', search.toString());
-  //   }
+    const type = formData.get('type');
+    if (type && type.toString().trim()) {
+      searchParams.set('type', type.toString());
+    }
 
-  //   const type = formData.get('type');
-  //   if (type && type.toString().trim()) {
-  //     searchParams.set('type', type.toString());
-  //   }
+    // Reset to page 1 when filtering
+    searchParams.set('page', '1');
 
-  //   // Add checkbox arrays
-  //   const officials = formData.getAll('official');
-  //   officials.forEach((id) => {
-  //     if (id && id.toString().trim()) {
-  //       searchParams.append('official', id.toString());
-  //     }
-  //   });
-
-  //   const lobbyists = formData.getAll('lobbyist');
-  //   lobbyists.forEach((id) => {
-  //     if (id && id.toString().trim()) {
-  //       searchParams.append('lobbyist', id.toString());
-  //     }
-  //   });
-
-  //   const organizations = formData.getAll('organization');
-  //   organizations.forEach((id) => {
-  //     if (id && id.toString().trim()) {
-  //       searchParams.append('organization', id.toString());
-  //     }
-  //   });
-
-  //   const policyAreas = formData.getAll('policy_area');
-  //   policyAreas.forEach((area) => {
-  //     if (area && area.toString().trim()) {
-  //       searchParams.append('policy_area', area.toString());
-  //     }
-  //   });
-
-  //   // Reset to page 1 when filtering
-  //   searchParams.set('page', '1');
-
-  //   updateFilter(searchParams);
-  // }
+    updateFilter(searchParams);
+  }
 
   // Handle pagination
   function goToPage(pageNum: number) {
@@ -123,16 +88,10 @@
   }
 
   // Check if any filters are active
-  // const activeFiltersCount = $derived(
-  //   (data.filters.search ? 1 : 0) +
-  //     data.filters.searchCategories.length +
-  //     data.filters.officialIds.length +
-  //     data.filters.lobbyistIds.length +
-  //     data.filters.organizationIds.length +
-  //     data.filters.policyAreas.length +
-  //     (data.filters.meetingType ? 1 : 0),
-  // );
-  const activeFiltersCount = 0;
+  const activeFiltersCount = $derived(
+    (data.filters.search ? 1 : 0) +
+      (data.filters.organizationType ? 1 : 0),
+  );
 
   const hasActiveFilters = $derived(activeFiltersCount > 0);
 </script>
@@ -154,7 +113,54 @@
   <!-- Filters sidebar -->
   <div class="lg:w-80 flex-shrink-0">
     <div class="sticky top-4 max-h-[calc(150vh-2rem)] overflow-y-auto p-1 -m-1">
-      <!-- <form> copy from Afspraken when needed </form> -->
+      <form onsubmit={handleFilterSubmit} class="space-y-4">
+          <!-- Search field -->
+        <div>
+          <label for="search" class="block font-medium text-gray-700 mb-2">
+            Zoekterm
+          </label>
+          <input
+            id="search"
+            name="search"
+            type="text"
+            value={data.filters.search}
+            placeholder="Vul zoekterm in..."
+            class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+          />
+        </div>
+
+        <h2 class="text-xl font-medium text-gray-800 mb-4">Filters</h2>
+
+        <!-- Organization type filter -->
+        <div>
+          <label for="type" class="block font-medium text-gray-700 mb-2"> Type belangenbehartiger </label>
+          <select
+            id="type"
+            name="type"
+            class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+          >
+            <option value="">Alle types</option>
+            {#each Object.entries(data.filterOptions.organizationTypes) as type}
+              <option value={type[0]} selected={data.filters.organizationType === type[0]}>
+                {type[1]}
+              </option>
+            {/each}
+          </select>
+        </div>
+
+        <div class="flex flex-col gap-2 pt-2">
+          <Button type="submit">Filteren</Button>
+          {#if hasActiveFilters}
+            <button
+              type="button"
+              onclick={() => updateFilter(null)}
+              class="w-full text-gov-blue hover:underline py-1 cursor-pointer"
+            >
+              Alle filters wissen
+            </button>
+          {/if}
+        </div>
+      </form>
     </div>
   </div>
 
@@ -182,43 +188,16 @@
         {/if}
       </p>
 
-      <!-- {#if hasActiveFilters}
+      {#if hasActiveFilters}
         <div class="mt-2 flex flex-wrap gap-2">
           {#if data.filters.search}
             {@render filterCard(`Zoekterm: "${data.filters.search}"`, 'search')}
           {/if}
-          {#if data.filters.searchCategories.length > 0}
-            {@render filterCard(`Zoek in: "${searchCategoriesDescription(data.filters.searchCategories)}"`, 'search')}
-          {/if}          
-          {#if data.filters.meetingType}
-            {@render filterCard(`Type: ${meetingTypeLabels[data.filters.meetingType]}`, 'type')}
-          {/if}
-          {#if data.filters.officialIds.length > 0}
-            {@render filterCard(
-              `${data.filters.officialIds.length} functionaris${data.filters.officialIds.length === 1 ? '' : 'sen'}`,
-              'official',
-            )}
-          {/if}
-          {#if data.filters.lobbyistIds.length > 0}
-            {@render filterCard(
-              `${data.filters.lobbyistIds.length} lobbyist${data.filters.lobbyistIds.length === 1 ? '' : 'en'}`,
-              'lobbyist',
-            )}
-          {/if}
-          {#if data.filters.organizationIds.length > 0}
-            {@render filterCard(
-              `${data.filters.organizationIds.length} belangenbehartiger${data.filters.organizationIds.length === 1 ? '' : 's'}`,
-              'organization',
-            )}
-          {/if}
-          {#if data.filters.policyAreas.length > 0}
-            {@render filterCard(
-              `${data.filters.policyAreas.length} beleidsterrein${data.filters.policyAreas.length === 1 ? '' : 'en'}`,
-              'policy_area',
-            )}
+          {#if data.filters.organizationType}
+            {@render filterCard(`Type: ${organizationTypeLabels[data.filters.organizationType]}`, 'type')}
           {/if}
         </div>
-      {/if} -->
+      {/if}
     </div>
 
     <!-- Organizations list -->

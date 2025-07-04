@@ -22,7 +22,7 @@ export const load: PageServerLoad = async ({ url }) => {
   const lobbyistIds = searchParams.getAll('lobbyist').filter((id) => id.trim());
   const organizationIds = searchParams.getAll('organization').filter((id) => id.trim());
   const policyAreasFilter = searchParams.getAll('policy_area').filter((area) => area.trim());
-  const meetingType = (searchParams.get('type') || 'in_person') as MEETING_TYPES;
+  const meetingType = (searchParams.get('type') || undefined) as MEETING_TYPES;
 
   // Build base WHERE conditions
   const baseConditions = [];
