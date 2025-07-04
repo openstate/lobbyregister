@@ -5,7 +5,7 @@
   import { meetingTypeLabels, searchCategoryTexts, searchCategoryTypes } from '../../types.js';
   import { toast } from '@zerodevx/svelte-toast'
   import { organizationTypeLabels } from '../../types.js';
-    import { getSectorName } from '../../utils/organizationUtils.js';
+  import { getSectorName } from '../../utils/organizationUtils.js';
 
   const { data } = $props();
 

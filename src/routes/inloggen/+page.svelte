@@ -16,8 +16,8 @@
   {/if}
 
     <form method="POST" use:enhance class="space-y-6">
-      {#if data.redirectTo}
-        <input type="hidden" id="redirectTo" name="redirectTo" value={data.redirectTo} />
+      {#if data.fromPage}
+        <input type="hidden" id="fromPage" name="fromPage" value={data.fromPage} />
       {/if}
     <div>
       <label for="username" class="block text-lg font-medium text-gray-800 mb-2">

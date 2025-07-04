@@ -12,7 +12,7 @@ import { REDIRECTS } from '$lib/constants';
 const createOfficialSchema = zfd.formData({
   username: zfd.text(),
   password: zfd.text(),
-  redirectTo: zfd.text().optional()
+  fromPage: zfd.text().optional()
 });
 
 async function getOfficials() {
@@ -36,10 +36,10 @@ async function getOfficials() {
   });
 }
 
-function redirectPath(redirectTo?: REDIRECTS): string {
-  if (!redirectTo) return '/';
+function redirectPath(fromPage?: REDIRECTS): string {
+  if (!fromPage) return '/';
 
-  switch(redirectTo) {
+  switch(fromPage) {
     case REDIRECTS.add_meeting:
       return '/afspraken/toevoegen';
   }
@@ -57,11 +57,11 @@ export const actions: Actions = {
     }
 
     // Note that in this demo the username is the user_id
-    const { username, password, redirectTo } = parsed.data;
+    const { username, password, fromPage } = parsed.data;
 
     if (password == process.env.DEMO_LOGIN_PASSWORD) {
       loginUser(cookies, username);
-      return redirect(302, redirectPath(redirectTo as REDIRECTS));
+      return redirect(302, redirectPath(fromPage as REDIRECTS));
     } else {
       console.error("Credentials not correct for " + username);
       return fail(400, {
@@ -72,7 +72,7 @@ export const actions: Actions = {
 };
 
 export const load: PageServerLoad = async ({ params, url }) => {
-  const redirectTo = url.searchParams.get('redirectTo')
+  const fromPage = url.searchParams.get('fromPage')
   const users = await getOfficials();
-	return { users, redirectTo };
+	return { users, fromPage };
 };

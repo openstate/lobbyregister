@@ -15,7 +15,7 @@ export type clientData = { label: string, value: string};
 
 export const load: PageServerLoad = async (event) => {
   // Check authorization
-  if (!event.locals.user) redirect(302, `/inloggen?redirectTo=${REDIRECTS.add_meeting}`)
+  if (!event.locals.user) redirect(302, `/inloggen?fromPage=${REDIRECTS.add_meeting}`)
 
   // Fetch all lobbyists and their organizations
   const allLobbyistsPromise = db
