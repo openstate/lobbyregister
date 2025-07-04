@@ -16,7 +16,7 @@ export const load: PageServerLoad = async ({ params }) => {
     .limit(1);
 
   if (!organization) {
-    throw error(404, 'Organisatie niet gevonden');
+    throw error(404, 'Belangenbehartiger niet gevonden');
   }
 
   // Fetch lobbyists associated with this organization

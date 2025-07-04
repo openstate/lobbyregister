@@ -87,7 +87,7 @@
     {/each}
     <a class="text-gov-blue hover:underline text-lg font-medium py-1" href="/organisaties">
       <span class="mr-1">→</span>
-      Bekijk alle organisaties
+      Bekijk alle belangenbehartigers
     </a>
   </div>
 </div>

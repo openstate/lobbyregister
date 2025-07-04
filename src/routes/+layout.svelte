@@ -28,7 +28,7 @@
     <div class="text-lg flex gap-10 items-center">
       <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/afspraken">Afspraken</a>
       <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/organisaties">
-        Organisaties
+        Belangenbehartigers
       </a>
       <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/faqs">
         FAQs

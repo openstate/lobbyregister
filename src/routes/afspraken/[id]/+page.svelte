@@ -134,7 +134,7 @@
               href="/organisaties/{lobbyist.organization_id}"
               class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1"
             >
-              → Bekijk organisatie
+              → Bekijk belangenbehartiger
             </a>
           </div>
         </div>
