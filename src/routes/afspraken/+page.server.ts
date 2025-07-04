@@ -3,6 +3,7 @@ import * as schema from '$lib/server/db/schema';
 import { and, desc, eq, ilike, inArray, or, sql } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 import { meetingTypeLabels, searchCategoryTypes } from '../../types';
+import type { MEETING_TYPES } from '$lib/constants';
 
 const MEETINGS_PER_PAGE = 10;
 
@@ -21,7 +22,7 @@ export const load: PageServerLoad = async ({ url }) => {
   const lobbyistIds = searchParams.getAll('lobbyist').filter((id) => id.trim());
   const organizationIds = searchParams.getAll('organization').filter((id) => id.trim());
   const policyAreasFilter = searchParams.getAll('policy_area').filter((area) => area.trim());
-  const meetingType = searchParams.get('type') || '';
+  const meetingType = (searchParams.get('type') || 'in_person') as MEETING_TYPES;
 
   // Build base WHERE conditions
   const baseConditions = [];

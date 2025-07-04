@@ -3,12 +3,9 @@
   import Button from '$lib/components/Button.svelte';
   import { SBI_CODES } from '$lib/constants';
   import { organizationTypeLabels } from '../../../types.js';
+  import { getSectorName } from '../../../utils/organizationUtils.js';
 
   let { data } = $props();
-
-  const getSectorName = (sectorCode: string) => {
-    return SBI_CODES.get(sectorCode) || sectorCode;
-  };
 
   const formatRegistrationDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString('nl-NL', {
