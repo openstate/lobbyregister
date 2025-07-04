@@ -204,7 +204,7 @@
           </div>
           <div>
             <label for="contact_method" class="block text-base font-medium text-gray-800 mb-2">
-              Naam/afdeling
+              Contactinfo
             </label>
             <input
               type="text"
