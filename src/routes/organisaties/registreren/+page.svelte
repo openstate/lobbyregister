@@ -59,6 +59,34 @@
     </div>
 
     <div>
+      <label for="city" class="block text-lg font-medium text-gray-800 mb-2">
+        Plaats
+      </label>
+      <input
+        type="text"
+        name="city"
+        id="city"
+        required
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        placeholder="Vul de vestigingsplaats van uw organisatie in."
+      />
+    </div>
+
+    <div>
+      <label for="website" class="block text-lg font-medium text-gray-800 mb-2">
+        Website
+      </label>
+      <input
+        type="text"
+        name="website"
+        id="website"
+        required
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        placeholder="Vul de website van uw organisatie in."
+      />
+    </div>
+
+    <div>
       <label for="kvk_number" class="block text-lg font-medium text-gray-800 mb-2">KVK-nummer</label
       >
       <input

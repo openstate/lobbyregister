@@ -28,6 +28,8 @@ export const organizations = pgTable('organizations', {
   name: text().notNull(),
   type: organization_type().notNull(),
   kvk_number: integer(),
+  city: text().notNull(),
+  website: text().notNull(),
   is_commercial: boolean().notNull(),
   sector: text().notNull(),
   active: boolean().notNull().default(true),

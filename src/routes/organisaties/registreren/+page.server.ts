@@ -11,6 +11,8 @@ import { ORGANIZATION_TYPES } from '$lib/constants';
 const createOrganizationSchema = zfd.formData({
   name: zfd.text(z.string().trim()),
   kvk_number: zfd.text(z.coerce.number().min(10000000).max(99999999).optional()),
+  city: zfd.text(z.string().trim()),
+  website: zfd.text(z.string().trim()),
   sector: zfd.text(z.string().trim()),
   type: zfd.text(z.enum(ORGANIZATION_TYPES)),
 });
@@ -28,16 +30,16 @@ export const actions: Actions = {
       });
     }
 
-    const { name, type, sector, kvk_number } = parsed.data;
+    const { name, type, sector, kvk_number, city, website } = parsed.data;
     // 03-07: decision was made to hide the is_commercial flag from the UI. Left it here so that
     // the DB did not have to be rebuilt
     const is_commercial = type === 'consultant';
 
     const [organization] = await db
       .insert(schema.organizations)
-      .values({ name, type, is_commercial, sector, kvk_number })
+      .values({ name, type, is_commercial, sector, kvk_number, city, website })
       .returning();
 
-    throw redirect(302, `/?organization_id${organization.id}`);
+    return redirect(302, `/?organization_id${organization.id}`);
   },
 };

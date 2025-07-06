@@ -227,6 +227,8 @@
                 <span>{getSectorName(organization.sector)}</span>
               </div>
               <div class="flex flex-wrap gap-2 text-gray-600 mb-2">
+                <span>{organization.city}</span>
+                ·
                 <span>KvK {organization.kvk_number}</span>
                 ·
                 <span>{organizationTypeLabels[organization.type]}</span>

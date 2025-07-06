@@ -71,6 +71,20 @@
         </div>
       {/if}
 
+        <div class="p-4 border border-gray-300">
+        <p class="text-sm font-medium text-gray-700 mb-1">Plaats</p>
+        <p class="text-lg text-gray-900 leading-snug line-clamp-2">
+          {data.organization.city}
+        </p>
+      </div>
+
+      <div class="p-4 border border-gray-300">
+        <p class="text-sm font-medium text-gray-700 mb-1">Website</p>
+        <p class="text-lg text-gray-900 leading-snug line-clamp-2">
+          <a href="https://{data.organization.website}" class="text-gov-blue">{data.organization.website}</a>
+        </p>
+      </div>
+
       <div class="p-4 border border-gray-300">
         <p class="text-sm font-medium text-gray-700 mb-1">Status</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">

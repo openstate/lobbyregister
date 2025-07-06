@@ -32,6 +32,11 @@ npm run db:push
 npm run db:seed
 ```
 
+If you need to start over use the following to drop all tables (after which you can run `push` and `seed` again):
+```bash
+npm run db:drop_tables
+```
+
 4. Run development server:
 ```bash
 npm run dev

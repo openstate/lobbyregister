@@ -30,12 +30,15 @@ async function seed() {
       ]);
       const isCommercial = orgType === 'consultant' || faker.datatype.boolean(0.7);
 
+      const organizationName = generateDutchOrganizationName(orgType);
       const organization = {
-        name: generateDutchOrganizationName(orgType),
+        name: organizationName,
         type: orgType,
         kvk_number: faker.datatype.boolean(0.95)
           ? faker.number.int({ min: 10000000, max: 99999999 })
           : null,
+        city: generateDutchCity(),
+        website: websiteFromName(organizationName),
         is_commercial: isCommercial,
         sector: generateDutchSector(),
         address: `${faker.location.streetAddress()}, ${faker.location.city()}`,
@@ -360,6 +363,42 @@ function generateDutchLocation(): string {
   ];
 
   return faker.helpers.arrayElement(locations);
+}
+
+function generateDutchCity(): string {
+  const cities = [
+    'Den Haag',
+    'Amsterdam',
+    'Rotterdam',
+    'Leiden',
+    'Utrecht',
+    'Groningen',
+    'Alkmaar',
+    'Maastricht',
+    'Zwolle',
+    'Den Bosch',
+    'Leeuwarden',
+    'Assen',
+    'Lelystad',
+    'Almere',
+    'Vlissingen',
+    'Den Helder',
+    'Apeldoorn',
+    'Amersfoort',
+  ];
+
+  return faker.helpers.arrayElement(cities);
+}
+
+function websiteFromName(name: string) {
+  const domain = name
+    .toLowerCase()
+    .replace(/\s+/g, "-")
+    .replace(/[,]/g, "")
+    .replace(/-+/g, '-')
+    .replace(/\.+/g, '.')
+    .replace(/\.$/, '');
+  return "www." + domain + ".nl";
 }
 
 // Run the seed function

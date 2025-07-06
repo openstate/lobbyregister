@@ -3,6 +3,8 @@ import * as schema from '$lib/server/db/schema';
 import { fail, redirect } from '@sveltejs/kit';
 import { zfd } from 'zod-form-data';
 import { z } from 'zod/v4';
+import nl from "zod/v4/locales/nl.js"
+z.config(nl());
 import type { Actions } from '@sveltejs/kit';
 import { OFFICIAL_TYPES } from '$lib/constants';
 

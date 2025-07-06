@@ -35,6 +35,8 @@ export const load: PageServerLoad = async ({ url }) => {
         name: schema.organizations.name,
         type: schema.organizations.type,
         kvk_number: schema.organizations.kvk_number,
+        city: schema.organizations.city,
+        website: schema.organizations.website,
         is_commercial: schema.organizations.is_commercial,
         sector: schema.organizations.sector,
         active: schema.organizations.active,
