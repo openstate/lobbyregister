@@ -338,7 +338,7 @@
               class="flex items-center justify-between cursor-pointer font-medium text-gray-800 group-open:mb-2"
             >
               <span>
-                Belangenbehartigers
+                Lobbyorganisatie
                 {#if data.filters.organizationIds.length > 0}
                   <span class="font-normal">
                     ({data.filters.organizationIds.length} filter{data.filters.organizationIds
@@ -354,7 +354,7 @@
               <div class="p-3 border-b border-gray-200">
                 <input
                   type="text"
-                  placeholder="Zoek belangenbehartiger..."
+                  placeholder="Zoek lobbyorganisatie..."
                   bind:value={organizationSearch}
                   class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
                 />
@@ -375,7 +375,7 @@
                   </label>
                 {/each}
                 {#if filteredOrganizations.length === 0}
-                  <div class="px-3 py-4 text-gray-500 text-center">Geen belangenbehartigers gevonden</div>
+                  <div class="px-3 py-4 text-gray-500 text-center">Geen lobbyorganisaties gevonden</div>
                 {/if}
               </div>
             </div>
@@ -499,7 +499,7 @@
           {/if}
           {#if data.filters.organizationIds.length > 0}
             {@render filterCard(
-              `${data.filters.organizationIds.length} belangenbehartiger${data.filters.organizationIds.length === 1 ? '' : 's'}`,
+              `${data.filters.organizationIds.length} lobbyorganisatie${data.filters.organizationIds.length === 1 ? '' : 's'}`,
               'organization',
             )}
           {/if}

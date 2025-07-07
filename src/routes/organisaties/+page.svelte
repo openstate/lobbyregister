@@ -98,14 +98,14 @@
 
 <div class="my-8">
   <div class="flex items-center justify-between mb-4">
-  <h1 class="text-3xl font-semibold text-gray-800">Belangenbehartigers</h1>
+  <h1 class="text-3xl font-semibold text-gray-800">Lobbyorganisaties</h1>
   <!-- <form action="/afspraken/toevoegen">
     <Button type="submit">Toevoegen</Button>
   </form> -->
 
   </div>
   <p class="text-xl text-gray-700">
-    Overzicht van alle geregistreerde belangenbehartigers.
+    Overzicht van alle geregistreerde lobbyorganisaties.
   </p>
 </div>
 
@@ -133,7 +133,7 @@
 
         <!-- Organization type filter -->
         <div>
-          <label for="type" class="block font-medium text-gray-700 mb-2"> Type belangenbehartiger </label>
+          <label for="type" class="block font-medium text-gray-700 mb-2"> Type lobbyorganisatie </label>
           <select
             id="type"
             name="type"
@@ -170,7 +170,7 @@
     <div class="mb-6">
       <p class="text-gray-600">
         {data.pagination.totalCount}
-        {data.pagination.totalCount === 1 ? 'belangenbehartiger' : 'belangenbehartigers'} gevonden
+        {data.pagination.totalCount === 1 ? 'lobbyorganisatie' : 'lobbyorganisaties'} gevonden
         {#if hasActiveFilters}
           <span class="text-gray-500">
             met {activeFiltersCount} actieve filter{activeFiltersCount === 1 ? '' : 's'}
@@ -205,9 +205,9 @@
       <div class="text-center py-12">
         <p class="text-gray-600 text-lg">
           {#if hasActiveFilters}
-            Geen belangenbehartigers gevonden met de huidige filters.
+            Geen lobbyorganisaties gevonden met de huidige filters.
           {:else}
-            Geen belangenbehartigers gevonden.
+            Geen lobbyorganisaties gevonden.
           {/if}
         </p>
       </div>
