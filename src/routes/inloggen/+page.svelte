@@ -13,6 +13,9 @@
     <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
       {form.message}
     </div>
+    <script lang="ts">
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    </script>
   {/if}
 
     <form method="POST" use:enhance class="space-y-6">

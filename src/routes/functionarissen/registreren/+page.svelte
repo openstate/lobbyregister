@@ -48,6 +48,9 @@
         {/each}
       </ul>
     </div>
+    <script lang="ts">
+      window.scrollTo({ top: 100, behavior: 'smooth' });
+    </script>
   {/if}
 
   <form method="POST" use:enhance class="space-y-6">
