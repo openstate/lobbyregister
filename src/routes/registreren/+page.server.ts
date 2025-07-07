@@ -9,7 +9,7 @@ export const actions: Actions = {
   default: async ({ request }) => {
     const formData = await request.formData();
     const parsed = registrationType.safeParse(formData);
-    if (!parsed.success) error(400, 'Invalid registration type');
+    if (!parsed.success) redirect(303, '/registreren');
     if (parsed.data.type === 'official') redirect(303, '/functionarissen/registreren');
     else redirect(303, '/organisaties/registreren');
   },

@@ -1,6 +1,7 @@
 import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server'
 import { zfd } from 'zod-form-data';
 import { z } from 'zod/v4';
 import nl from "zod/v4/locales/nl.js"
@@ -20,7 +21,7 @@ const createOrganizationSchema = zfd.formData({
 });
 
 export const actions: Actions = {
-  default: async ({ request }) => {
+  default: async ({ request, cookies }) => {
     const parsed = createOrganizationSchema.safeParse(await request.formData());
     let formValid = parsed.success;
     let issues: string[] = [];
@@ -60,7 +61,8 @@ export const actions: Actions = {
           .values({ name, type, is_commercial, sector, kvk_number, city, website })
           .returning();
 
-        return redirect(302, `/?organization_id${organization.id}`);
+        const message = `Lobbyorganisatie <a class='font-medium hover:underline' href='/organisaties/${organization.id}'>${organization.name}</a> is toegevoegd`;
+        return redirect(302, '/', {type: 'success', message: message}, cookies);
       }
     }
 

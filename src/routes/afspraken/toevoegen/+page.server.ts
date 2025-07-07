@@ -2,7 +2,8 @@ import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
 import { eq, sql, and } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
-import { fail, redirect } from '@sveltejs/kit';
+import { fail } from '@sveltejs/kit';
+import { redirect } from 'sveltekit-flash-message/server'
 import { zfd } from 'zod-form-data';
 import { z } from 'zod/v4';
 import nl from "zod/v4/locales/nl.js"
@@ -111,7 +112,7 @@ const createOfficialSchema = zfd.formData({
 });
 
 export const actions: Actions = {
-  default: async ({ request }) => {
+  default: async ({ request, cookies }) => {
     const parsed = createOfficialSchema.safeParse(await request.formData());
     let issues: string[] = [];
     let description, meeting_type, meeting_location, meeting_date, policy_areas,
@@ -222,7 +223,8 @@ export const actions: Actions = {
           }
         }
 
-        return redirect(302, '/afspraken');
+        const message = `Afspraak <a class='font-medium hover:underline' href='/afspraken/${meeting.id}'>${meeting.description}</a> is toegevoegd`;
+        return redirect(302, '/afspraken', {type: 'success', message: message}, cookies);
       }
     }
 

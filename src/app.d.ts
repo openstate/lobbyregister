@@ -8,7 +8,9 @@ declare global {
     interface Locals {
       user?: AuthenticatedUser;
     }
-    // interface PageData {}
+    interface PageData {
+      flash?: { type: 'success' | 'error'; message: string };      
+    }
     // interface PageState {}
     // interface Platform {}
   }

@@ -27,6 +27,7 @@
     "@tailwindcss/vite": "^4.0.0",
     "@types/node": "^22",
     "@zerodevx/svelte-toast": "^0.9.6",
+    "sveltekit-flash-message": "^2.4.6",
     "drizzle-kit": "^0.30.2",
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.3",

@@ -16,7 +16,6 @@
   let allSelectedClientsVar: { [key: string]: Option[]} = Object.assign({}, ...Object.entries(data.allRepresentativeNames).map((x) => ({[x[0]]: []})));
   
   let allSelectedClients = $state(allSelectedClientsVar);
-  $inspect(allSelectedClients);
   let consultantIds = $state.raw(new Array<string>()); // Keeps track of selected lobbyists for consultant organizations
 
   function lobbyistAdded(event: CustomEvent) {

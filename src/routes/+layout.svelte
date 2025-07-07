@@ -3,6 +3,7 @@
   import '@fontsource-variable/source-sans-3';
   import { SvelteToast } from '@zerodevx/svelte-toast'
   import { toast } from '@zerodevx/svelte-toast'
+  import Flash from '$lib/components/Flash.svelte';
 
   import '../app.css';
   let { data, children } = $props();
@@ -75,6 +76,8 @@
         Open State Foundation
       </a>. Alle informatie is fictief.
     </div>
+
+    <Flash />
 
     <main>
       {@render children()}
