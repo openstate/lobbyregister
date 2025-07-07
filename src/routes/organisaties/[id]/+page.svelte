@@ -1,7 +1,6 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
-  import { SBI_CODES } from '$lib/constants';
   import { organizationTypeLabels } from '../../../types.js';
   import { getSectorName } from '../../../utils/organizationUtils.js';
 
@@ -21,6 +20,10 @@
   <div>
     <h1 class="text-3xl font-semibold text-gray-800 mb-3 max-w-5xl">
       {data.organization.name}
+      <a href="/organisaties/{data.organization.id}/bewerken" 
+        title="Bewerk lobbyorganisatie">
+        <img src="/edit.svg" alt="Bewerk lobbyorganisatie" class="w-8 inline ml-4" />
+      </a>
     </h1>
     <p class="text-2xl text-gray-700">Lobbyorganisatie</p>
   </div>

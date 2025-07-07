@@ -2,17 +2,13 @@
   import { enhance } from '$app/forms';
   import { SBI_CODES } from '$lib/constants';
   import Button from '$lib/components/Button.svelte';
-  import { LOBBY_TYPES } from '../../../types.js';
+  import { LOBBY_TYPES } from '../../../../types.js';
 
-  let { form } = $props();
+  let { form, data } = $props();
 </script>
 
 <div class="mx-auto max-w-2xl md:mb-32">
-  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Registreren</h2>
-
-  <p class="text-lg text-gray-600 mb-8">
-    Registreren als organisatie die belangen behartigt bij de overheid.
-  </p>
+  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Bewerken</h2>
 
   {#if form?.message}
     <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
@@ -28,7 +24,7 @@
     </script>
   {/if}
 
-  <form method="POST" use:enhance class="space-y-6">
+  <form method="POST" action="?/stap1" use:enhance class="space-y-6">
     <!-- Organization Details -->
     <div>
       <label for="name" class="block text-lg font-medium text-gray-800 mb-2">
@@ -40,7 +36,7 @@
         id="name"
         required
         class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
-        placeholder="Vul de naam van uw organisatie in."
+        value={data.organization.name}
       />
     </div>
 
@@ -54,7 +50,7 @@
         id="city"
         required
         class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
-        placeholder="Vul de vestigingsplaats van uw organisatie in."
+        value={data.organization.city}
       />
     </div>
 
@@ -68,7 +64,7 @@
         id="website"
         required
         class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
-        placeholder="Vul de website van uw organisatie in."
+        value={data.organization.website}
       />
     </div>
 
@@ -80,7 +76,7 @@
         name="kvk_number"
         id="kvk_number"
         class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
-        placeholder="Vul het KVK-nummer van uw organisatie in."
+        value={data.organization.kvk_number}
       />
       <label class="flex items-center gap-2 mt-2 text-lg">
         <input
@@ -88,6 +84,7 @@
           name="no_kvk"
           id="no_kvk"
           class="focus:outline-2 outline-offset-1 focus:outline-gov-blue size-4"
+          checked={!data.organization.kvk_number}
         />
         <span class="text-gray-600">De organisatie heeft geen KVK-nummer.</span>
       </label>
@@ -103,7 +100,7 @@
       >
         <option value="">Selecteer sector...</option>
         {#each SBI_CODES as [sbiCode, label]}
-          <option value={sbiCode}>{label}</option>
+          <option value={sbiCode} selected={data.organization.sector == sbiCode}>{label}</option>
         {/each}
       </select>
     </div>
@@ -117,7 +114,7 @@
             class="border border-gray-300 px-4 py-3 cursor-pointer has-checked:bg-gov-light-blue has-checked:border-gov-blue"
           >
             <div class="flex items-center gap-2 mb-1">
-              <input type="radio" name="type" value={lobbyType.id} />
+              <input type="radio" name="type" value={lobbyType.id} checked={data.organization.type == lobbyType.id} />
               <span class="text-lg text-gray-800">{lobbyType.label}</span>
             </div>
             <p class="text-gray-700">{lobbyType.description}</p>
@@ -127,7 +124,7 @@
     </div>
 
     <Button type="submit">
-      Registreren
+      Opslaan
     </Button>
   </form>
 </div>

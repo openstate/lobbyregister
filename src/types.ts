@@ -6,6 +6,24 @@ export type Official = { id: string, name: string, type: string };
 
 export type AuthenticatedUser = { id: string, name: string, type: string };
 
+export const LOBBY_TYPES = [
+  {
+    id: 'inhouse',
+    label: 'Belangen van eigen organisatie',
+    description: 'Bijvoorbeeld bedrijven of maatschappelijke organisaties.',
+  },
+  {
+    id: 'association',
+    label: 'Belangen van sector of branche',
+    description: 'Bijvoorbeeld brancheverenigingen of koepelorganisaties.',
+  },
+  {
+    id: 'consultant',
+    label: 'Belangen van cliënten',
+    description: 'Bijvoorbeeld externe lobbybureaus.',
+  },
+] as const;
+
 export enum searchCategoryTypes {
   searchMeetingsId='searchMeetingsId',
   searchOrganizationsId='searchOrganizationsId',
