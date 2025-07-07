@@ -17,8 +17,6 @@ async function drop_tables() {
       schema.lobbyists,
       schema.officials,
       schema.organizations,
-      schema.client_organizations,
-      schema.lobbyist_organizations,
     ];
 
     for (const table of tables) {

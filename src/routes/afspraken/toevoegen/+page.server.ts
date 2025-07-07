@@ -10,6 +10,7 @@ z.config(nl());
 import type { Actions } from '@sveltejs/kit';
 import { meetingTypeLabels, policyAreaLabels } from '../../../types';
 import { MEETING_TYPES, REDIRECTS } from '$lib/constants';
+import { alias } from 'drizzle-orm/pg-core';
 
 export type clientData = { label: string, value: string};
 
@@ -32,17 +33,19 @@ export const load: PageServerLoad = async (event) => {
     .where(eq(schema.lobbyists.active, true));
 
   // Fetch client representatives
+  const lobbyist_organizations = alias(schema.organizations, 'lobbyist_organizations');
+  const client_organizations = alias(schema.organizations, 'client_organizations');
   const allRepresentativesPromise = db
     .select({
       id: schema.organization_representatives.id,
-      representative_name: schema.lobbyist_organizations.name,
+      representative_name: lobbyist_organizations.name,
       representative_id: schema.organization_representatives.representative_id,
-      client_name: schema.client_organizations.name,
+      client_name: client_organizations.name,
       client_id: schema.organization_representatives.client_id,
     })
     .from(schema.organization_representatives)
-    .innerJoin(schema.lobbyist_organizations, eq(schema.organization_representatives.representative_id, schema.lobbyist_organizations.id))
-    .innerJoin(schema.client_organizations, eq(schema.organization_representatives.client_id, schema.client_organizations.id))
+    .innerJoin(lobbyist_organizations, eq(schema.organization_representatives.representative_id, lobbyist_organizations.id))
+    .innerJoin(client_organizations, eq(schema.organization_representatives.client_id, client_organizations.id))
     .where(eq(schema.organization_representatives.active, true));
 
   const meetingTypes = Object.entries(meetingTypeLabels).map((mt) => mt);

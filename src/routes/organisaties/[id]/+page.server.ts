@@ -4,6 +4,7 @@ import { error } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import { SBI_CODES } from '$lib/constants';
 import type { PageServerLoad } from './$types';
+import { alias } from 'drizzle-orm/pg-core';
 
 export const load: PageServerLoad = async ({ params }) => {
   const { id } = params;
@@ -30,32 +31,34 @@ export const load: PageServerLoad = async ({ params }) => {
     .where(eq(schema.lobbyists.organization_id, id));
 
   // If this is a consultant organization, fetch client representations
+  const client_organizations = alias(schema.organizations, 'client_organizations');
   const clientOrganizationsPromise =
     organization.type === 'consultant'
       ? db
           .select({
             client_id: schema.organization_representatives.client_id,
-            client_name: schema.client_organizations.name,
-            client_sector: schema.client_organizations.sector,
+            client_name: client_organizations.name,
+            client_sector: client_organizations.sector,
           })
           .from(schema.organization_representatives)
           .leftJoin(
-            schema.client_organizations,
-            eq(schema.organization_representatives.client_id, schema.client_organizations.id),
+            client_organizations,
+            eq(schema.organization_representatives.client_id, client_organizations.id),
           )
           .where(eq(schema.organization_representatives.representative_id, id))
       : Promise.resolve([]);
 
   // Fetch consultant organizations that represent this organization
+  const lobbyist_organizations = alias(schema.organizations, 'lobbyist_organizations');
   const representativeOrganizationsPromise = db
     .select({
       representative_id: schema.organization_representatives.representative_id,
-      representative_name: schema.lobbyist_organizations.name,
+      representative_name: lobbyist_organizations.name,
     })
     .from(schema.organization_representatives)
     .leftJoin(
-      schema.lobbyist_organizations,
-      eq(schema.organization_representatives.representative_id, schema.lobbyist_organizations.id),
+      lobbyist_organizations,
+      eq(schema.organization_representatives.representative_id, lobbyist_organizations.id),
     )
     .where(eq(schema.organization_representatives.client_id, id));
 

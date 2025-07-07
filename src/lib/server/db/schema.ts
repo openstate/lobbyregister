@@ -8,9 +8,7 @@ import {
   text,
   primaryKey,
   date,
-  integer,
   index,
-  alias,
 } from 'drizzle-orm/pg-core';
 
 const registeredAt = () => date().notNull().defaultNow();
@@ -27,7 +25,7 @@ export const organizations = pgTable('organizations', {
   id: uuid().primaryKey().notNull().defaultRandom(),
   name: text().notNull(),
   type: organization_type().notNull(),
-  kvk_number: integer(),
+  kvk_number: text().unique(),
   city: text().notNull(),
   website: text().notNull(),
   is_commercial: boolean().notNull(),
@@ -36,9 +34,6 @@ export const organizations = pgTable('organizations', {
   registered_at: registeredAt(),
   updated_at: updatedAt(),
 });
-
-export const lobbyist_organizations = alias(organizations, 'lobbyist_organizations');
-export const client_organizations = alias(organizations, 'client_organizations');
 
 export const organization_representatives = pgTable(
   'organization_representatives',

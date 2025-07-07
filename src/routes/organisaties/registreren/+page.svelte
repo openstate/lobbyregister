@@ -35,8 +35,8 @@
     <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
       {form.message}
       <ul>
-        {#each form?.issues as { message, path }}
-          <li class="pl-4">- {path[0]} - {message}</li>
+        {#each form?.issues as issue }
+          <li class="pl-4">- {issue}</li>
         {/each}
       </ul>
     </div>

@@ -4,6 +4,7 @@ import { and, desc, eq, ilike, inArray, or, sql } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 import { meetingTypeLabels, searchCategoryTypes } from '../../types';
 import type { MEETING_TYPES } from '$lib/constants';
+import { alias } from 'drizzle-orm/pg-core';
 
 const MEETINGS_PER_PAGE = 10;
 
@@ -25,6 +26,7 @@ export const load: PageServerLoad = async ({ url }) => {
   const meetingType = (searchParams.get('type') || undefined) as MEETING_TYPES;
 
   // Build base WHERE conditions
+  const client_organizations = alias(schema.organizations, 'client_organizations');
   const baseConditions = [];
   if (search) {
     let searchConditions = [];
@@ -33,7 +35,7 @@ export const load: PageServerLoad = async ({ url }) => {
     }
     if (searchCategories.includes(searchCategoryTypes.searchOrganizationsId)) {
       searchConditions.push(ilike(schema.organizations.name, `%${search}%`));
-      searchConditions.push(ilike(schema.client_organizations.name, `%${search}%`));
+      searchConditions.push(ilike(client_organizations.name, `%${search}%`));
     }
     if (searchCategories.includes(searchCategoryTypes.searchLobbyistsId)) {
       searchConditions.push(ilike(schema.lobbyists.name, `%${search}%`));
@@ -107,7 +109,7 @@ export const load: PageServerLoad = async ({ url }) => {
       .leftJoin(schema.organizations, eq(schema.lobbyists.organization_id, schema.organizations.id))
       .leftJoin(schema.meeting_representatives, eq(schema.meeting_lobbyists.id, schema.meeting_representatives.meeting_lobbyist_id))
       .leftJoin(schema.organization_representatives, eq(schema.meeting_representatives.representation_id, schema.organization_representatives.id))
-      .leftJoin(schema.client_organizations, eq(schema.organization_representatives.client_id, schema.client_organizations.id))
+      .leftJoin(client_organizations, eq(schema.organization_representatives.client_id, client_organizations.id))
       .orderBy(desc(schema.meetings.date))
       .limit(MEETINGS_PER_PAGE)
       .offset(offset),
@@ -122,7 +124,7 @@ export const load: PageServerLoad = async ({ url }) => {
       .leftJoin(schema.organizations, eq(schema.lobbyists.organization_id, schema.organizations.id))
       .leftJoin(schema.meeting_representatives, eq(schema.meeting_lobbyists.id, schema.meeting_representatives.meeting_lobbyist_id))
       .leftJoin(schema.organization_representatives, eq(schema.meeting_representatives.representation_id, schema.organization_representatives.id))
-      .leftJoin(schema.client_organizations, eq(schema.organization_representatives.client_id, schema.client_organizations.id)),
+      .leftJoin(client_organizations, eq(schema.organization_representatives.client_id, client_organizations.id)),
 
     // Filter options
     Promise.all([

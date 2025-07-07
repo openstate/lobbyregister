@@ -35,7 +35,7 @@ async function seed() {
         name: organizationName,
         type: orgType,
         kvk_number: faker.datatype.boolean(0.95)
-          ? faker.number.int({ min: 10000000, max: 99999999 })
+          ? faker.number.int({ min: 10000000, max: 99999999 }).toString()
           : null,
         city: generateDutchCity(),
         website: websiteFromName(organizationName),
