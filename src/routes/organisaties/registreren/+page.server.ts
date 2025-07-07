@@ -64,10 +64,10 @@ export const actions: Actions = {
       }
     }
 
-      console.error('Validation error:', parsed.error);
-      return fail(400, {
-        message: 'Ongeldige gegevens:',
-        issues: issues
-      });
+    console.error('Validation error:', parsed.error);
+    return fail(400, {
+      message: 'Ongeldige gegevens:',
+      issues: issues
+    });
   },
 };

@@ -101,7 +101,7 @@ const createOfficialSchema = zfd.formData({
   description: zfd.text(),
   policy_areas: z.preprocess((value) => JSON.parse(value as string), z.array(z.string())),
   meeting_type: z.enum(MEETING_TYPES),
-  meeting_location: zfd.text(),
+  meeting_location: z.preprocess((value) => (value as string).trim(), zfd.text(z.string().optional())),
   meeting_date: zfd.text(),
   selected_officials: z.preprocess((value) => JSON.parse(value as string), z.array(z.string())),
   selected_lobbyists: z.preprocess((value) => JSON.parse(value as string), z.array(z.string())),
@@ -113,112 +113,127 @@ const createOfficialSchema = zfd.formData({
 export const actions: Actions = {
   default: async ({ request }) => {
     const parsed = createOfficialSchema.safeParse(await request.formData());
+    let issues: string[] = [];
+    let description, meeting_type, meeting_location, meeting_date, policy_areas,
+      selected_officials, selected_lobbyists, selected_clients, contact_name, contact_method;
 
     if (!parsed.success) {
       console.error('Validation error:', parsed.error);
-      return fail(400, {
-        message: 'Ongeldige gegevens:',
-        issues: parsed.error.issues
-      });
-    }
-
-    const { description, meeting_type, meeting_location, meeting_date, policy_areas, 
-      selected_officials, selected_lobbyists, selected_clients, contact_name, contact_method } = parsed.data;
-
-    const [meeting] = await db
-      .insert(schema.meetings)
-      .values({ 
-        description: description.trim(),
-        date: meeting_date,
-        type: meeting_type,
-        location: meeting_location.trim(),
-        policy_areas: policy_areas,
-        contact_name: contact_name,
-        contact_method: contact_method,
-      })
-      .returning();
-
-    for (const official_id of selected_officials) {
-      const [meeting_official] = await db
-      .insert(schema.meeting_officials)
-      .values({
-        meeting_id: meeting.id,
-        official_id: official_id
-      })
-      .returning();
-    }
-
-
-    let meetingLobbyistIds: { [key: string]: string } = {};
-    for (const lobbyist_id of selected_lobbyists) {
-      const [meeting_lobbyist] = await db
-      .insert(schema.meeting_lobbyists)
-      .values({
-        meeting_id: meeting.id,
-        lobbyist_id: lobbyist_id
-      })
-      .returning();
-      meetingLobbyistIds[lobbyist_id] = meeting_lobbyist.id;
-    }
-
-    // Fetch all consultant lobbyists and their organizations
-    let filters = [
-      eq(schema.lobbyists.active, true),
-      eq(schema.organizations.type, 'consultant')
-    ];
-    const allConsultantLobbyistsPromise = db
-      .select({
-        id: schema.lobbyists.id,
-        organization_id: schema.organizations.id,
-      })
-      .from(schema.lobbyists)
-      .innerJoin(schema.organizations, eq(schema.lobbyists.organization_id, schema.organizations.id))
-      .where(and(...filters));
-
-      // Fetch client representatives
-    const allRepresentativesPromise = db
-      .select({
-        id: schema.organization_representatives.id,
-        representative_id: schema.organization_representatives.representative_id,
-        client_id: schema.organization_representatives.client_id,
-      })
-      .from(schema.organization_representatives)
-      .where(eq(schema.organization_representatives.active, true));
-
-
-    const [allConsultantLobbyists, allRepresentatives] = await Promise.all([
-      allConsultantLobbyistsPromise,
-      allRepresentativesPromise,
-    ]);
-
-    // Create dict of organizationId to array of lobbyists
-    const organizationsToLobbyists: { [key: string]: string[]} = {};
-    for (let lobbyist of allConsultantLobbyists) {
-      if (!(lobbyist.organization_id in organizationsToLobbyists)) {
-        organizationsToLobbyists[lobbyist.organization_id] = [];
+      issues = parsed.error.issues.map((issue) => `${String(issue.path[0])} - ${issue.message}`);
+    } else {
+      ({ description, meeting_type, meeting_location, meeting_date, policy_areas,
+      selected_officials, selected_lobbyists, selected_clients, contact_name, contact_method } = parsed.data);
+      if (locationRequiredForMeetingType(meeting_type) && !meeting_location) {
+        issues.push(`meeting_location - locatie is verplicht voor dit type afspraak`)
       }
-      organizationsToLobbyists[lobbyist.organization_id].push(lobbyist.id);
-    }
 
-    for (let [organizationId, clients] of Object.entries(selected_clients)) {
-      for (let clientOption of clients) {
-        // Get id from organization_representatives table
-        let orgRepId = allRepresentatives.filter((rep) => {
-          return rep.representative_id == organizationId && rep.client_id == clientOption.value
-        })[0].id;
-        for (let lobbyistId of organizationsToLobbyists[organizationId]) {
-          if (!meetingLobbyistIds[lobbyistId]) continue;
-          const [meeting_representative] = await db
-            .insert(schema.meeting_representatives)
-            .values({
-              meeting_lobbyist_id: meetingLobbyistIds[lobbyistId],
-              representation_id: orgRepId
-            })
-            .returning();
+      if (issues.length == 0) {
+        const [meeting] = await db
+          .insert(schema.meetings)
+          .values({ 
+            description: description.trim(),
+            date: meeting_date,
+            type: meeting_type,
+            location: meeting_location ? meeting_location.trim() : undefined,
+            policy_areas: policy_areas,
+            contact_name: contact_name,
+            contact_method: contact_method,
+          })
+          .returning();
+
+        for (const official_id of selected_officials) {
+          const [meeting_official] = await db
+          .insert(schema.meeting_officials)
+          .values({
+            meeting_id: meeting.id,
+            official_id: official_id
+          })
+          .returning();
         }
+
+
+        let meetingLobbyistIds: { [key: string]: string } = {};
+        for (const lobbyist_id of selected_lobbyists) {
+          const [meeting_lobbyist] = await db
+          .insert(schema.meeting_lobbyists)
+          .values({
+            meeting_id: meeting.id,
+            lobbyist_id: lobbyist_id
+          })
+          .returning();
+          meetingLobbyistIds[lobbyist_id] = meeting_lobbyist.id;
+        }
+
+        // Fetch all consultant lobbyists and their organizations
+        let filters = [
+          eq(schema.lobbyists.active, true),
+          eq(schema.organizations.type, 'consultant')
+        ];
+        const allConsultantLobbyistsPromise = db
+          .select({
+            id: schema.lobbyists.id,
+            organization_id: schema.organizations.id,
+          })
+          .from(schema.lobbyists)
+          .innerJoin(schema.organizations, eq(schema.lobbyists.organization_id, schema.organizations.id))
+          .where(and(...filters));
+
+          // Fetch client representatives
+        const allRepresentativesPromise = db
+          .select({
+            id: schema.organization_representatives.id,
+            representative_id: schema.organization_representatives.representative_id,
+            client_id: schema.organization_representatives.client_id,
+          })
+          .from(schema.organization_representatives)
+          .where(eq(schema.organization_representatives.active, true));
+
+
+        const [allConsultantLobbyists, allRepresentatives] = await Promise.all([
+          allConsultantLobbyistsPromise,
+          allRepresentativesPromise,
+        ]);
+
+        // Create dict of organizationId to array of lobbyists
+        const organizationsToLobbyists: { [key: string]: string[]} = {};
+        for (let lobbyist of allConsultantLobbyists) {
+          if (!(lobbyist.organization_id in organizationsToLobbyists)) {
+            organizationsToLobbyists[lobbyist.organization_id] = [];
+          }
+          organizationsToLobbyists[lobbyist.organization_id].push(lobbyist.id);
+        }
+
+        for (let [organizationId, clients] of Object.entries(selected_clients)) {
+          for (let clientOption of clients) {
+            // Get id from organization_representatives table
+            let orgRepId = allRepresentatives.filter((rep) => {
+              return rep.representative_id == organizationId && rep.client_id == clientOption.value
+            })[0].id;
+            for (let lobbyistId of organizationsToLobbyists[organizationId]) {
+              if (!meetingLobbyistIds[lobbyistId]) continue;
+              const [meeting_representative] = await db
+                .insert(schema.meeting_representatives)
+                .values({
+                  meeting_lobbyist_id: meetingLobbyistIds[lobbyistId],
+                  representation_id: orgRepId
+                })
+                .returning();
+            }
+          }
+        }
+
+        return redirect(302, '/afspraken');
       }
     }
 
-    return redirect(302, '/afspraken');
+    return fail(400, {
+      message: 'Ongeldige gegevens:',
+      issues: issues
+    });
   },
 };
+
+function locationRequiredForMeetingType(meetingType: MEETING_TYPES): boolean {
+  const isOptional = [MEETING_TYPES.video_call, MEETING_TYPES.phone_call].includes(meetingType);
+  return !isOptional;
+}

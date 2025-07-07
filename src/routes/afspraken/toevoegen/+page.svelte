@@ -77,8 +77,8 @@
   <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
     {form.message}
     <ul>
-      {#each form?.issues as { message, path }}
-        <li class="pl-4">- {path[0]} - {message}</li>
+      {#each form?.issues as issue}
+        <li class="pl-4">- {issue}</li>
       {/each}
     </ul>
   </div>
@@ -136,7 +136,6 @@
             type="text"
             name="meeting_location"
             id="meeting_location"
-            required
             class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
             placeholder="Bv Tweede Kamer, Den Haag"
           />
