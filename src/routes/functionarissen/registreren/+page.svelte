@@ -36,7 +36,7 @@
   <h2 class="font-semibold text-gray-800 text-2xl mb-6">Registreren</h2>
 
   <p class="text-lg text-gray-600 mb-8">
-    Registreren als vertegenwoordiger van een bewindspersoon of topambtenaar.
+    Registreren van een bewindspersoon of topambtenaar.
   </p>
 
   {#if form?.message}
