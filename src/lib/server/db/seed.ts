@@ -264,7 +264,7 @@ function generateDutchOrganizationName(type: (typeof ORGANIZATION_TYPES)[number]
 }
 
 function generateDutchSector(): string {
-  return faker.helpers.arrayElement(Array.from(SBI_CODES.values()));
+  return faker.helpers.arrayElement(Array.from(SBI_CODES.keys()));
 }
 
 function generateDutchDepartment(): string {
