@@ -100,6 +100,7 @@
         <input
           type="checkbox"
           name="no_kvk"
+          id="no_kvk"
           class="focus:outline-2 outline-offset-1 focus:outline-gov-blue size-4"
         />
         <span class="text-gray-600">De organisatie heeft geen KVK-nummer.</span>

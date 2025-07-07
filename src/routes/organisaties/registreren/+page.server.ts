@@ -11,7 +11,7 @@ import { eq, sql } from 'drizzle-orm';
 
 const createOrganizationSchema = zfd.formData({
   name: zfd.text(z.string().trim()),
-  kvk_number: zfd.text(),
+  kvk_number: zfd.text(z.string().optional()),
   no_kvk: zfd.checkbox(),
   city: zfd.text(z.string().trim()),
   website: zfd.text(z.string().trim()),
@@ -33,11 +33,12 @@ export const actions: Actions = {
       // 03-07: decision was made to hide the is_commercial flag from the UI. Left it here so that
       // the DB did not have to be rebuilt
       is_commercial = type === 'consultant';      
+      website = website.replace(/^https?:?\/?\/?/, '');
 
       if (no_kvk) {
         kvk_number = undefined;
       } else {
-        formValid = new RegExp(/^\d{8}$/).test(kvk_number);
+        formValid = new RegExp(/^\d{8}$/).test(kvk_number || '');
         if (!formValid) {
           issues.push(`kvk_number - moet een getal van 8 cijfers zijn`)            
         } else {
@@ -45,7 +46,7 @@ export const actions: Actions = {
           const kvkNumberExists = await db
             .select({exists: sql<number>`1`})
             .from(schema.organizations)
-            .where(eq(schema.organizations.kvk_number, kvk_number));
+            .where(eq(schema.organizations.kvk_number, kvk_number || ''));
           if (kvkNumberExists.length > 0) {
             issues.push(`kvk_number - er bestaat al een organisatie in het Lobbyregister met dit KvK nummber`)
             formValid = false;
