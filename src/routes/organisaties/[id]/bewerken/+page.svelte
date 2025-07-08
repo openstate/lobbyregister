@@ -30,8 +30,6 @@
   function enHanceForm(formData: FormData) {
     formData.append('lobbyists', JSON.stringify(lobbyists));
   }
-
-  const lobbyistColumns = "45%_45%_10%";
 </script>
 
 <div class="flex flex-wrap gap-x-16 gap-y-4 justify-between items-start mb-8">
@@ -152,7 +150,7 @@
 
     <h2 class="font-semibold text-gray-800 text-2xl mb-6 mt-12">Lobbyisten bewerken</h2>
     <div class="@container space-y-4">
-      <div class="grid grid-cols-[{lobbyistColumns}] gap-4 mb-1">
+      <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-1">
         <div>
           <span class="block text-lg font-medium text-gray-800">
             Naam
@@ -166,7 +164,7 @@
         <div></div>
       </div>
       {#each lobbyists as lobbyist, index }
-        <div class="grid grid-cols-[{lobbyistColumns}] gap-4 mb-1">
+        <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-1">
           <div>
             <input
               type="text"
