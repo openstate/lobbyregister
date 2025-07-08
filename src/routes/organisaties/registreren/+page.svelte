@@ -3,6 +3,7 @@
   import { SBI_CODES } from '$lib/constants';
   import Button from '$lib/components/Button.svelte';
   import { LOBBY_TYPES } from '../../../types.js';
+  import FormMessages from '$lib/components/FormMessages.svelte';
 
   let { form } = $props();
 </script>
@@ -14,19 +15,7 @@
     Registreren als organisatie die belangen behartigt bij de overheid.
   </p>
 
-  {#if form?.message}
-    <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
-      {form.message}
-      <ul>
-        {#each form?.issues as issue }
-          <li class="pl-4">- {issue}</li>
-        {/each}
-      </ul>
-    </div>
-    <script lang="ts">
-    window.scrollTo({ top: 100, behavior: 'smooth' });
-    </script>
-  {/if}
+  <FormMessages message={form?.message} issues={form?.issues} />
 
   <form method="POST" use:enhance class="space-y-6">
     <!-- Organization Details -->

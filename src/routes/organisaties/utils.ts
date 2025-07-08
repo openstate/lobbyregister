@@ -1,6 +1,6 @@
 import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import { error } from '@sveltejs/kit';
 import { alias } from 'drizzle-orm/pg-core';
 
@@ -17,6 +17,10 @@ export async function loadOrganizationData(id: string) {
   }
 
   // Fetch lobbyists associated with this organization
+  const filters = [
+    eq(schema.lobbyists.active, true),
+    eq(schema.lobbyists.organization_id, id)
+  ];
   const lobbyistsPromise = db
     .select({
       id: schema.lobbyists.id,
@@ -24,7 +28,7 @@ export async function loadOrganizationData(id: string) {
       function: schema.lobbyists.function,
     })
     .from(schema.lobbyists)
-    .where(eq(schema.lobbyists.organization_id, id));
+    .where(and(...filters));
 
   // If this is a consultant organization, fetch client representations
   const client_organizations = alias(schema.organizations, 'client_organizations');

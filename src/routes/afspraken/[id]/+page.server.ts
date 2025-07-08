@@ -1,7 +1,7 @@
 import { db } from '$lib/server/db';
 import * as schema from '$lib/server/db/schema';
 import { error } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { eq, and } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
 import { alias } from 'drizzle-orm/pg-core';
 
@@ -28,6 +28,10 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
     .where(eq(schema.meeting_officials.meeting_id, id));
 
   // Fetch lobbyists and their organizations associated with this meeting
+  // NO select on active=true, we want to see the history
+  const filters = [
+    eq(schema.meeting_lobbyists.meeting_id, id),
+  ];
   const lobbyistsPromise = db
     .select({
       id: schema.lobbyists.id,
@@ -41,7 +45,7 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
     .from(schema.lobbyists)
     .innerJoin(schema.meeting_lobbyists, eq(schema.lobbyists.id, schema.meeting_lobbyists.lobbyist_id))
     .innerJoin(schema.organizations, eq(schema.lobbyists.organization_id, schema.organizations.id))
-    .where(eq(schema.meeting_lobbyists.meeting_id, id));
+    .where(and(...filters));
 
   // Fetch client representations for this meeting
   const lobbyist_organizations = alias(schema.organizations, 'lobbyist_organizations');

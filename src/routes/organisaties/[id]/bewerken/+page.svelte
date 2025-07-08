@@ -1,30 +1,55 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
   import { SBI_CODES } from '$lib/constants';
+  import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
+  import FormMessages from '$lib/components/FormMessages.svelte';
+  import AddSvg from '$lib/icons/AddSvg.svelte';
+  import RemoveSvg from '$lib/icons/RemoveSvg.svelte';
   import { LOBBY_TYPES } from '../../../../types.js';
 
   let { form, data } = $props();
+  let lobbyists = $state(data.lobbyists);
+
+  function lobbyistNameId(index: number) {
+    return `lobbyistName_${index}`;
+  }
+
+  function lobbyistFunctionId(index: number) {
+    return `lobbyistFunction_${index}`;
+  }
+
+  function addLobbyist() {
+    lobbyists.push({id: '', name: undefined, function: undefined});
+  }
+
+  function removeLobbyist(index: number) {
+    lobbyists.splice(index, 1);
+  }
+
+  function enHanceForm(formData: FormData) {
+    formData.append('lobbyists', JSON.stringify(lobbyists));
+  }
 </script>
 
+<div class="flex flex-wrap gap-x-16 gap-y-4 justify-between items-start mb-8">
+  <h1 class="text-3xl font-semibold text-gray-800 mb-3 max-w-5xl line-clamp-1">Lobbyorganisatie bewerken</h1>
+  <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
+    <button
+      onclick={() => (history.length > 1 ? history.back() : goto('/'))}
+      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
+    >
+      ← Terug
+    </button>
+  </div>
+</div>
+
 <div class="mx-auto max-w-2xl md:mb-32">
-  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Bewerken</h2>
+  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Basisdata bewerken</h2>
 
-  {#if form?.message}
-    <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
-      {form.message}
-      <ul>
-        {#each form?.issues as issue }
-          <li class="pl-4">- {issue}</li>
-        {/each}
-      </ul>
-    </div>
-    <script lang="ts">
-    window.scrollTo({ top: 100, behavior: 'smooth' });
-    </script>
-  {/if}
+  <FormMessages message={form?.message} issues={form?.issues} />
 
-  <form method="POST" action="?/stap1" use:enhance class="space-y-6">
+  <form method="POST" use:enhance={({formData}) => enHanceForm(formData)} class="space-y-6">
     <!-- Organization Details -->
     <div>
       <label for="name" class="block text-lg font-medium text-gray-800 mb-2">
@@ -123,7 +148,63 @@
       </div>
     </div>
 
-    <Button type="submit">
+    <h2 class="font-semibold text-gray-800 text-2xl mb-6 mt-12">Lobbyisten bewerken</h2>
+    <div class="@container space-y-4">
+      <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4 mb-1">
+        <div>
+          <label class="@lg:col-span-1 block text-lg font-medium text-gray-800">
+            Naam
+          </label>
+        </div>
+        <div>
+          <label class="@lg:col-span-1 block text-lg font-medium text-gray-800">
+            Function
+          </label>
+        </div>
+      </div>
+      {#each lobbyists as lobbyist, index }
+        <div class="grid grid-cols-[auto_auto_24px] gap-4 mb-1">
+          <div>
+            <input
+              type="text"
+              name={lobbyistNameId(index)}
+              id={lobbyistNameId(index)}
+              required
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              bind:value={lobbyist.name}
+              placeholder="Vul de naam van de lobbyist in"
+            />
+          </div>
+          <div>
+            <input
+              type="text"
+              name={lobbyistFunctionId(index)}
+              id={lobbyistFunctionId(index)}
+              required
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              bind:value={lobbyist.function}
+              placeholder="Vul de functie van de lobbyist in"
+            />
+          </div>
+          <div>
+            <a
+              onclick="{() => removeLobbyist(index)}"
+              title="Lobbyist verwijderen">
+              <RemoveSvg class="w-12 h-12 stroke-red-600 cursor-pointer" />
+            </a>
+          </div>
+        </div>
+      {/each}
+      <div class="">
+        <a
+           onclick="{addLobbyist}"
+           title="Lobbyist toevoegen">
+          <AddSvg class="w-12 stroke-gov-blue cursor-pointer" />
+        </a>
+      </div>
+    </div>
+
+    <Button type="submit" class="mt-12">
       Opslaan
     </Button>
   </form>

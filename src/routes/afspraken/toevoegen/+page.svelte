@@ -6,6 +6,7 @@
   import MultiSelect from 'svelte-multiselect'  
   import type { Option } from "svelte-multiselect";
   import Consultant from '$lib/components/Consultant.svelte';
+  import FormMessages from '$lib/components/FormMessages.svelte';
 
   const { data, form } = $props();
   let date = $state(new Date());
@@ -72,19 +73,7 @@
   </div>
 </div>
 
-{#if form?.message}
-  <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
-    {form.message}
-    <ul>
-      {#each form?.issues as issue}
-        <li class="pl-4">- {issue}</li>
-      {/each}
-    </ul>
-  </div>
-  <script lang="ts">
-    window.scrollTo({ top: 100, behavior: 'smooth' });
-  </script>
-{/if}
+<FormMessages message={form?.message} issues={form?.issues} />
 
 <form method="POST" use:enhance={({formData}) => enHanceForm(formData)}>
   <!-- Primary Details -->

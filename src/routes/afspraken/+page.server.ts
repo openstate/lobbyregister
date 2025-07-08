@@ -138,7 +138,7 @@ export const load: PageServerLoad = async ({ url }) => {
         .from(schema.officials)
         .where(eq(schema.officials.active, true))
         .orderBy(schema.officials.name),
-      // Lobbyists and their organizations
+      // Lobbyists and their organizations (NO select on active=true, we want to see the history)
       db
         .select({
           id: schema.lobbyists.id,
@@ -150,7 +150,6 @@ export const load: PageServerLoad = async ({ url }) => {
           schema.organizations,
           eq(schema.lobbyists.organization_id, schema.organizations.id),
         )
-        .where(eq(schema.lobbyists.active, true))
         .orderBy(schema.lobbyists.name),
       // Organizations
       db
