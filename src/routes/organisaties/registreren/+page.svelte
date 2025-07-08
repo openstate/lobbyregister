@@ -115,6 +115,45 @@
       </div>
     </div>
 
+    <h2 class="font-semibold text-gray-800 text-2xl mb-2 mt-12">Lobbyist toevoegen</h2>
+    <span class="text-gray-800"><em>U kunt na registreren desgewenst meer lobbyisten toevoegen</em></span>
+    <div class="@container space-y-4 mt-4">
+      <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4 mb-1">
+        <div>
+          <label for="lobbyist_name" class="@lg:col-span-1 block text-lg font-medium text-gray-800">
+            Naam
+          </label>
+        </div>
+        <div>
+          <label for="lobbyist_function" class="@lg:col-span-1 block text-lg font-medium text-gray-800">
+            Function
+          </label>
+        </div>
+      </div>
+      <div class="grid grid-cols-[auto_auto_24px] gap-4 mb-1">
+        <div>
+          <input
+            type="text"
+            name="lobbyist_name"
+            id="lobbyist_name"
+            required
+            class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            placeholder="Vul de naam van de lobbyist in"
+          />
+        </div>
+        <div>
+          <input
+            type="text"
+            name="lobbyist_function"
+            id="lobbyist_function"
+            required
+            class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            placeholder="Vul de functie van de lobbyist in"
+          />
+        </div>
+      </div>
+    </div>
+
     <Button type="submit">
       Registreren
     </Button>

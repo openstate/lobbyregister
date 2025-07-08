@@ -107,7 +107,7 @@
   <!-- Lobbyists -->
   <div class="@container">
     <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
-    <div class="grid gap-3 @4xl:grid-cols-2">
+    <div class="grid gap-4 @4xl:grid-cols-4">
       {#each data.lobbyists as lobbyist}
         <div class="border border-gray-300 p-4">
           <h3 class="font-medium text-lg text-gray-900 leading-snug">{lobbyist.name}</h3>

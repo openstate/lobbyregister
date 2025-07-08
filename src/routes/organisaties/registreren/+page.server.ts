@@ -18,6 +18,8 @@ const createOrganizationSchema = zfd.formData({
   website: zfd.text(z.string().trim()),
   sector: zfd.text(z.string().trim()),
   type: zfd.text(z.enum(ORGANIZATION_TYPES)),
+  lobbyist_name: zfd.text(z.string().trim()),
+  lobbyist_function: zfd.text(z.string().trim()),
 });
 
 export const actions: Actions = {
@@ -26,11 +28,11 @@ export const actions: Actions = {
     let formValid = parsed.success;
     let issues: string[] = [];
 
-    let name, type, sector, kvk_number, no_kvk, city, website, is_commercial;
+    let name, type, sector, kvk_number, no_kvk, city, website, is_commercial, lobbyist_name, lobbyist_function;
     if (!parsed.success) {
       issues = parsed.error.issues.map((issue) => `${String(issue.path[0])} - ${issue.message}`);
     } else {
-      ({ name, type, sector, kvk_number, no_kvk, city, website } = parsed.data);
+      ({ name, type, sector, kvk_number, no_kvk, city, website, lobbyist_name, lobbyist_function } = parsed.data);
       // 03-07: decision was made to hide the is_commercial flag from the UI. Left it here so that
       // the DB did not have to be rebuilt
       is_commercial = type === 'consultant';      
@@ -60,6 +62,11 @@ export const actions: Actions = {
           .insert(schema.organizations)
           .values({ name, type, is_commercial, sector, kvk_number, city, website })
           .returning();
+
+        await db
+          .insert(schema.lobbyists)
+          .values({ name: lobbyist_name, function: lobbyist_function, organization_id: organization.id});
+
 
         const message = `Lobbyorganisatie <a class='font-medium hover:underline' href='/organisaties/${organization.id}'>${organization.name}</a> is toegevoegd`;
         return redirect(302, '/', {type: 'success', message: message}, cookies);
