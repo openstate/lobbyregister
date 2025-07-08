@@ -7,6 +7,7 @@
   import AddSvg from '$lib/icons/AddSvg.svelte';
   import RemoveSvg from '$lib/icons/RemoveSvg.svelte';
   import { LOBBY_TYPES } from '../../../../types.js';
+  import MultiSelect from 'svelte-multiselect';
 
   let { form, data } = $props();
   let lobbyists = $state(data.lobbyists);
@@ -31,7 +32,10 @@
 
   function enHanceForm(formData: FormData) {
     formData.append('lobbyists', JSON.stringify(lobbyists));
+    formData.append('selected_clients', JSON.stringify(selectedClients));
   }
+
+  let selectedClients = $state(data.selectedClients);
 </script>
 
 <div class="flex flex-wrap gap-x-16 gap-y-4 justify-between items-start mb-8">
@@ -212,6 +216,23 @@
           title="Lobbyist toevoegen">
           <AddSvg class="w-12 stroke-gov-blue cursor-pointer" />
         </a>
+      </div>
+    </div>
+
+    <h2 class="font-semibold text-gray-800 text-2xl mb-6 mt-12">Cliëntorganisaties</h2>
+    <div class="@container space-y-4">
+      <div>
+        <span class="block text-lg font-medium text-gray-800">
+          Geef hieronder aan voor welke klanten deze lobbyorganisatie de belangen vertegenwoordigt.
+        </span>
+        <div class="grid gap-3 p-4">
+          <MultiSelect bind:selected={
+            () => selectedClients,
+            (v) => {selectedClients = v;}
+            }
+            options={data.allClientOrganizationLabels} 
+            placeholder="Selecteer 1 of meerdere klanten" required />
+        </div>
       </div>
     </div>
 

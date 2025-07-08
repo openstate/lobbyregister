@@ -1,10 +1,10 @@
 <script lang="ts">
   import MultiSelect from "svelte-multiselect";
-  import type { Option } from "svelte-multiselect";
+  import type { ObjectOption } from "svelte-multiselect";
 
   let { representativeName, allSelectedClients = $bindable(), consultantId, allClientsOptions }:
-   {representativeName: string, allSelectedClients: { [key: string]: Option[]},
-   consultantId: string, allClientsOptions: Option[] } = $props();
+   {representativeName: string, allSelectedClients: { [key: string]: ObjectOption[]},
+   consultantId: string, allClientsOptions: ObjectOption[] } = $props();
 </script>
 
 <div class="text-lg @lg:col-span-2 mt-2">{representativeName}</div>

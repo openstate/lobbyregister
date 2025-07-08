@@ -41,11 +41,14 @@ export async function loadOrganizationData(id: string) {
             client_sector: client_organizations.sector,
           })
           .from(schema.organization_representatives)
-          .leftJoin(
+          .innerJoin(
             client_organizations,
             eq(schema.organization_representatives.client_id, client_organizations.id),
           )
-          .where(eq(schema.organization_representatives.representative_id, id))
+          .where(and(...[
+            eq(schema.organization_representatives.representative_id, id),
+            eq(schema.organization_representatives.active, true)
+          ]))
       : Promise.resolve([]);
 
   // Fetch consultant organizations that represent this organization
@@ -60,7 +63,10 @@ export async function loadOrganizationData(id: string) {
       lobbyist_organizations,
       eq(schema.organization_representatives.representative_id, lobbyist_organizations.id),
     )
-    .where(eq(schema.organization_representatives.client_id, id));
+    .where(and(...[
+      eq(schema.organization_representatives.client_id, id),
+      eq(schema.organization_representatives.active, true)
+    ]));
 
   const [lobbyists, clientOrganizations, representativeOrganizations] = await Promise.all([
     lobbyistsPromise,

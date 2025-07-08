@@ -4,7 +4,7 @@
   import { enhance } from '$app/forms';
 	import { DateInput } from 'date-picker-svelte'
   import MultiSelect from 'svelte-multiselect'  
-  import type { Option } from "svelte-multiselect";
+  import type { ObjectOption } from "svelte-multiselect";
   import Consultant from '$lib/components/Consultant.svelte';
   import FormMessages from '$lib/components/FormMessages.svelte';
 
@@ -14,7 +14,7 @@
   let selectedLobbyists = $state([]);
   let selectedPolicyAreas = $state([]);
 
-  let allSelectedClientsVar: { [key: string]: Option[]} = Object.assign({}, ...Object.entries(data.allRepresentativeNames).map((x) => ({[x[0]]: []})));
+  let allSelectedClientsVar: { [key: string]: ObjectOption[]} = Object.assign({}, ...Object.entries(data.allRepresentativeNames).map((x) => ({[x[0]]: []})));
   
   let allSelectedClients = $state(allSelectedClientsVar);
   let consultantIds = $state.raw(new Array<string>()); // Keeps track of selected lobbyists for consultant organizations
@@ -54,7 +54,7 @@
     formData.append('meeting_date', date.toISOString());
     formData.append('selected_officials', JSON.stringify(selectedOfficials.map((official) => official.value)));
     formData.append('selected_lobbyists', JSON.stringify(selectedLobbyists.map((lobbyist) => lobbyist.value)));
-    let selectedClients: { [key: string]: Option[] } = Object.fromEntries(
+    let selectedClients: { [key: string]: ObjectOption[] } = Object.fromEntries(
       Object.entries($state.snapshot(allSelectedClients)).filter(([key, value]) => consultantIds.includes(key)));
     formData.append('selected_clients', JSON.stringify(selectedClients));
     formData.append('policy_areas', JSON.stringify(selectedPolicyAreas.map((spa) => spa.value)));    
