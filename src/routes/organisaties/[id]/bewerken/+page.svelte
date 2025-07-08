@@ -154,14 +154,14 @@
     <div class="@container space-y-4">
       <div class="grid grid-cols-[{lobbyistColumns}] gap-4 mb-1">
         <div>
-          <label class="block text-lg font-medium text-gray-800">
+          <span class="block text-lg font-medium text-gray-800">
             Naam
-          </label>
+          </span>
         </div>
         <div>
-          <label class="block text-lg font-medium text-gray-800">
+          <span class="block text-lg font-medium text-gray-800">
             Function
-          </label>
+          </span>
         </div>
         <div></div>
       </div>
@@ -190,8 +190,11 @@
             />
           </div>
           <div>
-            <a
-              onclick="{() => removeLobbyist(index)}"
+            <a href='.'
+              onclick="{(event) => {
+                removeLobbyist(index);
+                event.preventDefault();
+              }}"
               title="Lobbyist verwijderen">
               <RemoveSvg class="w-12 h-12 stroke-red-600 cursor-pointer" />
             </a>
@@ -199,9 +202,12 @@
         </div>
       {/each}
       <div class="">
-        <a
-           onclick="{addLobbyist}"
-           title="Lobbyist toevoegen">
+        <a href='.'
+          onclick="{(event) => {
+            addLobbyist();
+            event.preventDefault();
+          }}"
+          title="Lobbyist toevoegen">
           <AddSvg class="w-12 stroke-gov-blue cursor-pointer" />
         </a>
       </div>
