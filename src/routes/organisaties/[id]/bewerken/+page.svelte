@@ -10,6 +10,7 @@
 
   let { form, data } = $props();
   let lobbyists = $state(data.lobbyists);
+  let removeLobbyistsAllowed = $derived(lobbyists.length > 1);
 
   function lobbyistNameId(index: number) {
     return `lobbyistName_${index}`;
@@ -20,10 +21,11 @@
   }
 
   function addLobbyist() {
-    lobbyists.push({id: '', name: undefined, function: undefined});
+    lobbyists.push({id: '', name: '', function: ''});
   }
 
   function removeLobbyist(index: number) {
+    if (lobbyists.length <= 1) return;
     lobbyists.splice(index, 1);
   }
 
@@ -163,7 +165,7 @@
         </div>
         <div></div>
       </div>
-      {#each lobbyists as lobbyist, index }
+      {#each lobbyists as lobbyist, index}
         <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-1">
           <div>
             <input
@@ -188,6 +190,7 @@
             />
           </div>
           <div>
+            {#if removeLobbyistsAllowed}
             <a href='.'
               onclick="{(event) => {
                 removeLobbyist(index);
@@ -196,6 +199,7 @@
               title="Lobbyist verwijderen">
               <RemoveSvg class="w-12 h-12 stroke-red-600 cursor-pointer" />
             </a>
+            {/if}
           </div>
         </div>
       {/each}
