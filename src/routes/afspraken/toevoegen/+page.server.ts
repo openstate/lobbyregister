@@ -9,15 +9,24 @@ import { z } from 'zod/v4';
 import nl from "zod/v4/locales/nl.js"
 z.config(nl());
 import type { Actions } from '@sveltejs/kit';
-import { meetingTypeLabels, policyAreaLabels } from '../../../types';
-import { MEETING_TYPES, REDIRECTS } from '$lib/constants';
+import { meetingTypeLabels, PermissionTypes, policyAreaLabels } from '../../../types';
+import { MEETING_TYPES } from '$lib/constants';
 import { alias } from 'drizzle-orm/pg-core';
+import { isPermitted } from '../../../utils/authenticationUtils';
+import { REDIRECTS } from '../../../utils/routingUtils';
 
 export type clientData = { label: string, value: string};
 
 export const load: PageServerLoad = async (event) => {
   // Check authorization
-  if (!event.locals.user) redirect(302, `/inloggen?fromPage=${REDIRECTS.add_meeting}`)
+  if (!await isPermitted(PermissionTypes.addMeeting, event.locals.user)) {
+    if (event.locals.user) {
+        const message = "Om een afspraak toe te voegen moet u ingelogd zijn als een overheidsfunctionaris";
+        return redirect(302, `/afspraken`, {type: 'error', message: message}, event.cookies);
+    } else {
+      redirect(302, `/inloggen_functionaris?fromPage=${REDIRECTS.add_meeting}`);
+    }
+  }
 
   // Fetch all lobbyists and their organizations
   const allLobbyistsPromise = db

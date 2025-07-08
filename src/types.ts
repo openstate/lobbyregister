@@ -4,7 +4,18 @@ export type Meeting = { id: string; date: string; description: string; departmen
 
 export type Official = { id: string, name: string, type: string };
 
-export type AuthenticatedUser = { id: string, name: string, type: string };
+export type Lobbyist = { id: string, name: string, function: string };
+
+export enum AuthenticatedUserTypes {
+  official='official',
+  lobbyist='lobbyist'
+}
+export type AuthenticatedUser = { id: string, name: string, type: AuthenticatedUserTypes };
+
+export enum PermissionTypes {
+  addMeeting='addMeeting',
+  editOrganization='editOrganization',
+}
 
 export const LOBBY_TYPES = [
   {

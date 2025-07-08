@@ -6,7 +6,18 @@
   import Flash from '$lib/components/Flash.svelte';
 
   import '../app.css';
+  import type { AuthenticatedUserTypes } from '../types';
+
   let { data, children } = $props();
+
+  function labelForAuthenticatedUserType(type: AuthenticatedUserTypes) {
+    switch (type) {
+      case 'official':
+        return 'overheidsfunctionaris';
+      case 'lobbyist':
+        return 'lobbyist';
+    }
+  }
 </script>
 
 <SvelteToast />
@@ -62,7 +73,7 @@
 {#if data.authenticatedUser}
 <div class="px-6 py-3.5 border-b border-gray-300 -mt-8 mb-8">
   <div class="container max-w-320 mx-auto text-right">
-    <em>U bent ingelogd als {data.authenticatedUser.name}</em>
+    <em>U bent ingelogd als {labelForAuthenticatedUserType(data.authenticatedUser.type)} {data.authenticatedUser.name}</em>
   </div>
 </div>
 {/if}

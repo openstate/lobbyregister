@@ -12,6 +12,9 @@ import { ORGANIZATION_TYPES } from '$lib/constants';
 
 import type { PageServerLoad } from './$types';
 import { loadOrganizationData } from '../../utils';
+import { PermissionTypes } from '../../../../types';
+import { isPermitted } from '../../../../utils/authenticationUtils';
+import { REDIRECTS } from '../../../../utils/routingUtils';
 
 // TODO createOrganizationSchema, action 'default' and page.svelte is nearly identical
 // to /organisaties/registreren -> refactor
@@ -130,8 +133,17 @@ const syncLobbyists = async(organizationId: string, lobbyists: Array<Record<stri
   }
 }
 
-export const load: PageServerLoad = async ({ params }) => {
-  const { id } = params;
+export const load: PageServerLoad = async (event) => {
+  const { id } = event.params;
+  // Check authorization
+  if (!await isPermitted(PermissionTypes.editOrganization, event.locals.user, {"organizationId": id})) {
+    if (event.locals.user) {
+        const message = "Om deze lobbyorganisatie te bewerken moet u ingelogd zijn als een lobbyist van de organisatie";
+        return redirect(302, `/organisaties/${id}`, {type: 'error', message: message}, event.cookies);
+    } else {
+      redirect(302, `/inloggen_lobbyist?fromPage=${REDIRECTS.edit_organization}&fromPageParams={"organizationId": "${id}"}`);
+    }
+  }
 
   const {
     organization,
