@@ -60,12 +60,10 @@
         </button>
       </form>
       {:else}
-      <a class="text-gray-700 hover:text-gray-900 max-sm:hidden" href="/inloggen">Inloggen</a>
-      {/if}
-      {#if !data.authenticatedUser}
       <Button variant="link" href="/registreren">
         Registreren
       </Button>
+      <a class="text-gray-700 hover:text-gray-900 max-sm:hidden" href="/inloggen">Inloggen</a>
       {/if}
     </div>
   </div>
