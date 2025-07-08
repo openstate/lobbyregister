@@ -127,7 +127,7 @@
         {#each data.clientOrganizations as client}
           <div class="border border-gray-300 p-4 flex flex-col h-full">
             <h3 class="font-medium text-lg text-gray-900 leading-snug">{client.client_name}</h3>
-            <p class="text-gray-700 leading-snug line-clamp-2 flex-grow">{client.client_sector}</p>
+            <p class="text-gray-700 leading-snug line-clamp-2 flex-grow">{getSectorName(client.client_sector)}</p>
             <a
               href="/organisaties/{client.client_id}"
               class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1"
