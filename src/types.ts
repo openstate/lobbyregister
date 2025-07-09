@@ -20,8 +20,13 @@ export enum PermissionTypes {
 export const LOBBY_TYPES = [
   {
     id: 'inhouse',
-    label: 'Belangen van eigen organisatie',
-    description: 'Bijvoorbeeld bedrijven of maatschappelijke organisaties.',
+    label: 'Belangen van eigen organisatie - bedrijf/onderneming',
+    description: 'Bedrijven en ondernemingen.',
+  },
+  {
+    id: 'inhouse_ngo',
+    label: 'Belangen van eigen organisatie - maatschappelijke organisatie (NGO)',
+    description: 'Maatschappelijke organisaties.',
   },
   {
     id: 'association',
@@ -34,6 +39,14 @@ export const LOBBY_TYPES = [
     description: 'Bijvoorbeeld externe lobbybureaus.',
   },
 ] as const;
+
+export const organizationTypeLabels = {
+  inhouse: 'Belangen van eigen organisatie - bedrijf/onderneming',
+  inhouse_ngo: 'Belangen van eigen organisatie - maatschappelijke organisatie (NGO)',
+  consultant: 'Belangen van cliënten',
+  association: 'Belangen van sector of branche',
+};
+
 
 export enum searchCategoryTypes {
   searchMeetingsId='searchMeetingsId',
@@ -60,12 +73,6 @@ export const officialTypeLabels: Record<string, string> = {
   secretary_general: 'Secretaris-generaal',
   director_general: 'Directeur-generaal',
   political_assistant: 'Politiek assistent',
-};
-
-export const organizationTypeLabels = {
-  inhouse: 'Belangen van eigen organisatie',
-  consultant: 'Belangen van cliënten',
-  association: 'Belangen van sector of branche',
 };
 
 export const policyAreaLabels = [

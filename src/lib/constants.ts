@@ -1,4 +1,4 @@
-export const ORGANIZATION_TYPES = ['inhouse', 'consultant', 'association'] as const;
+export const ORGANIZATION_TYPES = ['inhouse', 'inhouse_ngo', 'consultant', 'association'] as const;
 
 export enum MEETING_TYPES {
   in_person='in_person',

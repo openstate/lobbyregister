@@ -63,6 +63,7 @@
     {#each data.registrations as organization, i}
       {@const interest = {
         inhouse: 'eigen belangen',
+        inhouse_ngo: 'eigen belangen (NGO)',
         consultant: 'cliëntenbelangen',
         association: 'sectorbelangen',
       }[organization.type]}

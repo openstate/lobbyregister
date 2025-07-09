@@ -25,6 +25,7 @@ async function seed() {
     for (let i = 0; i < 50; i++) {
       const orgType = faker.helpers.weightedArrayElement([
         { weight: 5, value: 'inhouse' },
+        { weight: 2, value: 'inhouse_ngo' },
         { weight: 1, value: 'consultant' },
         { weight: 2, value: 'association' },
       ]);
@@ -258,6 +259,8 @@ function generateDutchOrganizationName(type: (typeof ORGANIZATION_TYPES)[number]
       return `${capitalizeFirstLetter(faker.company.buzzNoun())} ${faker.helpers.arrayElement(associationNames)}`;
     case 'inhouse':
       return `${faker.company.name()} ${faker.helpers.arrayElement(companyTypes)}`;
+    case 'inhouse_ngo':
+      return faker.company.name();
     default:
       return faker.company.name();
   }

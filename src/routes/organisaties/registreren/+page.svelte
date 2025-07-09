@@ -1,6 +1,6 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import { ORGANIZATION_TYPES, SBI_CODES } from '$lib/constants';
+  import { SBI_CODES } from '$lib/constants';
   import Button from '$lib/components/Button.svelte';
   import { LOBBY_TYPES } from '../../../types.js';
   import FormMessages from '$lib/components/FormMessages.svelte';
