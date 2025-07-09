@@ -4,9 +4,11 @@
   import { SvelteToast } from '@zerodevx/svelte-toast'
   import { toast } from '@zerodevx/svelte-toast'
   import Flash from '$lib/components/Flash.svelte';
+	import { Hamburger } from 'svelte-hamburgers';
 
   import '../app.css';
   import type { AuthenticatedUserTypes } from '../types';
+    import { fly } from 'svelte/transition';
 
   let { data, children } = $props();
 
@@ -17,6 +19,11 @@
       case 'lobbyist':
         return 'lobbyist';
     }
+  }
+
+  let menuIsOpen = $state(false);
+  function resetOpenState() {
+    menuIsOpen = !menuIsOpen;
   }
 </script>
 
@@ -37,7 +44,16 @@
         Transparantie in belangenbehartiging
       </p>
     </a>
-    <div class="lg:text-lg md:text-sm flex lg:gap-10 md:gap-4 items-center">
+    <div class="md:hidden">
+      <Hamburger
+          bind:open={menuIsOpen}
+          type="collapse"
+          title="Toggle nav links"
+          ariaControls="nav"
+          --color='white'
+      />
+    </div>
+    <div class="lg:text-lg md:text-sm flex lg:gap-10 md:gap-4 max-md:hidden items-center">
       <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="/afspraken">Afspraken</a>
       <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="/organisaties">
         Lobbyisten
@@ -66,6 +82,34 @@
       <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="/inloggen">Inloggen</a>
       {/if}
     </div>
+    {#if menuIsOpen}
+      <ul id="nav" class="menu" transition:fly={{ y: -15 }}>
+            <li><a href="/afspraken" onclick={resetOpenState}>Afspraken</a></li>
+            <li><a href="/organisaties" onclick={resetOpenState}>Lobbyisten</a></li>
+            <li><a href="/faqs" onclick={resetOpenState}>FAQs</a></li>
+            <li>
+              <a href="."
+              onclick="{(event) => {
+                toast.push("Deze demo versie bevat nog geen API", {duration: 10000});
+                event.preventDefault();
+                resetOpenState();
+              }}">
+              API
+              </a>
+            </li>
+            {#if data.authenticatedUser}
+              <form method="post" action="/uitloggen" class="inline">
+                <input type="hidden" name="extra_submit_param" value="extra_submit_value">
+                <button type="submit" name="submit_param" value="submit_value" class="cursor-pointer">
+                Uitloggen
+                </button>
+              </form>
+            {:else}
+              <li><a href="/registreren" onclick={resetOpenState}>Registreren</a></li>
+              <li><a href="/inloggen" onclick={resetOpenState}>Inloggen</a></li>
+            {/if}
+        </ul>
+    {/if}
   </div>
 </nav>
 {#if data.authenticatedUser}

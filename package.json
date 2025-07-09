@@ -29,6 +29,7 @@
     "@zerodevx/svelte-toast": "^0.9.6",
     "sveltekit-flash-message": "^2.4.6",
     "drizzle-kit": "^0.30.2",
+    "svelte-hamburgers": "^5.0.0",
     "prettier": "^3.4.2",
     "prettier-plugin-svelte": "^3.3.3",
     "svelte": "^5.0.0",
