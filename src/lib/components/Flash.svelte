@@ -14,11 +14,11 @@
 </script>
 
 {#if (type == 'success')}
-  <div class="mb-8 bg-green-600 text-neutral-50 px-6 sm:px-8 py-4 sm:py-5">
+  <div class="mb-8 bg-green-100 text-green-800 px-6 sm:px-8 py-4 sm:py-5">
     {@html message}
   </div>
 {:else if type == 'error'}
-  <div class="mb-8 bg-red-600 text-neutral-50 px-6 sm:px-8 py-4 sm:py-5">
+  <div class="mb-8 bg-red-100 text-red-800 px-6 sm:px-8 py-4 sm:py-5">
     {@html message}
   </div>
 {/if}
