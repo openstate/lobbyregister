@@ -37,15 +37,15 @@
         Transparantie in belangenbehartiging
       </p>
     </a>
-    <div class="text-lg flex gap-10 items-center">
-      <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/afspraken">Afspraken</a>
-      <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/organisaties">
+    <div class="lg:text-lg md:text-sm flex lg:gap-10 md:gap-4 items-center">
+      <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="/afspraken">Afspraken</a>
+      <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="/organisaties">
         Lobbyisten
       </a>
-      <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="/faqs">
+      <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="/faqs">
         FAQs
       </a>
-      <a class="text-gray-700 hover:text-gray-900 max-lg:hidden" href="."
+      <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="."
          onclick="{(event) => {
           toast.push("Deze demo versie bevat nog geen API", {duration: 10000});
           event.preventDefault();
@@ -55,15 +55,15 @@
       {#if data.authenticatedUser}
       <form method="post" action="/uitloggen" class="inline">
         <input type="hidden" name="extra_submit_param" value="extra_submit_value">
-        <button type="submit" name="submit_param" value="submit_value" class="text-gray-700 hover:text-gray-900 max-sm:hidden cursor-pointer">
+        <button type="submit" name="submit_param" value="submit_value" class="text-gray-700 hover:text-gray-900 max-md:hidden cursor-pointer">
         Uitloggen
         </button>
       </form>
       {:else}
-      <Button variant="link" href="/registreren">
+      <Button variant="link" href="/registreren" class="lg:text-lg md:text-sm max-md:hidden">
         Registreren
       </Button>
-      <a class="text-gray-700 hover:text-gray-900 max-sm:hidden" href="/inloggen">Inloggen</a>
+      <a class="text-gray-700 hover:text-gray-900 max-md:hidden" href="/inloggen">Inloggen</a>
       {/if}
     </div>
   </div>
