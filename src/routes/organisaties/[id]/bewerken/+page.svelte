@@ -219,13 +219,13 @@
       </div>
     </div>
 
-    <h2 class="font-semibold text-gray-800 text-2xl mb-6 mt-12">Cliëntorganisaties</h2>
+    <h2 class="font-semibold text-gray-800 text-2xl mb-2 mt-12">Cliëntorganisaties</h2>
     <div class="@container space-y-4">
       <div>
-        <span class="block text-lg font-medium text-gray-800">
+        <span class="block text-base text-gray-800">
           Geef hieronder aan voor welke klanten deze lobbyorganisatie de belangen vertegenwoordigt.
         </span>
-        <div class="grid gap-3 p-4">
+        <div class="grid gap-3 mt-3">
           <MultiSelect bind:selected={
             () => selectedClients,
             (v) => {selectedClients = v;}

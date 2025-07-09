@@ -1,11 +1,18 @@
 <script lang="ts">
   import { enhance } from '$app/forms';
-  import { SBI_CODES } from '$lib/constants';
+  import { ORGANIZATION_TYPES, SBI_CODES } from '$lib/constants';
   import Button from '$lib/components/Button.svelte';
   import { LOBBY_TYPES } from '../../../types.js';
   import FormMessages from '$lib/components/FormMessages.svelte';
+  import MultiSelect from 'svelte-multiselect';
 
-  let { form } = $props();
+  let { form, data } = $props();
+  let selectedType = $state('');
+  let selectedClients = $state([]);
+
+  function enHanceForm(formData: FormData) {
+    formData.append('selected_clients', JSON.stringify(selectedClients));
+  }
 </script>
 
 <div class="mx-auto max-w-2xl md:mb-32">
@@ -17,7 +24,7 @@
 
   <FormMessages message={form?.message} issues={form?.issues} />
 
-  <form method="POST" use:enhance class="space-y-6">
+  <form method="POST" use:enhance={({formData}) => enHanceForm(formData)} class="space-y-6">
     <!-- Organization Details -->
     <div>
       <label for="name" class="block text-lg font-medium text-gray-800 mb-2">
@@ -106,7 +113,7 @@
             class="border border-gray-300 px-4 py-3 cursor-pointer has-checked:bg-gov-light-blue has-checked:border-gov-blue"
           >
             <div class="flex items-center gap-2 mb-1">
-              <input type="radio" name="type" value={lobbyType.id} />
+              <input type="radio" name="type" bind:group={selectedType} value={lobbyType.id} />
               <span class="text-lg text-gray-800">{lobbyType.label}</span>
             </div>
             <p class="text-gray-700">{lobbyType.description}</p>
@@ -153,6 +160,25 @@
         </div>
       </div>
     </div>
+
+    {#if (selectedType == 'consultant')}
+    <h2 class="font-semibold text-gray-800 text-2xl mb-2 mt-12">Cliëntorganisaties</h2>
+    <div class="@container space-y-4">
+      <div>
+        <span class="block text-base text-gray-800">
+          Geef hieronder aan voor welke klanten deze lobbyorganisatie de belangen vertegenwoordigt.
+        </span>
+        <div class="grid gap-3 mt-3">
+          <MultiSelect bind:selected={
+            () => selectedClients,
+            (v) => {selectedClients = v;}
+            }
+            options={data.allClientOrganizationLabels}
+            placeholder="Selecteer 1 of meerdere klanten" required />
+        </div>
+      </div>
+    </div>
+    {/if}
 
     <Button type="submit">
       Registreren
