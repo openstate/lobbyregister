@@ -79,7 +79,7 @@ export const load: PageServerLoad = async (event) => {
 
   const allOfficialsOptions = allOfficials.map((official) => ({label: official.name, value: official.id}));
   const allLobbyistsOptions = allLobbyists.map((lobbyist) => ({
-    label: `${lobbyist.name}, ${lobbyist.function} (${lobbyist.organization_name})} `, 
+    label: `${lobbyist.name}, ${lobbyist.function} (${lobbyist.organization_name})`, 
     value: lobbyist.id,
   }));
   const clientsForRepresentatives: { [key: string]: Array<clientData>} = {};
