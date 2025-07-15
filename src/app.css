@@ -2,34 +2,70 @@
 /* @plugin '@tailwindcss/forms'; */
 
 @theme {
-  --font-sans: 'Source Sans 3 Variable', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-sans: 'Amsterdam Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
 
-  --color-gov-blue: #01689b;
+  --color-gov-blue: #004699;
   --color-gov-dark-blue: #154273;
   --color-gov-light-blue: #e6f3ff;
+}
+
+a {
+  text-underline-offset: 4px;
+}
+
+.caret::before {
+  align-self: baseline;
+  background-color: var(--color-gov-blue);
+  content: '';
+  display: inline-flex;
+  font-size: 1rem;
+  margin-inline-end: 0.3rem;
+  line-height: 1;
+  height: 1rem;
+  mask-image: url('/caret-right.svg');
+  mask-position: 50% 0;
+  mask-repeat: no-repeat;
+  mask-size: auto 1rem;
+  position: relative;
+  top: 0.15lh;
+  width: 1rem;
 }
 
 .date-time-field input {
   padding: 10px 12px !important;
 }
-.multiselect {margin-top: 0; margin-bottom: 0; min-height: 3em; padding: 3pt;}
-
-.preserve_whitespace {white-space: pre-line;}
-
-.logo {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  width: 100%;
-  background-image: url("/header_background.jpg");
-  background-position: center;
+.multiselect {
+  margin-top: 0;
+  margin-bottom: 0;
+  min-height: 3em;
+  padding: 3pt;
 }
 
-.logo .logo_wrapper {
-  margin-inline-start: calc(50% - 25px);
+.preserve_whitespace {
+  white-space: pre-line;
 }
 
-nav.main {
-  background-color: #154273;
-  a, p, button {color: white;}
+@font-face {
+  font-family: 'Amsterdam Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/AmsterdamSans-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Amsterdam Sans';
+  font-style: italic;
+  font-weight: 400;
+  src: url('/AmsterdamSans-Italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Amsterdam Sans';
+  font-style: normal;
+  font-weight: 700;
+  src: url('/AmsterdamSans-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Amsterdam Sans';
+  font-style: normal;
+  font-weight: 800;
+  src: url('/AmsterdamSans-ExtraBold.woff2') format('woff2');
 }
