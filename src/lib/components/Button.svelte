@@ -7,7 +7,7 @@
     /** For link variant - href url */
     href?: string;
     /** Button size - affects padding and text size */
-    size?: 'sm' | 'md';
+    size?: 'sm' | 'md' | 'lg';
     /** Click handler for button variant */
     onclick?: (event: MouseEvent) => void;
     /** Additional CSS classes */
@@ -28,12 +28,13 @@
     children,
   }: Props = $props();
 
-  const baseClasses = 'bg-gov-blue text-white hover:bg-gov-dark-blue font-medium transition-colors';
+  const baseClasses = 'bg-gov-blue text-white hover:bg-gov-dark-blue font-semibold transition-colors';
 
   // Size-specific classes
   const sizeClasses = {
     sm: 'py-1 px-3',
     md: 'text-lg py-2 px-4.5',
+    lg: 'text-xl py-3 px-6',
   };
 
   const allClasses = `${baseClasses} ${sizeClasses[size]} ${additionalClass}`.trim();
