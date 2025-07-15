@@ -6,38 +6,23 @@
   let { form } = $props();
 
   const officials = new Map<(typeof OFFICIAL_TYPES)[number], string>([
-    ['minister', 'Minister'],
-    ['state_secretary', 'Staatssecretaris'],
-    ['secretary_general', 'Secretaris-generaal'],
-    ['director_general', 'Directeur-generaal'],
+    ['mayor', 'Burgemeester'],
+    ['alderman', 'Wethouder'],
+    ['municipal_secretary', 'Gemeentesecretaris'],
+    ['director', 'Directeur'],
     ['political_assistant', 'Politiek assistent'],
   ]);
 
-  const ministeries = [
-    'Ministerie van Algemene Zaken',
-    'Ministerie van Asiel en Migratie',
-    'Ministerie van Binnenlandse Zaken en Koninkrijksrelaties',
-    'Ministerie van Buitenlandse Zaken',
-    'Ministerie van Defensie',
-    'Ministerie van Economische Zaken',
-    'Ministerie van Financiën',
-    'Ministerie van Infrastructuur en Waterstaat',
-    'Ministerie van Justitie en Veiligheid',
-    'Ministerie van Klimaat en Groene Groei',
-    'Ministerie van Landbouw, Visserij, Voedselzekerheid en Natuur',
-    'Ministerie van Onderwijs, Cultuur en Wetenschap',
-    'Ministerie van Sociale Zaken en Werkgelegenheid',
-    'Ministerie van Volksgezondheid, Welzijn en Sport',
-    'Ministerie van Volkshuisvesting en Ruimtelijke Ordening',
+  const organisations = [
+    'College van Burgemeester en Wethouders',
+    'Gemeentelijk Management Team',
   ];
 </script>
 
 <div class="mx-auto max-w-2xl md:mb-32">
   <h2 class="font-semibold text-gray-800 text-2xl mb-6">Registreren</h2>
 
-  <p class="text-lg text-gray-600 mb-8">
-    Registreren van een bewindspersoon of topambtenaar.
-  </p>
+  <p class="text-lg text-gray-600 mb-8">Registreren van een gemeentefunctionaris.</p>
 
   {#if form?.message}
     <div class="mb-6 p-4 bg-red-100 text-red-700 border border-red-200">
@@ -85,7 +70,7 @@
 
     <div>
       <label for="department" class="block text-lg font-bold text-gray-800 mb-2">
-        Ministerie
+        Organisatie
       </label>
       <select
         name="department"
@@ -93,15 +78,13 @@
         required
         class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
       >
-        <option value="">Selecteer ministerie...</option>
-        {#each ministeries as ministerie}
-          <option value={ministerie}>{ministerie}</option>
+        <option value="">Selecteer organisatie...</option>
+        {#each organisations as organisation}
+          <option value={organisation}>{organisation}</option>
         {/each}
       </select>
     </div>
 
-    <Button type="submit">
-      Registreren
-    </Button>
+    <Button type="submit">Registreren</Button>
   </form>
 </div>

@@ -13,7 +13,7 @@
     <h1 class="text-3xl font-semibold text-gray-800 mb-3 max-w-5xl">
       {data.official.name}
     </h1>
-    <p class="text-2xl text-gray-700">gemeentefunctionaris</p>
+    <p class="text-2xl text-gray-700">Gemeentefunctionaris</p>
   </div>
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button
@@ -38,7 +38,7 @@
       </div>
 
       <div class="@lg:col-span-2 p-4 border border-gray-300">
-        <p class="text-sm font-bold text-gray-700 mb-1">Departement</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Organisatie</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {data.official.department}
         </p>

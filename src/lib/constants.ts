@@ -9,10 +9,10 @@ export enum MEETING_TYPES {
 };
 
 export const OFFICIAL_TYPES = [
-  'minister',
-  'state_secretary',
-  'secretary_general',
-  'director_general',
+  'mayor',
+  'alderman',
+  'municipal_secretary',
+  'director',
   'political_assistant',
 ] as const;
 

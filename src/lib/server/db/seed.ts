@@ -1,7 +1,7 @@
 import { fakerNL as faker } from '@faker-js/faker';
 import * as schema from './schema.ts';
 import { db } from './index.ts';
-import { ORGANIZATION_TYPES, MEETING_TYPES, OFFICIAL_TYPES, SBI_CODES } from '../../constants.ts';
+import { ORGANIZATION_TYPES, MEETING_TYPES, SBI_CODES } from '../../constants.ts';
 import { policyAreaLabels } from '../../../types.ts';
 
 async function seed() {
@@ -62,11 +62,63 @@ async function seed() {
     // Seed Officials
     console.log('👔 Seeding officials...');
     const officials = [];
-    for (let i = 0; i < 30; i++) {
+
+    // Add exactly 1 mayor
+    officials.push({
+      name: faker.person.fullName(),
+      type: 'mayor' as const,
+      department: 'College van Burgemeester en Wethouders',
+      active: true,
+      registered_at: faker.date
+        .between({ from: '2024-01-01', to: '2025-06-30' })
+        .toISOString()
+        .split('T')[0],
+    });
+
+    for (let i = 0; i < 9; i++) {
+      officials.push({
+        name: faker.person.fullName(),
+        type: 'alderman' as const,
+        department: 'College van Burgemeester en Wethouders',
+        active: true,
+        registered_at: faker.date
+          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .toISOString()
+          .split('T')[0],
+      });
+    }
+
+    officials.push({
+      name: faker.person.fullName(),
+      type: 'municipal_secretary' as const,
+      department: 'Gemeentelijk Management Team',
+      active: true,
+      registered_at: faker.date
+        .between({ from: '2024-01-01', to: '2025-06-30' })
+        .toISOString()
+        .split('T')[0],
+    });
+
+    for (let i = 0; i < 10; i++) {
       const official = {
         name: faker.person.fullName(),
-        type: faker.helpers.arrayElement(OFFICIAL_TYPES),
-        department: generateDutchDepartment(),
+        type: 'political_assistant' as const,
+        department: 'College van Burgemeester en Wethouders',
+        active: faker.datatype.boolean(0.95),
+        registered_at: faker.date
+          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .toISOString()
+          .split('T')[0],
+      };
+
+      officials.push(official);
+    }
+
+    for (let i = 0; i < 10; i++) {
+      const official = {
+        name: faker.person.fullName(),
+        type: 'director' as const,
+        department: 'Gemeentelijk Management Team',
         active: faker.datatype.boolean(0.95),
         registered_at: faker.date
           .between({ from: '2024-01-01', to: '2025-06-30' })
@@ -268,7 +320,7 @@ function generateDutchSector(): string {
 }
 
 function generateDutchDepartment(): string {
-  const departments = ['Gemeente Amsterdam'];
+  const departments = ['College van Burgemeester en Wethouders', 'Gemeentelijk Management Team'];
 
   return faker.helpers.arrayElement(departments);
 }
@@ -337,16 +389,13 @@ function generateDutchMeetingDescription(): string {
 }
 
 function generateAmsterdamLocation(): string {
-  const locations = [
-    'Stadhuis, Amsterdam',
-    'Stopera, Amsterdam',
-    'RAI Amsterdam',
-    'De Balie, Amsterdam',
-    'Amsterdam Science Park',
-    'Hotel De L’Europe, Amsterdam',
-  ];
-
-  return faker.helpers.arrayElement(locations);
+  return faker.helpers.weightedArrayElement([
+    { weight: 8, value: 'Stopera, Amsterdam' },
+    { weight: 1, value: 'RAI Amsterdam' },
+    { weight: 1, value: 'De Balie, Amsterdam' },
+    { weight: 1, value: 'Amsterdam Science Park' },
+    { weight: 1, value: "Hotel De L'Europe, Amsterdam" },
+  ]);
 }
 
 function generateDutchCity(): string {
