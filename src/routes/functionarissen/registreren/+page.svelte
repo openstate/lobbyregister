@@ -55,7 +55,7 @@
 
   <form method="POST" use:enhance class="space-y-6">
     <div>
-      <label for="name" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="name" class="block text-lg font-bold text-gray-800 mb-2">
         Voor- en achternaam
       </label>
       <input
@@ -69,7 +69,7 @@
     </div>
 
     <div>
-      <label for="type" class="block text-lg font-medium text-gray-800 mb-2"> Functietitel </label>
+      <label for="type" class="block text-lg font-bold text-gray-800 mb-2"> Functietitel </label>
       <select
         name="type"
         id="type"
@@ -84,7 +84,7 @@
     </div>
 
     <div>
-      <label for="department" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="department" class="block text-lg font-bold text-gray-800 mb-2">
         Ministerie
       </label>
       <select

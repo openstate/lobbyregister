@@ -58,7 +58,7 @@
   <form method="POST" use:enhance={({formData}) => enHanceForm(formData)} class="space-y-6">
     <!-- Organization Details -->
     <div>
-      <label for="name" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="name" class="block text-lg font-bold text-gray-800 mb-2">
         Organisatienaam
       </label>
       <input
@@ -72,7 +72,7 @@
     </div>
 
     <div>
-      <label for="city" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="city" class="block text-lg font-bold text-gray-800 mb-2">
         Plaats
       </label>
       <input
@@ -86,7 +86,7 @@
     </div>
 
     <div>
-      <label for="website" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="website" class="block text-lg font-bold text-gray-800 mb-2">
         Website
       </label>
       <input
@@ -100,7 +100,7 @@
     </div>
 
     <div>
-      <label for="kvk_number" class="block text-lg font-medium text-gray-800 mb-2">KVK-nummer</label
+      <label for="kvk_number" class="block text-lg font-bold text-gray-800 mb-2">KVK-nummer</label
       >
       <input
         type="text"
@@ -122,7 +122,7 @@
     </div>
 
     <div>
-      <label for="sector" class="block text-lg font-medium text-gray-800 mb-2">Sector (SBI-code)</label>
+      <label for="sector" class="block text-lg font-bold text-gray-800 mb-2">Sector (SBI-code)</label>
       <select
         name="sector"
         id="sector"
@@ -138,7 +138,7 @@
 
     <!-- Lobby Type Selection -->
     <div>
-      <p class="block text-lg font-medium text-gray-800 mb-2">Type belangenbehartiging</p>
+      <p class="block text-lg font-bold text-gray-800 mb-2">Type belangenbehartiging</p>
       <div class="grid gap-3">
         {#each LOBBY_TYPES as lobbyType}
           <label
@@ -158,12 +158,12 @@
     <div class="@container space-y-4">
       <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-1">
         <div>
-          <span class="block text-lg font-medium text-gray-800">
+          <span class="block text-lg font-bold text-gray-800">
             Naam
           </span>
         </div>
         <div>
-          <span class="block text-lg font-medium text-gray-800">
+          <span class="block text-lg font-bold text-gray-800">
             Function
           </span>
         </div>
@@ -230,7 +230,7 @@
             () => selectedClients,
             (v) => {selectedClients = v;}
             }
-            options={data.allClientOrganizationLabels} 
+            options={data.allClientOrganizationLabels}
             placeholder="Selecteer 1 of meerdere klanten" required />
         </div>
       </div>

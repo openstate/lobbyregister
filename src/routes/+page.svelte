@@ -60,7 +60,7 @@
       </div>
     {/each}
     <a
-      class="text-gov-blue hover:underline underline-offset-4 caret text-lg font-medium py-1"
+      class="text-gov-blue hover:underline underline-offset-4 caret text-lg py-1"
       href="/afspraken"
     >
       Bekijk alle afspraken
@@ -95,7 +95,7 @@
       </div>
     {/each}
     <a
-      class="text-gov-blue hover:underline underline-offset-4 caret text-lg font-medium py-1"
+      class="text-gov-blue hover:underline underline-offset-4 caret text-lg py-1"
       href="/organisaties"
     >
       Bekijk alle lobbyisten

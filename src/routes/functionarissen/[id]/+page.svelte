@@ -30,36 +30,36 @@
 <div class="lg:col-span-2 grid gap-8">
   <!-- Basic Information -->
   <div class="@container">
-    <h2 class="text-xl font-medium text-gray-800 mb-4">Informatie</h2>
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Informatie</h2>
     <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
       <div class="@lg:col-span-2 p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Naam</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Naam</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">{data.official.name}</p>
       </div>
 
       <div class="@lg:col-span-2 p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Departement</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Departement</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {data.official.department}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Functie</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Functie</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {officialTypeLabels[data.official.type]}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Status</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Status</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {data.official.active ? 'Actief' : 'Inactief'}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Geregistreerd op</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Geregistreerd op</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {formatDate(data.official.registered_at)}
         </p>

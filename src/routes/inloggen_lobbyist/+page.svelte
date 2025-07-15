@@ -26,7 +26,7 @@
         <input type="hidden" id="fromPageParams" name="fromPageParams" value={data.fromPageParams} />
       {/if}
     <div>
-      <label for="username" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="username" class="block text-lg font-bold text-gray-800 mb-2">
         Gebruikersnaam <em>(in deze demo een eenvoudige dropdown)</em>
       </label>
       <select
@@ -42,7 +42,7 @@
       </select>
     </div>
     <div>
-      <label for="password" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="password" class="block text-lg font-bold text-gray-800 mb-2">
         Wachtwoord
       </label>
       <input

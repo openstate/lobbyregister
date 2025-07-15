@@ -38,7 +38,7 @@ export const actions: Actions = {
       ({ name, type, sector, kvk_number, no_kvk, city, website, lobbyist_name, lobbyist_function, selected_clients } = parsed.data);
       // 03-07: decision was made to hide the is_commercial flag from the UI. Left it here so that
       // the DB did not have to be rebuilt
-      is_commercial = type === 'consultant';      
+      is_commercial = type === 'consultant';
       website = website.replace(/^https?:?\/?\/?/, '');
 
       if (no_kvk) {
@@ -46,7 +46,7 @@ export const actions: Actions = {
       } else {
         formValid = new RegExp(/^\d{8}$/).test(kvk_number || '');
         if (!formValid) {
-          issues.push(`kvk_number - moet een getal van 8 cijfers zijn`)            
+          issues.push(`kvk_number - moet een getal van 8 cijfers zijn`)
         } else {
           // Check uniqueness KvK nummer
           const kvkNumberExists = await db
@@ -76,7 +76,7 @@ export const actions: Actions = {
             .values({ representative_id: organization.id, client_id: client.value});
         }
 
-        const message = `Lobbyorganisatie <a class='font-medium hover:underline' href='/organisaties/${organization.id}'>${organization.name}</a> is toegevoegd`;
+        const message = `Lobbyorganisatie <a class='font-bold hover:underline' href='/organisaties/${organization.id}'>${organization.name}</a> is toegevoegd`;
         return redirect(302, '/', {type: 'success', message: message}, cookies);
       }
     }

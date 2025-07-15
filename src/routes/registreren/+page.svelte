@@ -12,7 +12,7 @@
       >
         <div class="flex items-center gap-2 mb-1">
           <input type="radio" name="type" value="official" class="w-4 h-4" />
-          <span class="text-xl font-medium text-gray-800">Gemeentefunctionaris</span>
+          <span class="text-xl font-bold text-gray-800">Gemeentefunctionaris</span>
         </div>
         <p class="text-gray-700">
           Ik vertegenwoordig de burgemeester, een wethouder of topambtenaar.
@@ -23,7 +23,7 @@
       >
         <div class="flex items-center gap-2 mb-1">
           <input type="radio" name="type" value="lobbyist" class="w-4 h-4" />
-          <span class="text-xl font-medium text-gray-800">Lobbyorganisatie</span>
+          <span class="text-xl font-bold text-gray-800">Lobbyorganisatie</span>
         </div>
         <p class="text-gray-700">
           Ik vertegenwoordig een organisatie die belangen behartigt bij de gemeente.

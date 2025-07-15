@@ -154,7 +154,7 @@
       <form onsubmit={handleFilterSubmit} class="space-y-4">
           <!-- Search field -->
         <div>
-          <label for="search" class="block font-medium text-gray-700 mb-2">
+          <label for="search" class="block font-bold text-gray-700 mb-2">
             Zoekterm
           </label>
           <input
@@ -167,9 +167,9 @@
           />
         </div>
 
-        <h2 class="text-xl font-medium text-gray-800 mb-4">Filters</h2>
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Filters</h2>
         <div>
-          <label for="" class="block font-medium text-gray-700 mb-2">
+          <label for="" class="block font-bold text-gray-700 mb-2">
             Zoeken in:
           </label>
           <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
@@ -181,7 +181,7 @@
               class="mr-3 text-gov-blue focus:ring-gov-blue"
             />
             <div class="min-w-0 flex-1">
-              <div class="font-medium text-gray-900 truncate">{searchCategoryTexts.searchMeetingsId}</div>
+              <div class="font-bold text-gray-900 truncate">{searchCategoryTexts.searchMeetingsId}</div>
             </div>
           </label>
           <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
@@ -193,7 +193,7 @@
               class="mr-3 text-gov-blue focus:ring-gov-blue"
             />
             <div class="min-w-0 flex-1">
-              <div class="font-medium text-gray-900 truncate">{searchCategoryTexts.searchOrganizationsId}</div>
+              <div class="font-bold text-gray-900 truncate">{searchCategoryTexts.searchOrganizationsId}</div>
             </div>
           </label>
           <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
@@ -205,14 +205,14 @@
               class="mr-3 text-gov-blue focus:ring-gov-blue"
             />
             <div class="min-w-0 flex-1">
-              <div class="font-medium text-gray-900 truncate">{searchCategoryTexts.searchLobbyistsId}</div>
+              <div class="font-bold text-gray-900 truncate">{searchCategoryTexts.searchLobbyistsId}</div>
             </div>
           </label>
         </div>
 
         <!-- Meeting type filter -->
         <div>
-          <label for="type" class="block font-medium text-gray-700 mb-2"> Type afspraak </label>
+          <label for="type" class="block font-bold text-gray-700 mb-2"> Type afspraak </label>
           <select
             id="type"
             name="type"
@@ -231,7 +231,7 @@
         <div>
           <details class="group">
             <summary
-              class="flex items-center justify-between cursor-pointer font-medium text-gray-800 group-open:mb-2"
+              class="flex items-center justify-between cursor-pointer font-bold text-gray-800 group-open:mb-2"
             >
               <span>
                 Functionarissen
@@ -265,7 +265,7 @@
                       class="mr-3 text-gov-blue focus:ring-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
-                      <div class="font-medium text-gray-900 truncate">{official.name}</div>
+                      <div class="font-bold text-gray-900 truncate">{official.name}</div>
                       <div class="text-gray-600 truncate">{official.department}</div>
                     </div>
                   </label>
@@ -284,7 +284,7 @@
         <div>
           <details class="group">
             <summary
-              class="flex items-center justify-between cursor-pointer font-medium text-gray-800 group-open:mb-2"
+              class="flex items-center justify-between cursor-pointer font-bold text-gray-800 group-open:mb-2"
             >
               <span>
                 Lobbyisten
@@ -318,7 +318,7 @@
                       class="mr-3 text-gov-blue focus:ring-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
-                      <div class="font-medium text-gray-900 truncate">{lobbyist.name}</div>
+                      <div class="font-bold text-gray-900 truncate">{lobbyist.name}</div>
                       <div class="text-gray-600 truncate">{lobbyist.organization_name}</div>
                     </div>
                   </label>
@@ -335,7 +335,7 @@
         <div>
           <details class="group">
             <summary
-              class="flex items-center justify-between cursor-pointer font-medium text-gray-800 group-open:mb-2"
+              class="flex items-center justify-between cursor-pointer font-bold text-gray-800 group-open:mb-2"
             >
               <span>
                 Lobbyorganisatie
@@ -370,7 +370,7 @@
                       class="mr-3 text-gov-blue focus:ring-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
-                      <div class="font-medium text-gray-900 truncate">{organization.name}</div>
+                      <div class="font-bold text-gray-900 truncate">{organization.name}</div>
                     </div>
                   </label>
                 {/each}
@@ -386,7 +386,7 @@
         <div>
           <details class="group">
             <summary
-              class="flex items-center justify-between cursor-pointer font-medium text-gray-800 group-open:mb-2"
+              class="flex items-center justify-between cursor-pointer font-bold text-gray-800 group-open:mb-2"
             >
               <span>
                 Beleidsterreinen
@@ -420,7 +420,7 @@
                       class="mr-3 text-gov-blue focus:ring-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
-                      <div class="font-medium text-gray-900 truncate">{area}</div>
+                      <div class="font-bold text-gray-900 truncate">{area}</div>
                     </div>
                   </label>
                 {/each}
@@ -531,7 +531,7 @@
             <div class="mb-2">
               <a
                 href="/afspraken/{meeting.id}"
-                class="text-xl font-medium text-gov-blue hover:underline leading-tight inline-block mb-2"
+                class="text-xl font-bold text-gov-blue hover:underline leading-tight inline-block mb-2"
               >
                 {meeting.description}
               </a>
@@ -556,7 +556,7 @@
             <div class="grid md:grid-cols-2 gap-6">
               {#if meeting.officials.length > 0}
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-1">Functionarissen</h4>
+                  <h4 class="font-bold text-gray-700 mb-1">Functionarissen</h4>
                   <ul>
                     {#each meeting.officials as official}
                       <li class="text-gray-600 line-clamp-1">
@@ -569,7 +569,7 @@
 
               {#if meeting.lobbyists.length > 0}
                 <div>
-                  <h4 class="font-medium text-gray-700 mb-1">Lobbyisten</h4>
+                  <h4 class="font-bold text-gray-700 mb-1">Lobbyisten</h4>
                   <ul>
                     {#each meeting.lobbyists as lobbyist}
                       <li class="text-gray-600 line-clamp-1">

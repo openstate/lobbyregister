@@ -27,7 +27,7 @@
   <form method="POST" use:enhance={({formData}) => enHanceForm(formData)} class="space-y-6">
     <!-- Organization Details -->
     <div>
-      <label for="name" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="name" class="block text-lg font-bold text-gray-800 mb-2">
         Organisatienaam
       </label>
       <input
@@ -41,7 +41,7 @@
     </div>
 
     <div>
-      <label for="city" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="city" class="block text-lg font-bold text-gray-800 mb-2">
         Plaats
       </label>
       <input
@@ -55,7 +55,7 @@
     </div>
 
     <div>
-      <label for="website" class="block text-lg font-medium text-gray-800 mb-2">
+      <label for="website" class="block text-lg font-bold text-gray-800 mb-2">
         Website
       </label>
       <input
@@ -69,7 +69,7 @@
     </div>
 
     <div>
-      <label for="kvk_number" class="block text-lg font-medium text-gray-800 mb-2">KVK-nummer</label
+      <label for="kvk_number" class="block text-lg font-bold text-gray-800 mb-2">KVK-nummer</label
       >
       <input
         type="text"
@@ -90,7 +90,7 @@
     </div>
 
     <div>
-      <label for="sector" class="block text-lg font-medium text-gray-800 mb-2">Sector (SBI-code)</label>
+      <label for="sector" class="block text-lg font-bold text-gray-800 mb-2">Sector (SBI-code)</label>
       <select
         name="sector"
         id="sector"
@@ -106,7 +106,7 @@
 
     <!-- Lobby Type Selection -->
     <div>
-      <p class="block text-lg font-medium text-gray-800 mb-2">Type belangenbehartiging</p>
+      <p class="block text-lg font-bold text-gray-800 mb-2">Type belangenbehartiging</p>
       <div class="grid gap-3">
         {#each LOBBY_TYPES as lobbyType}
           <label
@@ -127,12 +127,12 @@
     <div class="@container space-y-4 mt-4">
       <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4 mb-1">
         <div>
-          <label for="lobbyist_name" class="@lg:col-span-1 block text-lg font-medium text-gray-800">
+          <label for="lobbyist_name" class="@lg:col-span-1 block text-lg font-bold text-gray-800">
             Naam
           </label>
         </div>
         <div>
-          <label for="lobbyist_function" class="@lg:col-span-1 block text-lg font-medium text-gray-800">
+          <label for="lobbyist_function" class="@lg:col-span-1 block text-lg font-bold text-gray-800">
             Function
           </label>
         </div>

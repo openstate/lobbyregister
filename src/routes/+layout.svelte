@@ -159,7 +159,7 @@
           Deze demo werd ontwikkeld door
           <a
             href="//openstate.eu/nl"
-            class="text-gray-700 font-medium underline"
+            class="text-gray-700 font-bold underline"
             target="_blank">Open State Foundation</a
           >.
         </p>

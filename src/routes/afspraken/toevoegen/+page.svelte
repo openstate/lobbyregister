@@ -80,11 +80,11 @@
   <div class="lg:col-span-2 grid gap-8">
     <!-- Basic Information -->
     <div class="@container">
-      <h2 class="text-xl font-medium text-gray-800 mb-4">Informatie</h2>
+      <h2 class="text-xl font-bold text-gray-800 mb-4">Informatie</h2>
 
       <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
         <div class="@lg:col-span-2">
-          <label for="description" class="block text-base font-medium text-gray-800 mb-2">
+          <label for="description" class="block text-base font-bold text-gray-800 mb-2">
             Onderwerp en toelichting
           </label>
           <textarea
@@ -97,14 +97,14 @@
           ></textarea>
         </div>
         <div class="@lg:col-span-2">
-          <label for="policy_areas" class="block text-base font-medium text-gray-800 mb-2">
+          <label for="policy_areas" class="block text-base font-bold text-gray-800 mb-2">
             Beleidsgebieden
           </label>
           <MultiSelect bind:selected={selectedPolicyAreas} options={data.allPolicyAreaOptions}
           placeholder="Selecteer 1 of meerdere beleidsgebieden" required />
         </div>
         <div class="">
-          <label for="meeting_type" class="block text-base font-medium text-gray-800 mb-2">
+          <label for="meeting_type" class="block text-base font-bold text-gray-800 mb-2">
             Type afspraak
           </label>
           <select
@@ -120,7 +120,7 @@
           </select>
         </div>
         <div>
-          <label for="meeting_location" class="block text-base font-medium text-gray-800 mb-2">
+          <label for="meeting_location" class="block text-base font-bold text-gray-800 mb-2">
             Locatie
           </label>
           <input
@@ -132,7 +132,7 @@
           />
         </div>
         <div>
-          <label for="meeting_date" class="block text-base font-medium text-gray-800 mb-2">
+          <label for="meeting_date" class="block text-base font-bold text-gray-800 mb-2">
             Datum
           </label>
           <DateInput bind:value={date} format="dd-MM-yyyy" required />
@@ -141,7 +141,7 @@
 
       <!-- Officials -->
       <div class="@container mt-12">
-        <h2 class="text-xl text-gray-800 mb-4 font-medium">Gemeentefunctionarissen</h2>
+        <h2 class="text-xl text-gray-800 mb-4 font-bold">Gemeentefunctionarissen</h2>
         <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
             <MultiSelect bind:selected={selectedOfficials} options={data.allOfficialsOptions}
@@ -152,7 +152,7 @@
 
       <!-- Lobbyists -->
       <div class="@container mt-12">
-        <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
+        <h2 class="text-xl text-gray-800 mb-4 font-bold">Lobbyisten</h2>
         <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
             <MultiSelect bind:selected={selectedLobbyists} options={data.allLobbyistsOptions}
@@ -177,10 +177,10 @@
 
       <!-- Contact for more info -->
       <div class="@container mt-12">
-        <h2 class="text-xl text-gray-800 mb-4 font-medium">Contact voor meer informatie</h2>
+        <h2 class="text-xl text-gray-800 mb-4 font-bold">Contact voor meer informatie</h2>
         <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
           <div>
-            <label for="contact_name" class="block text-base font-medium text-gray-800 mb-2">
+            <label for="contact_name" class="block text-base font-bold text-gray-800 mb-2">
               Naam/afdeling
             </label>
             <input
@@ -193,7 +193,7 @@
             />
           </div>
           <div>
-            <label for="contact_method" class="block text-base font-medium text-gray-800 mb-2">
+            <label for="contact_method" class="block text-base font-bold text-gray-800 mb-2">
               Contactinfo
             </label>
             <input

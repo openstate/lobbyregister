@@ -116,7 +116,7 @@
       <form onsubmit={handleFilterSubmit} class="space-y-4">
           <!-- Search field -->
         <div>
-          <label for="search" class="block font-medium text-gray-700 mb-2">
+          <label for="search" class="block font-bold text-gray-700 mb-2">
             Zoekterm
           </label>
           <input
@@ -129,11 +129,11 @@
           />
         </div>
 
-        <h2 class="text-xl font-medium text-gray-800 mb-4">Filters</h2>
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Filters</h2>
 
         <!-- Organization type filter -->
         <div>
-          <label for="type" class="block font-medium text-gray-700 mb-2"> Type lobbyorganisatie </label>
+          <label for="type" class="block font-bold text-gray-700 mb-2"> Type lobbyorganisatie </label>
           <select
             id="type"
             name="type"
@@ -177,7 +177,7 @@
           </span>
         {/if}
         {#if data.pagination.totalCount > 0}
-        <a href="." 
+        <a href="."
            onclick="{(event) => {
             toast.push("Deze demo versie bevat nog geen mogelijkheid om de resultaten te downloaden", {duration: 10000});
             event.preventDefault();
@@ -218,7 +218,7 @@
             <div class="mb-2">
               <a
                 href="/organisaties/{organization.id}"
-                class="text-xl font-medium text-gov-blue hover:underline leading-tight inline-block mb-2"
+                class="text-xl font-bold text-gov-blue hover:underline leading-tight inline-block mb-2"
               >
                 {organization.name}
               </a>

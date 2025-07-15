@@ -232,7 +232,7 @@ export const actions: Actions = {
           }
         }
 
-        const message = `Afspraak <a class='font-medium hover:underline' href='/afspraken/${meeting.id}'>${meeting.description}</a> is toegevoegd`;
+        const message = `Afspraak <a class='font-bold hover:underline' href='/afspraken/${meeting.id}'>${meeting.description}</a> is toegevoegd`;
         return redirect(302, '/afspraken', {type: 'success', message: message}, cookies);
       }
     }
