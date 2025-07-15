@@ -7,37 +7,43 @@
 </script>
 
 <div class="my-12">
-  <h1 class="text-4xl font-semibold text-gray-800 mb-5">Lobbyregister</h1>
-  <p class="sm:text-balance text-lg sm:text-xl text-gray-700 max-w-2xl">
-    Het lobbyregister geeft inzicht in de contacten van organisaties die belangen behartigen bij
-    ministers, staatssecretarissen en topambtenaren. Belangenbehartigers/lobbyisten moeten zich hier registreren;
-    de overheidsfunctionaris registreert vervolgens de specifieke afspraak.
+  <h1 class="text-4xl font-semibold text-gray-800 mb-5">Lobbyregister Amsterdam</h1>
+  <p class="sm:text-balance text-lg sm:text-xl text-gray-700">
+    Het lobbyregister geeft inzicht in de contacten van organisaties die belangen behartigen bij de
+    burgemeester, wethouders en topambtenaren. Belangenbehartigers/lobbyisten moeten zich hier
+    registreren; de gemeentefunctionaris registreert vervolgens de specifieke afspraak.
   </p>
 </div>
 
-<div class="bg-gov-light-blue p-6 sm:p-8 my-8">
-  <h2 class="text-xl font-medium text-gray-800 mb-4">Zoeken in het lobbyregister</h2>
-  <form method="post" action="?/search" use:enhance class="flex max-sm:flex-col gap-4 mb-4 max-w-2xl">
+<div>
+  <form
+    method="post"
+    action="?/search"
+    use:enhance
+    class="flex max-sm:flex-col gap-4 mb-4 max-w-2xl"
+  >
     <input
       type="search"
       name="search"
       value=""
-      placeholder="Zoeken in onderwerpen"
-      class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+      placeholder="Zoeken in het lobbyregister"
+      class="w-full text-xl bg-white border border-gray-300 px-4 py-3 focus:outline-2 placeholder:text-gray-600 outline-offset-1 focus:outline-gov-blue"
     />
-    <Button type="submit">Zoeken</Button>
+    <Button type="submit" size="lg">Zoeken</Button>
   </form>
-  <a class="text-gov-blue mr-4 hover:underline" href="/afspraken">Uitgebreid zoeken</a>
+  <a class="text-gov-blue mr-4 text-lg caret hover:underline underline-offset-4" href="/afspraken"
+    >Uitgebreid zoeken
+  </a>
 </div>
 
 <div class="grid md:grid-cols-2 gap-6 lg:gap-8 my-12">
   <div class="grid gap-4 h-min">
-    <h2 class="text-2xl font-medium text-gray-800 mb-2">Recente afspraken</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Recente afspraken</h2>
     {#each data.meetings as meeting, i}
       <div class="border border-gray-300 pb-3 p-4 min-w-0 {i >= 3 ? 'max-md:hidden' : ''}">
         <a
           href="/afspraken/{meeting.id}"
-          class="font-medium text-lg text-gov-blue hover:underline leading-snug mb-1.5 inline-block"
+          class="font-bold hover:underline text-lg text-gov-blue leading-snug mb-1.5 inline-block"
         >
           {meeting.description}
         </a>
@@ -53,13 +59,15 @@
         </p>
       </div>
     {/each}
-    <a class="text-gov-blue hover:underline text-lg font-medium py-1" href="/afspraken">
-      <span class="mr-1">→</span>
+    <a
+      class="text-gov-blue hover:underline underline-offset-4 caret text-lg font-medium py-1"
+      href="/afspraken"
+    >
       Bekijk alle afspraken
     </a>
   </div>
   <div class="grid gap-4 h-min">
-    <h2 class="text-2xl font-medium text-gray-800 mb-2">Recente registraties</h2>
+    <h2 class="text-2xl font-bold text-gray-800 mb-2">Recente registraties</h2>
     {#each data.registrations as organization, i}
       {@const interest = {
         inhouse: 'eigen belangen',
@@ -70,7 +78,7 @@
       <div class="border border-gray-300 pb-3 p-4 {i >= 3 ? 'max-md:hidden' : ''}">
         <a
           href="/organisaties/{organization.id}"
-          class="font-medium text-lg text-gov-blue hover:underline leading-snug mb-1.5 inline-block"
+          class="text-lg hover:underline text-gov-blue font-bold leading-snug mb-1.5 inline-block"
         >
           {organization.name}
         </a>
@@ -86,8 +94,10 @@
         </p>
       </div>
     {/each}
-    <a class="text-gov-blue hover:underline text-lg font-medium py-1" href="/organisaties">
-      <span class="mr-1">→</span>
+    <a
+      class="text-gov-blue hover:underline underline-offset-4 caret text-lg font-medium py-1"
+      href="/organisaties"
+    >
       Bekijk alle lobbyisten
     </a>
   </div>
