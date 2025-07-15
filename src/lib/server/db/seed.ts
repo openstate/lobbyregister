@@ -143,13 +143,10 @@ async function seed() {
         type: type as MEETING_TYPES,
         date: faker.date.between({ from: '2024-01-01', to: '2025-06-01' }).toISOString(),
         description: generateDutchMeetingDescription(),
-        location: type === 'in_person' ? generateDutchLocation() : null,
-        policy_areas: faker.helpers.arrayElements(
-          policyAreaLabels,
-          { min: 1, max: 3 },
-        ),
+        location: type === 'in_person' ? generateAmsterdamLocation() : null,
+        policy_areas: faker.helpers.arrayElements(policyAreaLabels, { min: 1, max: 3 }),
         contact_name: faker.person.fullName(),
-        contact_method: faker.phone.number({style: 'human'}),
+        contact_method: faker.phone.number({ style: 'human' }),
         registered_at: faker.date
           .between({ from: '2024-01-01', to: '2025-06-01' })
           .toISOString()
@@ -271,20 +268,7 @@ function generateDutchSector(): string {
 }
 
 function generateDutchDepartment(): string {
-  const departments = [
-    'Ministerie van Algemene Zaken',
-    'Ministerie van Binnenlandse Zaken en Koninkrijksrelaties',
-    'Ministerie van Buitenlandse Zaken',
-    'Ministerie van Defensie',
-    'Ministerie van Economische Zaken en Klimaat',
-    'Ministerie van Financiën',
-    'Ministerie van Infrastructuur en Waterstaat',
-    'Ministerie van Justitie en Veiligheid',
-    'Ministerie van Landbouw, Natuur en Voedselkwaliteit',
-    'Ministerie van Onderwijs, Cultuur en Wetenschap',
-    'Ministerie van Sociale Zaken en Werkgelegenheid',
-    'Ministerie van Volksgezondheid, Welzijn en Sport',
-  ];
+  const departments = ['Gemeente Amsterdam'];
 
   return faker.helpers.arrayElement(departments);
 }
@@ -352,17 +336,14 @@ function generateDutchMeetingDescription(): string {
   return `${faker.helpers.arrayElement(actions)} ${faker.helpers.arrayElement(topics)}`;
 }
 
-function generateDutchLocation(): string {
+function generateAmsterdamLocation(): string {
   const locations = [
-    'Ministerie, Den Haag',
-    'Tweede Kamer, Den Haag',
-    'Binnenhof, Den Haag',
-    'Restaurant De Haagse Bos, Den Haag',
-    'Hotel Des Indes, Den Haag',
-    'Kurhaus, Scheveningen',
-    'Amsterdam',
-    'Rotterdam',
-    'Utrecht',
+    'Stadhuis, Amsterdam',
+    'Stopera, Amsterdam',
+    'RAI Amsterdam',
+    'De Balie, Amsterdam',
+    'Amsterdam Science Park',
+    'Hotel De L’Europe, Amsterdam',
   ];
 
   return faker.helpers.arrayElement(locations);
@@ -396,12 +377,12 @@ function generateDutchCity(): string {
 function websiteFromName(name: string) {
   const domain = name
     .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[,]/g, "")
+    .replace(/\s+/g, '-')
+    .replace(/[,]/g, '')
     .replace(/-+/g, '-')
     .replace(/\.+/g, '.')
     .replace(/\.$/, '');
-  return "www." + domain + ".nl";
+  return 'www.' + domain + '.nl';
 }
 
 // Run the seed function
