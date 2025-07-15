@@ -3,7 +3,7 @@
   import { goto } from '$app/navigation';
   import { enhance } from '$app/forms';
 	import { DateInput } from 'date-picker-svelte'
-  import MultiSelect from 'svelte-multiselect'  
+  import MultiSelect from 'svelte-multiselect'
   import type { ObjectOption } from "svelte-multiselect";
   import Consultant from '$lib/components/Consultant.svelte';
   import FormMessages from '$lib/components/FormMessages.svelte';
@@ -15,7 +15,7 @@
   let selectedPolicyAreas = $state([]);
 
   let allSelectedClientsVar: { [key: string]: ObjectOption[]} = Object.assign({}, ...Object.entries(data.allRepresentativeNames).map((x) => ({[x[0]]: []})));
-  
+
   let allSelectedClients = $state(allSelectedClientsVar);
   let consultantIds = $state.raw(new Array<string>()); // Keeps track of selected lobbyists for consultant organizations
 
@@ -57,7 +57,7 @@
     let selectedClients: { [key: string]: ObjectOption[] } = Object.fromEntries(
       Object.entries($state.snapshot(allSelectedClients)).filter(([key, value]) => consultantIds.includes(key)));
     formData.append('selected_clients', JSON.stringify(selectedClients));
-    formData.append('policy_areas', JSON.stringify(selectedPolicyAreas.map((spa) => spa.value)));    
+    formData.append('policy_areas', JSON.stringify(selectedPolicyAreas.map((spa) => spa.value)));
   }
 </script>
 
@@ -135,16 +135,16 @@
           <label for="meeting_date" class="block text-base font-medium text-gray-800 mb-2">
             Datum
           </label>
-          <DateInput bind:value={date} format="dd-MM-yyyy" required />          
+          <DateInput bind:value={date} format="dd-MM-yyyy" required />
         </div>
       </div>
 
       <!-- Officials -->
       <div class="@container mt-12">
-        <h2 class="text-xl text-gray-800 mb-4 font-medium">Overheidsfunctionarissen</h2>
+        <h2 class="text-xl text-gray-800 mb-4 font-medium">Gemeentefunctionarissen</h2>
         <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
-            <MultiSelect bind:selected={selectedOfficials} options={data.allOfficialsOptions} 
+            <MultiSelect bind:selected={selectedOfficials} options={data.allOfficialsOptions}
             placeholder="Selecteer 1 of meerdere functionarissen" required />
           </div>
         </div>
@@ -155,7 +155,7 @@
         <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
         <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
           <div class="@lg:col-span-2">
-            <MultiSelect bind:selected={selectedLobbyists} options={data.allLobbyistsOptions} 
+            <MultiSelect bind:selected={selectedLobbyists} options={data.allLobbyistsOptions}
             placeholder="Selecteer 1 of meerdere lobbyisten" required on:add={lobbyistAdded}
             on:remove={lobbyistRemoved} />
           </div>

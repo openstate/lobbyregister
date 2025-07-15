@@ -12,7 +12,7 @@
       >
         <div class="flex items-center gap-2 mb-1">
           <input type="radio" name="type" value="official" class="w-4 h-4" />
-          <span class="text-xl font-medium text-gray-800">Als overheidsfunctionaris</span>
+          <span class="text-xl font-medium text-gray-800">Als gemeentefunctionaris</span>
         </div>
       </label>
       <label

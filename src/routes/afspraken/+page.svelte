@@ -143,7 +143,7 @@
 
   </div>
   <p class="text-xl text-gray-700">
-    Overzicht van alle geregistreerde afspraken tussen lobbyisten en overheidsfunctionarissen.
+    Overzicht van alle geregistreerde afspraken tussen lobbyisten en gemeentefunctionarissen.
   </p>
 </div>
 
@@ -463,7 +463,7 @@
           </span>
         {/if}
         {#if data.pagination.totalCount > 0}
-        <a href="." 
+        <a href="."
            onclick="{(event) => {
             toast.push("Deze demo versie bevat nog geen mogelijkheid om de resultaten te downloaden", {duration: 10000});
             event.preventDefault();
@@ -481,7 +481,7 @@
           {/if}
           {#if data.filters.searchCategories.length > 0}
             {@render filterCard(`Zoek in: "${searchCategoriesDescription(data.filters.searchCategories)}"`, 'search')}
-          {/if}          
+          {/if}
           {#if data.filters.meetingType}
             {@render filterCard(`Type: ${meetingTypeLabels[data.filters.meetingType]}`, 'type')}
           {/if}

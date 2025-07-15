@@ -34,7 +34,7 @@ export const actions: Actions = {
       .values({ name: name.trim(), department: department.trim(), type })
       .returning();
 
-    const message = `Overheidsfunctionaris <a class='font-medium hover:underline' href='/functionarissen/${official.id}'>${official.name}</a> is toegevoegd`;
+    const message = `Gemeentefunctionaris <a class='font-medium hover:underline' href='/functionarissen/${official.id}'>${official.name}</a> is toegevoegd`;
     return redirect(302, '/', {type: 'success', message: message}, cookies);
   },
 };

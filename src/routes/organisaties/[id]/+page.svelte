@@ -20,7 +20,7 @@
   <div>
     <h1 class="text-3xl font-semibold text-gray-800 mb-3 max-w-5xl">
       {data.organization.name}
-      <a href="/organisaties/{data.organization.id}/bewerken" 
+      <a href="/organisaties/{data.organization.id}/bewerken"
         title="Bewerk lobbyorganisatie">
         <img src="/edit.svg" alt="Bewerk lobbyorganisatie" class="w-8 inline ml-4" />
       </a>

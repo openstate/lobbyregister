@@ -13,7 +13,7 @@
     <h1 class="text-3xl font-semibold text-gray-800 mb-3 max-w-5xl">
       {data.official.name}
     </h1>
-    <p class="text-2xl text-gray-700">Overheidsfunctionaris</p>
+    <p class="text-2xl text-gray-700">gemeentefunctionaris</p>
   </div>
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button

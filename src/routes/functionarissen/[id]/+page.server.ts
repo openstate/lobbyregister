@@ -11,7 +11,7 @@ export const load: PageServerLoad = async ({ params: { id } }) => {
     .where(eq(schema.officials.id, id))
     .limit(1);
 
-  if (!official) throw error(404, 'Overheidsfunctionaris niet gevonden');
+  if (!official) throw error(404, 'Gemeentefunctionaris niet gevonden');
 
   const meetings = await db
     .select({

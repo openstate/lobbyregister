@@ -21,7 +21,7 @@ export const load: PageServerLoad = async (event) => {
   // Check authorization
   if (!await isPermitted(PermissionTypes.addMeeting, event.locals.user)) {
     if (event.locals.user) {
-        const message = "Om een afspraak toe te voegen moet u ingelogd zijn als een overheidsfunctionaris";
+        const message = "Om een afspraak toe te voegen moet u ingelogd zijn als een gemeentefunctionaris";
         return redirect(302, `/afspraken`, {type: 'error', message: message}, event.cookies);
     } else {
       redirect(302, `/inloggen_functionaris?fromPage=${REDIRECTS.add_meeting}`);
@@ -79,7 +79,7 @@ export const load: PageServerLoad = async (event) => {
 
   const allOfficialsOptions = allOfficials.map((official) => ({label: official.name, value: official.id}));
   const allLobbyistsOptions = allLobbyists.map((lobbyist) => ({
-    label: `${lobbyist.name}, ${lobbyist.function} (${lobbyist.organization_name})`, 
+    label: `${lobbyist.name}, ${lobbyist.function} (${lobbyist.organization_name})`,
     value: lobbyist.id,
   }));
   const clientsForRepresentatives: { [key: string]: Array<clientData>} = {};
@@ -140,7 +140,7 @@ export const actions: Actions = {
       if (issues.length == 0) {
         const [meeting] = await db
           .insert(schema.meetings)
-          .values({ 
+          .values({
             description: description.trim(),
             date: meeting_date,
             type: meeting_type,

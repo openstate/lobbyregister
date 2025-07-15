@@ -88,7 +88,7 @@
 
   <!-- Officials -->
   <div class="@container">
-    <h2 class="text-xl text-gray-800 mb-4 font-medium">Overheidsfunctionarissen</h2>
+    <h2 class="text-xl text-gray-800 mb-4 font-medium">Gemeentefunctionarissen</h2>
     <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
       {#each data.officials as official}
         <div class="@lg:col-span-2 border border-gray-300 p-4 flex flex-col h-full">
@@ -107,7 +107,7 @@
           </a>
         </div>
       {:else}
-        <p class="text-gray-600 text-lg">Geen overheidsfunctionarissen geregistreerd.</p>
+        <p class="text-gray-600 text-lg">Geen gemeentefunctionarissen geregistreerd.</p>
       {/each}
     </div>
   </div>
