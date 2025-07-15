@@ -133,11 +133,11 @@
         </div>
         <div>
           <label for="lobbyist_function" class="@lg:col-span-1 block text-lg font-bold text-gray-800">
-            Function
+            Functie
           </label>
         </div>
       </div>
-      <div class="grid grid-cols-[auto_auto_24px] gap-4 mb-1">
+      <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4 mb-1">
         <div>
           <input
             type="text"
