@@ -30,15 +30,17 @@
 <div class="lg:col-span-2 grid gap-8">
   <!-- Basic Information -->
   <div class="@container">
-    <h2 class="text-xl font-medium text-gray-800 mb-4">Informatie</h2>
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Informatie</h2>
     <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
       <div class="@lg:col-span-2 p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Onderwerp en toelichting</p>
-        <p class="text-lg text-gray-900 leading-snug preserve_whitespace">{data.meeting.description}</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Onderwerp en toelichting</p>
+        <p class="text-lg text-gray-900 leading-snug preserve_whitespace">
+          {data.meeting.description}
+        </p>
       </div>
 
       <div class="@lg:col-span-2 p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Beleidsgebieden</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Beleidsgebieden</p>
         {#if data.meeting.policy_areas.length > 0}
           <div class="flex flex-wrap gap-2">
             {#each data.meeting.policy_areas as area}
@@ -57,7 +59,7 @@
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Type afspraak</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Type afspraak</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {meetingTypeLabels[data.meeting.type]}
         </p>
@@ -65,20 +67,20 @@
 
       {#if data.meeting.location}
         <div class="p-4 border border-gray-300">
-          <p class="text-sm font-medium text-gray-700 mb-1">Locatie</p>
+          <p class="text-sm font-bold text-gray-700 mb-1">Locatie</p>
           <p class="text-lg text-gray-900 leading-snug line-clamp-2">{data.meeting.location}</p>
         </div>
       {/if}
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Datum</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Datum</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {formatDate(data.meeting.date)}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Geregistreerd op</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Geregistreerd op</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {formatRegistrationDate(data.meeting.registered_at)}
         </p>
@@ -88,11 +90,11 @@
 
   <!-- Officials -->
   <div class="@container">
-    <h2 class="text-xl text-gray-800 mb-4 font-medium">Gemeentefunctionarissen</h2>
+    <h2 class="text-xl text-gray-800 mb-4 font-bold">Gemeentefunctionarissen</h2>
     <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
       {#each data.officials as official}
         <div class="@lg:col-span-2 border border-gray-300 p-4 flex flex-col h-full">
-          <h3 class="font-medium text-lg text-gray-900 leading-snug">{official.name}</h3>
+          <h3 class="text-lg text-gray-900 leading-snug">{official.name}</h3>
           <p class="text-gray-700 leading-snug line-clamp-2">
             {official.department}
           </p>
@@ -101,9 +103,9 @@
           </p>
           <a
             href="/functionarissen/{official.id}"
-            class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1"
+            class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
           >
-            → Bekijk functionaris
+            Bekijk functionaris
           </a>
         </div>
       {:else}
@@ -114,14 +116,14 @@
 
   <!-- Lobbyists -->
   <div class="@container">
-    <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
+    <h2 class="text-xl text-gray-800 mb-4 font-bold">Lobbyisten</h2>
     <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
       {#each data.lobbyists as lobbyist}
         {@const reps = data.representations
           .filter((rep) => rep.meeting_lobbyist_id === lobbyist.meeting_lobbyist_id)
           .map((rep) => rep.client_name)}
         <div class="@lg:col-span-2 border border-gray-300 p-4 flex flex-col h-full">
-          <h3 class="font-medium text-lg text-gray-900 leading-snug">{lobbyist.name}</h3>
+          <h3 class="text-lg text-gray-900 leading-snug">{lobbyist.name}</h3>
           <p class="text-gray-700 leading-snug">
             {lobbyist.organization_name}
             {#if reps.length}
@@ -132,9 +134,9 @@
           <div class="flex flex-wrap gap-2 mt-auto">
             <a
               href="/organisaties/{lobbyist.organization_id}"
-              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1"
+              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
             >
-              → Bekijk lobbyorganisatie
+              Bekijk lobbyorganisatie
             </a>
           </div>
         </div>
@@ -144,19 +146,19 @@
     </div>
   </div>
 
-    <!-- Contact for more info -->
+  <!-- Contact for more info -->
   <div class="@container">
-    <h2 class="text-xl text-gray-800 mb-4 font-medium">Contact voor meer informatie</h2>
+    <h2 class="text-xl text-gray-800 mb-4 font-bold">Contact voor meer informatie</h2>
     <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Naam/afdeling</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Naam/afdeling</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {data.meeting.contact_name}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Telefoon of e-mail</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Telefoon of e-mail</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {data.meeting.contact_method}
         </p>

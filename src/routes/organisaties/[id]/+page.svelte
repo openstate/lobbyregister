@@ -20,8 +20,7 @@
   <div>
     <h1 class="text-3xl font-semibold text-gray-800 mb-3 max-w-5xl">
       {data.organization.name}
-      <a href="/organisaties/{data.organization.id}/bewerken"
-        title="Bewerk lobbyorganisatie">
+      <a href="/organisaties/{data.organization.id}/bewerken" title="Bewerk lobbyorganisatie">
         <img src="/edit.svg" alt="Bewerk lobbyorganisatie" class="w-8 inline ml-4" />
       </a>
     </h1>
@@ -44,22 +43,22 @@
 <div class="lg:col-span-2 grid gap-8">
   <!-- Basic Information -->
   <div class="@container">
-    <h2 class="text-xl font-medium text-gray-800 mb-4">Informatie</h2>
+    <h2 class="text-xl font-bold text-gray-800 mb-4">Informatie</h2>
     <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4">
       <div class="@lg:col-span-2 p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Organisatienaam</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Organisatienaam</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">{data.organization.name}</p>
       </div>
 
       <div class="@lg:col-span-2 p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Sector</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Sector</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {getSectorName(data.organization.sector)}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Belangenbehartiging</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Belangenbehartiging</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {organizationTypeLabels[data.organization.type]}
         </p>
@@ -67,36 +66,38 @@
 
       {#if data.organization.kvk_number}
         <div class="p-4 border border-gray-300">
-          <p class="text-sm font-medium text-gray-700 mb-1">KVK-nummer</p>
+          <p class="text-sm font-bold text-gray-700 mb-1">KVK-nummer</p>
           <p class="text-lg text-gray-900 leading-snug line-clamp-2">
             {data.organization.kvk_number}
           </p>
         </div>
       {/if}
 
-        <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Plaats</p>
+      <div class="p-4 border border-gray-300">
+        <p class="text-sm font-bold text-gray-700 mb-1">Plaats</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {data.organization.city}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Website</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Website</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
-          <a href="https://{data.organization.website}" class="text-gov-blue">{data.organization.website}</a>
+          <a href="https://{data.organization.website}" class="text-gov-blue underline"
+            >{data.organization.website}</a
+          >
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Status</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Status</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {data.organization.active ? 'Actief' : 'Inactief'}
         </p>
       </div>
 
       <div class="p-4 border border-gray-300">
-        <p class="text-sm font-medium text-gray-700 mb-1">Geregistreerd op</p>
+        <p class="text-sm font-bold text-gray-700 mb-1">Geregistreerd op</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
           {formatRegistrationDate(data.organization.registered_at)}
         </p>
@@ -106,11 +107,11 @@
 
   <!-- Lobbyists -->
   <div class="@container">
-    <h2 class="text-xl text-gray-800 mb-4 font-medium">Lobbyisten</h2>
+    <h2 class="text-xl text-gray-800 mb-4 font-bold">Lobbyisten</h2>
     <div class="grid gap-4 @4xl:grid-cols-4">
       {#each data.lobbyists as lobbyist}
         <div class="border border-gray-300 p-4">
-          <h3 class="font-medium text-lg text-gray-900 leading-snug">{lobbyist.name}</h3>
+          <h3 class="text-lg text-gray-900 leading-snug">{lobbyist.name}</h3>
           <p class="text-gray-700 leading-snug line-clamp-2">{lobbyist.function}</p>
         </div>
       {:else}
@@ -122,17 +123,19 @@
   <!-- Client Organizations (for consultants) -->
   {#if data.organization.type === 'consultant'}
     <div class="@container">
-      <h2 class="text-xl text-gray-800 mb-4 font-medium">Cliëntorganisaties</h2>
+      <h2 class="text-xl text-gray-800 mb-4 font-bold">Cliëntorganisaties</h2>
       <div class="grid gap-3 @4xl:grid-cols-2">
         {#each data.clientOrganizations as client}
           <div class="border border-gray-300 p-4 flex flex-col h-full">
-            <h3 class="font-medium text-lg text-gray-900 leading-snug">{client.client_name}</h3>
-            <p class="text-gray-700 leading-snug line-clamp-2 flex-grow">{getSectorName(client.client_sector)}</p>
+            <h3 class="text-lg text-gray-900 leading-snug">{client.client_name}</h3>
+            <p class="text-gray-700 leading-snug line-clamp-2 flex-grow">
+              {getSectorName(client.client_sector)}
+            </p>
             <a
               href="/organisaties/{client.client_id}"
-              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1"
+              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
             >
-              → Bekijk organisatie
+              Bekijk organisatie
             </a>
           </div>
         {:else}
@@ -145,18 +148,18 @@
   {#if data.representativeOrganizations.length > 0}
     <!-- Representative Organizations -->
     <div class="@container">
-      <h2 class="text-xl text-gray-800 mb-4 font-medium">Vertegenwoordigende organisaties</h2>
+      <h2 class="text-xl text-gray-800 mb-4 font-bold">Vertegenwoordigende organisaties</h2>
       <div class="grid gap-3 @4xl:grid-cols-2">
         {#each data.representativeOrganizations as representative}
           <div class="border border-gray-300 p-4 flex flex-col h-full">
-            <h3 class="font-medium text-lg text-gray-900 leading-snug">
+            <h3 class="text-lg text-gray-900 leading-snug">
               {representative.representative_name}
             </h3>
             <a
               href="/organisaties/{representative.representative_id}"
-              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1"
+              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
             >
-              → Bekijk organisatie
+              Bekijk organisatie
             </a>
           </div>
         {/each}

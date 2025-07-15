@@ -14,21 +14,26 @@ a {
 }
 
 .caret::before {
+  --size: 1rem;
   align-self: baseline;
   background-color: var(--color-gov-blue);
   content: '';
   display: inline-flex;
-  font-size: 1rem;
+  font-size: var(--size);
   margin-inline-end: 0.3rem;
   line-height: 1;
-  height: 1rem;
+  height: var(--size);
   mask-image: url('/caret-right.svg');
   mask-position: 50% 0;
   mask-repeat: no-repeat;
-  mask-size: auto 1rem;
+  mask-size: auto var(--size);
   position: relative;
   top: 0.15lh;
-  width: 1rem;
+  width: var(--size);
+}
+
+.caret-sm::before {
+  --size: 0.75rem;
 }
 
 .date-time-field input {
