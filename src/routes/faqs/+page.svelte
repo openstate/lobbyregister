@@ -13,7 +13,7 @@ van een actie gericht op beïnvloeding van openbare besluitvorming.</p>
 <p class="mb-6 text-gray-700 text-lg">Elke natuurlijke of rechtspersoon die lobbyt.</p>
 
 <h2 class="text-xl font-bold text-gray-800 mb-1">Wat is openbare besluitvorming?</h2>
-<p class="mb-6 text-gray-700 text-lg">Besluiten door het College van Burgemeester en Wethouders, de gemeenteraad en
+<p class="mb-6 text-gray-700 text-lg">Besluiten door leden van het College van Burgemeester en Wethouders, de gemeenteraad en
 het Gemeentelijk Management Team van de gemeente Amsterdam.</p>
 
 <h2 class="text-xl font-bold text-gray-800 mb-1">Wie moeten zich registreren?</h2>
