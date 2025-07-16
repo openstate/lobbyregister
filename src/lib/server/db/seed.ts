@@ -319,12 +319,6 @@ function generateDutchSector(): string {
   return faker.helpers.arrayElement(Array.from(SBI_CODES.keys()));
 }
 
-function generateDutchDepartment(): string {
-  const departments = ['College van Burgemeester en Wethouders', 'Gemeentelijk Management Team'];
-
-  return faker.helpers.arrayElement(departments);
-}
-
 function generateDutchJobTitle(): string {
   const titles = [
     'Senior Beleidsadviseur',
@@ -399,28 +393,15 @@ function generateAmsterdamLocation(): string {
 }
 
 function generateDutchCity(): string {
-  const cities = [
-    'Den Haag',
-    'Amsterdam',
-    'Rotterdam',
-    'Leiden',
-    'Utrecht',
-    'Groningen',
-    'Alkmaar',
-    'Maastricht',
-    'Zwolle',
-    'Den Bosch',
-    'Leeuwarden',
-    'Assen',
-    'Lelystad',
-    'Almere',
-    'Vlissingen',
-    'Den Helder',
-    'Apeldoorn',
-    'Amersfoort',
-  ];
-
-  return faker.helpers.arrayElement(cities);
+  return faker.helpers.weightedArrayElement([
+    { weight: 8, value: 'Amsterdam' },
+    { weight: 1, value: 'Amstelveen' },
+    { weight: 1, value: 'Haarlem' },
+    { weight: 1, value: 'Utrecht' },
+    { weight: 1, value: 'Almere' },
+    { weight: 1, value: 'Haarlemmermeer' },
+    { weight: 1, value: 'Zaanstad' },
+  ]);
 }
 
 function websiteFromName(name: string) {
