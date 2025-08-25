@@ -83,9 +83,9 @@
       <div class="p-4 border border-gray-300">
         <p class="text-sm font-bold text-gray-700 mb-1">Website</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
-          <a href="https://{data.organization.website}" class="text-gov-blue underline"
-            >{data.organization.website}</a
-          >
+          <a href="#{data.organization.website}" class="text-gov-blue underline">
+            {data.organization.website}
+          </a>
         </p>
       </div>
 
