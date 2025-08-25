@@ -28,14 +28,7 @@
 </script>
 
 <SvelteToast />
-<!--
-<div class="logo">
-  <div class="logo__wrapper">
-    <figure class="logo__figure">
-      <img src="/beeldmerk-rijksoverheid-desktop.svg" alt="Logo Rijksoverheid" id="logotype" />
-    </figure>
-  </div>
-</div> -->
+
 <nav class="px-6 py-3.5 border-b border-gray-300 mb-8 main">
   <div class="container max-w-320 mx-auto flex items-center justify-between">
     <a href="/" class="mr-8 py-1.5">
