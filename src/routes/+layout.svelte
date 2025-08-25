@@ -45,7 +45,7 @@
     </div>
     <div class="lg:text-lg md:text-sm flex lg:gap-10 md:gap-4 max-md:hidden items-center">
       <a class="text-gray-900 hover:text-black max-md:hidden" href="/afspraken">Afspraken</a>
-      <a class="text-gray-900 hover:text-black max-md:hidden" href="/organisaties"> Lobbyisten </a>
+      <a class="text-gray-900 hover:text-black max-md:hidden" href="/organisaties"> Lobbyorganisaties </a>
       <a class="text-gray-900 hover:text-black max-md:hidden" href="/faqs"> FAQs </a>
       <a
         class="text-gray-900 hover:text-black max-md:hidden"
