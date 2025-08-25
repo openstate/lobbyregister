@@ -40,14 +40,12 @@
         type="collapse"
         title="Toggle nav links"
         ariaControls="nav"
-        --color="white"
+        --color="#364153"
       />
     </div>
     <div class="lg:text-lg md:text-sm flex lg:gap-10 md:gap-4 max-md:hidden items-center">
       <a class="text-gray-900 hover:text-black max-md:hidden" href="/afspraken">Afspraken</a>
-      <a class="text-gray-900 hover:text-black max-md:hidden" href="/organisaties">
-        Lobbyisten
-      </a>
+      <a class="text-gray-900 hover:text-black max-md:hidden" href="/organisaties"> Lobbyisten </a>
       <a class="text-gray-900 hover:text-black max-md:hidden" href="/faqs"> FAQs </a>
       <a
         class="text-gray-900 hover:text-black max-md:hidden"
@@ -81,7 +79,7 @@
     {#if menuIsOpen}
       <ul id="nav" class="menu" transition:fly={{ y: -15 }}>
         <li><a href="/afspraken" onclick={resetOpenState}>Afspraken</a></li>
-        <li><a href="/organisaties" onclick={resetOpenState}>Lobbyisten</a></li>
+        <li><a href="/organisaties" onclick={resetOpenState}>Lobbyorganisaties</a></li>
         <li><a href="/faqs" onclick={resetOpenState}>FAQs</a></li>
         <li>
           <a
@@ -112,11 +110,9 @@
 </nav>
 {#if data.authenticatedUser}
   <div class="px-6 py-3.5 border-b border-gray-300 -mt-8 mb-8">
-    <div class="container max-w-320 mx-auto text-right">
-      <em
-        >U bent ingelogd als {labelForAuthenticatedUserType(data.authenticatedUser.type)}
-        {data.authenticatedUser.name}</em
-      >
+    <div class="container max-w-320 mx-auto text-right italic">
+      U bent ingelogd als {labelForAuthenticatedUserType(data.authenticatedUser.type)}
+      {data.authenticatedUser.name}.
     </div>
   </div>
 {/if}
@@ -124,11 +120,9 @@
 <div class="px-6">
   <div class="container max-w-320 mx-auto">
     <div class="mb-8 bg-yellow-100 text-yellow-800 px-6 sm:px-8 py-4 sm:py-5">
-      <strong class="font-semibold">Let op:</strong>
+      <strong class="font-bold">Let op: Alle informatie is fictief.</strong>
       Dit is een demonstratie van een lobbyregister, ontwikkeld door
-      <a href="//openstate.eu/nl" target="_blank" class="font-bold underline">
-        Open State Foundation
-      </a>. Alle informatie is fictief.
+      <a href="//openstate.eu/nl" target="_blank" class="underline">Open State Foundation</a>.
     </div>
 
     <Flash />
@@ -150,10 +144,8 @@
       <div class="text-gray-500 text-sm">
         <p>
           Deze demo werd ontwikkeld door
-          <a
-            href="//openstate.eu/nl"
-            class="text-gray-700 font-bold underline"
-            target="_blank">Open State Foundation</a
+          <a href="//openstate.eu/nl" class="text-gray-700 font-bold underline" target="_blank"
+            >Open State Foundation</a
           >.
         </p>
       </div>

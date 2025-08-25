@@ -6,7 +6,7 @@
 </script>
 
 <div class="mx-auto max-w-2xl md:mb-32">
-  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Inloggen lobbyist</h2>
+  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Inloggen als lobbyist</h2>
 
 
   {#if form?.message}

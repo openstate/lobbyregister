@@ -4,8 +4,6 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import FormMessages from '$lib/components/FormMessages.svelte';
-  import AddSvg from '$lib/icons/AddSvg.svelte';
-  import RemoveSvg from '$lib/icons/RemoveSvg.svelte';
   import { LOBBY_TYPES } from '../../../../types.js';
   import MultiSelect from 'svelte-multiselect';
 
@@ -22,7 +20,7 @@
   }
 
   function addLobbyist() {
-    lobbyists.push({id: '', name: '', function: ''});
+    lobbyists.push({ id: '', name: '', function: '' });
   }
 
   function removeLobbyist(index: number) {
@@ -38,29 +36,15 @@
   let selectedClients = $state(data.selectedClients);
 </script>
 
-<div class="flex flex-wrap gap-x-16 gap-y-4 justify-between items-start mb-8">
-  <h1 class="text-3xl font-semibold text-gray-800 mb-3 max-w-5xl line-clamp-1">Lobbyorganisatie bewerken</h1>
-  <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
-    <button
-      onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
-    >
-      ← Terug
-    </button>
-  </div>
-</div>
-
 <div class="mx-auto max-w-2xl md:mb-32">
-  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Basisdata bewerken</h2>
+  <h2 class="font-semibold text-gray-800 text-2xl mb-6">Basisgegevens bewerken</h2>
 
   <FormMessages message={form?.message} issues={form?.issues} />
 
-  <form method="POST" use:enhance={({formData}) => enHanceForm(formData)} class="space-y-6">
+  <form method="POST" use:enhance={({ formData }) => enHanceForm(formData)} class="space-y-6">
     <!-- Organization Details -->
     <div>
-      <label for="name" class="block text-lg font-bold text-gray-800 mb-2">
-        Organisatienaam
-      </label>
+      <label for="name" class="block text-lg font-bold text-gray-800 mb-2"> Organisatienaam </label>
       <input
         type="text"
         name="name"
@@ -72,9 +56,7 @@
     </div>
 
     <div>
-      <label for="city" class="block text-lg font-bold text-gray-800 mb-2">
-        Plaats
-      </label>
+      <label for="city" class="block text-lg font-bold text-gray-800 mb-2"> Plaats </label>
       <input
         type="text"
         name="city"
@@ -86,9 +68,7 @@
     </div>
 
     <div>
-      <label for="website" class="block text-lg font-bold text-gray-800 mb-2">
-        Website
-      </label>
+      <label for="website" class="block text-lg font-bold text-gray-800 mb-2"> Website </label>
       <input
         type="text"
         name="website"
@@ -100,8 +80,7 @@
     </div>
 
     <div>
-      <label for="kvk_number" class="block text-lg font-bold text-gray-800 mb-2">KVK-nummer</label
-      >
+      <label for="kvk_number" class="block text-lg font-bold text-gray-800 mb-2">KVK-nummer</label>
       <input
         type="text"
         name="kvk_number"
@@ -122,7 +101,9 @@
     </div>
 
     <div>
-      <label for="sector" class="block text-lg font-bold text-gray-800 mb-2">Sector (SBI-code)</label>
+      <label for="sector" class="block text-lg font-bold text-gray-800 mb-2"
+        >Sector (SBI-code)</label
+      >
       <select
         name="sector"
         id="sector"
@@ -145,7 +126,12 @@
             class="border border-gray-300 px-4 py-3 cursor-pointer has-checked:bg-gov-light-blue has-checked:border-gov-blue"
           >
             <div class="flex items-center gap-2 mb-1">
-              <input type="radio" name="type" value={lobbyType.id} checked={data.organization.type == lobbyType.id} />
+              <input
+                type="radio"
+                name="type"
+                value={lobbyType.id}
+                checked={data.organization.type == lobbyType.id}
+              />
               <span class="text-lg text-gray-800">{lobbyType.label}</span>
             </div>
             <p class="text-gray-700">{lobbyType.description}</p>
@@ -156,21 +142,16 @@
 
     <h2 class="font-semibold text-gray-800 text-2xl mb-6 mt-12">Lobbyisten bewerken</h2>
     <div class="@container space-y-4">
-      <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-1">
+      <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-4">
         <div>
-          <span class="block text-lg font-bold text-gray-800">
-            Naam
-          </span>
+          <span class="block text-lg font-bold text-gray-800"> Naam </span>
         </div>
         <div>
-          <span class="block text-lg font-bold text-gray-800">
-            Function
-          </span>
+          <span class="block text-lg font-bold text-gray-800"> Functie </span>
         </div>
-        <div></div>
       </div>
       {#each lobbyists as lobbyist, index}
-        <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-1">
+        <div class="grid grid-cols-[45%_45%_10%] gap-4 mb-4">
           <div>
             <input
               type="text"
@@ -195,27 +176,30 @@
           </div>
           <div>
             {#if removeLobbyistsAllowed}
-            <a href='.'
-              onclick="{(event) => {
-                removeLobbyist(index);
-                event.preventDefault();
-              }}"
-              title="Lobbyist verwijderen">
-              <RemoveSvg class="w-12 h-12 stroke-red-600 cursor-pointer" />
-            </a>
+              <button
+                type="button"
+                onclick={() => removeLobbyist(index)}
+                title="Lobbyist verwijderen"
+                aria-label="Lobbyist verwijderen"
+                class="bg-red-200/70 flex items-center justify-center text-red-900 hover:bg-red-200 h-full aspect-square transition cursor-pointer"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"
+                  />
+                </svg>
+              </button>
             {/if}
           </div>
         </div>
       {/each}
       <div class="">
-        <a href='.'
-          onclick="{(event) => {
-            addLobbyist();
-            event.preventDefault();
-          }}"
-          title="Lobbyist toevoegen">
-          <AddSvg class="w-12 stroke-gov-blue cursor-pointer" />
-        </a>
+        <Button color="light" onclick={() => addLobbyist()}>Lobbyist toevoegen</Button>
       </div>
     </div>
 
@@ -226,18 +210,31 @@
           Geef hieronder aan voor welke klanten deze lobbyorganisatie de belangen vertegenwoordigt.
         </span>
         <div class="grid gap-3 mt-3">
-          <MultiSelect bind:selected={
-            () => selectedClients,
-            (v) => {selectedClients = v;}
+          <MultiSelect
+            bind:selected={
+              () => selectedClients,
+              (v) => {
+                selectedClients = v;
+              }
             }
             options={data.allClientOrganizationLabels}
-            placeholder="Selecteer 1 of meerdere klanten" required />
+            placeholder="Selecteer 1 of meerdere klanten"
+            required
+            outerDivClass="rounded-none!"
+          />
         </div>
       </div>
     </div>
 
-    <Button type="submit" class="mt-12">
-      Opslaan
-    </Button>
+    <div class="flex gap-8 items-center mt-8">
+      <Button type="submit">Opslaan</Button>
+      <button
+        type="button"
+        onclick={() => (history.length > 1 ? history.back() : goto('/'))}
+        class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
+      >
+        ← Terug
+      </button>
+    </div>
   </form>
 </div>

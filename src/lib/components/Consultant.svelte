@@ -12,6 +12,8 @@
   <MultiSelect bind:selected={
     () => allSelectedClients[consultantId],
     (v) => {allSelectedClients[consultantId] = v;}
-  } options={allClientsOptions} 
-  placeholder="Selecteer 1 of meerdere klanten" required />
+  } options={allClientsOptions}
+  placeholder="Selecteer 1 of meerdere klanten" required
+  outerDivClass="rounded-none!"
+/>
 </div>

@@ -24,12 +24,10 @@
 
   <FormMessages message={form?.message} issues={form?.issues} />
 
-  <form method="POST" use:enhance={({formData}) => enHanceForm(formData)} class="space-y-6">
+  <form method="POST" use:enhance={({ formData }) => enHanceForm(formData)} class="space-y-6">
     <!-- Organization Details -->
     <div>
-      <label for="name" class="block text-lg font-bold text-gray-800 mb-2">
-        Organisatienaam
-      </label>
+      <label for="name" class="block text-lg font-bold text-gray-800 mb-2"> Organisatienaam </label>
       <input
         type="text"
         name="name"
@@ -41,9 +39,7 @@
     </div>
 
     <div>
-      <label for="city" class="block text-lg font-bold text-gray-800 mb-2">
-        Plaats
-      </label>
+      <label for="city" class="block text-lg font-bold text-gray-800 mb-2"> Plaats </label>
       <input
         type="text"
         name="city"
@@ -55,9 +51,7 @@
     </div>
 
     <div>
-      <label for="website" class="block text-lg font-bold text-gray-800 mb-2">
-        Website
-      </label>
+      <label for="website" class="block text-lg font-bold text-gray-800 mb-2"> Website </label>
       <input
         type="text"
         name="website"
@@ -69,8 +63,7 @@
     </div>
 
     <div>
-      <label for="kvk_number" class="block text-lg font-bold text-gray-800 mb-2">KVK-nummer</label
-      >
+      <label for="kvk_number" class="block text-lg font-bold text-gray-800 mb-2">KVK-nummer</label>
       <input
         type="text"
         name="kvk_number"
@@ -90,7 +83,9 @@
     </div>
 
     <div>
-      <label for="sector" class="block text-lg font-bold text-gray-800 mb-2">Sector (SBI-code)</label>
+      <label for="sector" class="block text-lg font-bold text-gray-800 mb-2"
+        >Sector (SBI-code)</label
+      >
       <select
         name="sector"
         id="sector"
@@ -123,7 +118,9 @@
     </div>
 
     <h2 class="font-semibold text-gray-800 text-2xl mb-2 mt-12">Lobbyist toevoegen</h2>
-    <span class="text-gray-800"><em>U kunt na registreren desgewenst meer lobbyisten toevoegen</em></span>
+    <span class="text-gray-800 text-lg"
+      >U kunt na registratie desgewenst meer lobbyisten toevoegen.</span
+    >
     <div class="@container space-y-4 mt-4">
       <div class="grid @lg:grid-cols-2 @4xl:grid-cols-4 gap-4 mb-1">
         <div>
@@ -132,7 +129,10 @@
           </label>
         </div>
         <div>
-          <label for="lobbyist_function" class="@lg:col-span-1 block text-lg font-bold text-gray-800">
+          <label
+            for="lobbyist_function"
+            class="@lg:col-span-1 block text-lg font-bold text-gray-800"
+          >
             Functie
           </label>
         </div>
@@ -161,27 +161,31 @@
       </div>
     </div>
 
-    {#if (selectedType == 'consultant')}
-    <h2 class="font-semibold text-gray-800 text-2xl mb-2 mt-12">Cliëntorganisaties</h2>
-    <div class="@container space-y-4">
-      <div>
-        <span class="block text-base text-gray-800">
-          Geef hieronder aan voor welke klanten deze lobbyorganisatie de belangen vertegenwoordigt.
-        </span>
-        <div class="grid gap-3 mt-3">
-          <MultiSelect bind:selected={
-            () => selectedClients,
-            (v) => {selectedClients = v;}
-            }
-            options={data.allClientOrganizationLabels}
-            placeholder="Selecteer 1 of meerdere klanten" required />
+    {#if selectedType == 'consultant'}
+      <h2 class="font-semibold text-gray-800 text-2xl mb-2 mt-12">Cliëntorganisaties</h2>
+      <div class="@container space-y-4">
+        <div>
+          <span class="block text-lg text-gray-800">
+            Geef aan voor welke klanten deze lobbyorganisatie belangen behartigt.
+          </span>
+          <div class="grid gap-3 mt-3">
+            <MultiSelect
+              bind:selected={
+                () => selectedClients,
+                (v) => {
+                  selectedClients = v;
+                }
+              }
+              options={data.allClientOrganizationLabels}
+              placeholder="Selecteer 1 of meerdere klanten"
+              required
+              outerDivClass="rounded-none!"
+            />
+          </div>
         </div>
       </div>
-    </div>
     {/if}
 
-    <Button type="submit">
-      Registreren
-    </Button>
+    <Button type="submit">Registreren</Button>
   </form>
 </div>

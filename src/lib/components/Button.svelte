@@ -4,6 +4,8 @@
     variant?: 'button' | 'link';
     /** For button variant - button type (submit, button, etc.) */
     type?: 'button' | 'submit' | 'reset';
+    /** Base or light colors. */
+    color?: 'base' | 'light';
     /** For link variant - href url */
     href?: string;
     /** Button size - affects padding and text size */
@@ -20,6 +22,7 @@
   let {
     variant = 'button',
     type = 'button',
+    color = 'base',
     href,
     size = 'md',
     onclick,
@@ -29,6 +32,7 @@
   }: Props = $props();
 
   const baseClasses = 'bg-gov-blue text-white hover:bg-gov-dark-blue font-semibold transition-colors';
+  const lightClasses = 'bg-gov-light-blue hover:brightness-95 text-gov-dark-blue font-semibold transition-all';
 
   // Size-specific classes
   const sizeClasses = {
@@ -37,7 +41,7 @@
     lg: 'text-xl py-3 px-6',
   };
 
-  const allClasses = `${baseClasses} ${sizeClasses[size]} ${additionalClass}`.trim();
+  const allClasses = `${color === 'base' ? baseClasses : lightClasses} ${sizeClasses[size]} ${additionalClass}`.trim();
 </script>
 
 {#if variant === 'link'}
