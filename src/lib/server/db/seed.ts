@@ -197,18 +197,21 @@ async function seed() {
     const meetings = [];
     for (let i = 0; i < 100; i++) {
       const type = faker.helpers.arrayElement(Object.keys(MEETING_TYPES));
+      const meetingDate = faker.date.between({ from: oneYearAgo, to: today });
+
+      // Calculate registered_at as 1-7 days after the meeting date
+      const registeredAt = new Date(meetingDate);
+      registeredAt.setDate(registeredAt.getDate() + faker.number.int({ min: 1, max: 7 }));
+
       const meeting = {
         type: type as MEETING_TYPES,
-        date: faker.date.between({ from: oneYearAgo, to: today }).toISOString(),
+        date: meetingDate.toISOString(),
         description: generateDutchMeetingDescription(),
         location: type === 'in_person' ? generateAmsterdamLocation() : null,
         policy_areas: faker.helpers.arrayElements(policyAreaLabels, { min: 1, max: 3 }),
         contact_name: faker.person.fullName(),
         contact_method: faker.phone.number({ style: 'human' }),
-        registered_at: faker.date
-          .between({ from: oneYearAgo, to: today })
-          .toISOString()
-          .split('T')[0],
+        registered_at: registeredAt.toISOString().split('T')[0],
       };
 
       meetings.push(meeting);
