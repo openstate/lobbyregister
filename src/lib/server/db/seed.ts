@@ -7,6 +7,11 @@ import { policyAreaLabels } from '../../../types.ts';
 async function seed() {
   console.log('🌱 Starting database seeding...');
 
+  // Calculate relative dates based on current date
+  const today = new Date();
+  const oneYearAgo = new Date(today.getFullYear() - 1, today.getMonth(), today.getDate());
+  const fourYearsAgo = new Date(today.getFullYear() - 4, today.getMonth(), today.getDate());
+
   try {
     // Clear existing data
     console.log('🧹 Cleaning existing data...');
@@ -45,7 +50,7 @@ async function seed() {
         address: `${faker.location.streetAddress()}, ${faker.location.city()}`,
         active: faker.datatype.boolean(0.95),
         registered_at: faker.date
-          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .between({ from: oneYearAgo, to: today })
           .toISOString()
           .split('T')[0],
       };
@@ -70,10 +75,11 @@ async function seed() {
       department: 'College van Burgemeester en Wethouders',
       active: true,
       registered_at: faker.date
-        .between({ from: '2024-01-01', to: '2025-06-30' })
+        .between({ from: oneYearAgo, to: today })
         .toISOString()
         .split('T')[0],
     });
+    console.log(`👑 Seeded mayor: ${officials[0].name}`);
 
     for (let i = 0; i < 9; i++) {
       officials.push({
@@ -82,7 +88,7 @@ async function seed() {
         department: 'College van Burgemeester en Wethouders',
         active: true,
         registered_at: faker.date
-          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .between({ from: oneYearAgo, to: today })
           .toISOString()
           .split('T')[0],
       });
@@ -94,7 +100,7 @@ async function seed() {
       department: 'Gemeentelijk Management Team',
       active: true,
       registered_at: faker.date
-        .between({ from: '2024-01-01', to: '2025-06-30' })
+        .between({ from: oneYearAgo, to: today })
         .toISOString()
         .split('T')[0],
     });
@@ -106,7 +112,7 @@ async function seed() {
         department: 'College van Burgemeester en Wethouders',
         active: faker.datatype.boolean(0.95),
         registered_at: faker.date
-          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .between({ from: oneYearAgo, to: today })
           .toISOString()
           .split('T')[0],
       };
@@ -121,7 +127,7 @@ async function seed() {
         department: 'Gemeentelijk Management Team',
         active: faker.datatype.boolean(0.95),
         registered_at: faker.date
-          .between({ from: '2024-01-01', to: '2025-06-30' })
+          .between({ from: oneYearAgo, to: today })
           .toISOString()
           .split('T')[0],
       };
@@ -149,7 +155,7 @@ async function seed() {
           client_id: client.id,
           active: faker.datatype.boolean(0.95),
           registered_at: faker.date
-            .between({ from: '2021-01-01', to: '2025-06-30' })
+            .between({ from: fourYearsAgo, to: today })
             .toISOString()
             .split('T')[0],
         });
@@ -174,7 +180,7 @@ async function seed() {
           function: generateDutchJobTitle(),
           active: faker.datatype.boolean(0.95),
           registered_at: faker.date
-            .between({ from: '2021-01-01', to: '2025-06-30' })
+            .between({ from: fourYearsAgo, to: today })
             .toISOString()
             .split('T')[0],
         };
@@ -193,14 +199,14 @@ async function seed() {
       const type = faker.helpers.arrayElement(Object.keys(MEETING_TYPES));
       const meeting = {
         type: type as MEETING_TYPES,
-        date: faker.date.between({ from: '2024-01-01', to: '2025-06-01' }).toISOString(),
+        date: faker.date.between({ from: oneYearAgo, to: today }).toISOString(),
         description: generateDutchMeetingDescription(),
         location: type === 'in_person' ? generateAmsterdamLocation() : null,
         policy_areas: faker.helpers.arrayElements(policyAreaLabels, { min: 1, max: 3 }),
         contact_name: faker.person.fullName(),
         contact_method: faker.phone.number({ style: 'human' }),
         registered_at: faker.date
-          .between({ from: '2024-01-01', to: '2025-06-01' })
+          .between({ from: oneYearAgo, to: today })
           .toISOString()
           .split('T')[0],
       };
