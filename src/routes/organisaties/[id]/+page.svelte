@@ -124,7 +124,7 @@
   {#if data.organization.type === 'consultant'}
     <div class="@container">
       <h2 class="text-xl text-gray-800 mb-4 font-bold">Cliëntorganisaties</h2>
-      <div class="grid gap-3 @4xl:grid-cols-2">
+      <div class="grid gap-4 @4xl:grid-cols-2">
         {#each data.clientOrganizations as client}
           <div class="border border-gray-300 p-4 flex flex-col h-full">
             <h3 class="text-lg text-gray-900 leading-snug">{client.client_name}</h3>
@@ -149,7 +149,7 @@
     <!-- Representative Organizations -->
     <div class="@container">
       <h2 class="text-xl text-gray-800 mb-4 font-bold">Vertegenwoordigende organisaties</h2>
-      <div class="grid gap-3 @4xl:grid-cols-2">
+      <div class="grid gap-4 @4xl:grid-cols-2">
         {#each data.representativeOrganizations as representative}
           <div class="border border-gray-300 p-4 flex flex-col h-full">
             <h3 class="text-lg text-gray-900 leading-snug">

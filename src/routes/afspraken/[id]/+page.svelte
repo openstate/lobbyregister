@@ -91,7 +91,7 @@
   <!-- Officials -->
   <div class="@container">
     <h2 class="text-xl text-gray-800 mb-4 font-bold">Gemeentefunctionarissen</h2>
-    <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
+    <div class="grid gap-4 @lg:grid-cols-2 @4xl:grid-cols-4">
       {#each data.officials as official}
         <div class="@lg:col-span-2 border border-gray-300 p-4 flex flex-col h-full">
           <h3 class="text-lg text-gray-900 leading-snug">{official.name}</h3>
@@ -117,7 +117,7 @@
   <!-- Lobbyists -->
   <div class="@container">
     <h2 class="text-xl text-gray-800 mb-4 font-bold">Lobbyisten</h2>
-    <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
+    <div class="grid gap-4 @lg:grid-cols-2 @4xl:grid-cols-4">
       {#each data.lobbyists as lobbyist}
         {@const reps = data.representations
           .filter((rep) => rep.meeting_lobbyist_id === lobbyist.meeting_lobbyist_id)
@@ -149,7 +149,7 @@
   <!-- Contact for more info -->
   <div class="@container">
     <h2 class="text-xl text-gray-800 mb-4 font-bold">Contact voor meer informatie</h2>
-    <div class="grid gap-3 @lg:grid-cols-2 @4xl:grid-cols-4">
+    <div class="grid gap-4 @lg:grid-cols-2 @4xl:grid-cols-4">
       <div class="p-4 border border-gray-300">
         <p class="text-sm font-bold text-gray-700 mb-1">Naam/afdeling</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
