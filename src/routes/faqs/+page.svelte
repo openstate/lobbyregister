@@ -14,12 +14,12 @@ van een actie gericht op beïnvloeding van openbare besluitvorming.</p>
 
 <h2 class="text-xl font-bold text-gray-800 mb-1">Wat is openbare besluitvorming?</h2>
 <p class="mb-6 text-gray-700 text-lg">Besluiten door leden van het College van Burgemeester en Wethouders, de gemeenteraad en
-het Gemeentelijk Management Team van de gemeente Amsterdam.</p>
+het Gemeentelijk Management Team van de gemeente Den Haag.</p>
 
 <h2 class="text-xl font-bold text-gray-800 mb-1">Wie moeten zich registreren?</h2>
 <p class="mb-6 text-gray-700 text-lg">Alle externe partijen (bedrijven, PA-bureaus, maatschappelijke organisaties,
 onderwijsinstellingen, vakbonden, buurtcomités, e.d.) die willen lobbyen bij de
-gemeente Amsterdam. Niet van toepassing op interne gemeentelijke organisaties.</p>
+gemeente Den Haag. Niet van toepassing op interne gemeentelijke organisaties.</p>
 
 <h2 class="text-xl font-bold text-gray-800 mb-1">Welke afspraken staan in het lobbyregister?</h2>
 <p class="mb-6 text-gray-700 text-lg">Alle vormen van communicatie: fysiek, bellen, video, inclusief werkbezoeken,

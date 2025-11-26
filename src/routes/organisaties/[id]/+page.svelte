@@ -29,9 +29,9 @@
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button
       onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
+      class="text-gov-blue caret caret-rotated hover:text-gov-dark-blue  text-lg my-1 cursor-pointer"
     >
-      ← Terug naar overzicht
+      Terug naar overzicht
     </button>
     <Button variant="link" href="/afspraken?organization={data.organization.id}">
       Doorzoek afspraken
@@ -83,7 +83,7 @@
       <div class="p-4 border border-gray-300">
         <p class="text-sm font-bold text-gray-700 mb-1">Website</p>
         <p class="text-lg text-gray-900 leading-snug line-clamp-2">
-          <a href="#{data.organization.website}" class="text-gov-blue underline">
+          <a href="#{data.organization.website}" class="text-gov-blue">
             {data.organization.website}
           </a>
         </p>
@@ -133,7 +133,7 @@
             </p>
             <a
               href="/organisaties/{client.client_id}"
-              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
+              class="text-gov-blue hover:text-gov-dark-blue  mt-1 caret caret-sm"
             >
               Bekijk organisatie
             </a>
@@ -157,7 +157,7 @@
             </h3>
             <a
               href="/organisaties/{representative.representative_id}"
-              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
+              class="text-gov-blue hover:text-gov-dark-blue  mt-1 caret caret-sm"
             >
               Bekijk organisatie
             </a>

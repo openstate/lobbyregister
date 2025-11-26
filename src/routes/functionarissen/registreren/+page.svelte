@@ -48,7 +48,7 @@
         name="name"
         id="name"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         placeholder="Vul uw voor- en achternaam in."
       />
     </div>
@@ -59,7 +59,7 @@
         name="type"
         id="type"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
       >
         <option value="">Selecteer type...</option>
         {#each officials as [value, label]}
@@ -76,7 +76,7 @@
         name="department"
         id="department"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
       >
         <option value="">Selecteer organisatie...</option>
         {#each organisations as organisation}

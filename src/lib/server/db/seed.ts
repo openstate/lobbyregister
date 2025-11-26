@@ -196,7 +196,7 @@ async function seed() {
     console.log('📅 Seeding meetings...');
     const meetings = [];
     for (let i = 0; i < 100; i++) {
-      const type = faker.helpers.arrayElement(Object.keys(MEETING_TYPES));
+      const type = faker.helpers.arrayElement(Object.keys(MEETING_TYPES)) as MEETING_TYPES;
       const meetingDate = faker.date.between({ from: oneYearAgo, to: today });
 
       // Calculate registered_at as 1-7 days after the meeting date
@@ -204,10 +204,17 @@ async function seed() {
       registeredAt.setDate(registeredAt.getDate() + faker.number.int({ min: 1, max: 7 }));
 
       const meeting = {
-        type: type as MEETING_TYPES,
+        type: type,
         date: meetingDate.toISOString(),
         description: generateDutchMeetingDescription(),
-        location: type === 'in_person' ? generateAmsterdamLocation() : null,
+        location:
+          type === MEETING_TYPES.in_person
+            ? generateCityLocation()
+            : type === MEETING_TYPES.other_external
+              ? generateConferenceLocation()
+              : type === MEETING_TYPES.working_visit
+                ? generateWerkbezoekLocation()
+                : null,
         policy_areas: faker.helpers.arrayElements(policyAreaLabels, { min: 1, max: 3 }),
         contact_name: faker.person.fullName(),
         contact_method: faker.phone.number({ style: 'human' }),
@@ -391,25 +398,51 @@ function generateDutchMeetingDescription(): string {
   return `${faker.helpers.arrayElement(actions)} ${faker.helpers.arrayElement(topics)}`;
 }
 
-function generateAmsterdamLocation(): string {
+function generateCityLocation(): string {
   return faker.helpers.weightedArrayElement([
-    { weight: 8, value: 'Stopera, Amsterdam' },
-    { weight: 1, value: 'RAI Amsterdam' },
-    { weight: 1, value: 'De Balie, Amsterdam' },
-    { weight: 1, value: 'Amsterdam Science Park' },
-    { weight: 1, value: "Hotel De L'Europe, Amsterdam" },
+    { weight: 8, value: 'Stadhuis, Den Haag' },
+    { weight: 2, value: 'Provinciehuis Zuid-Holland, Den Haag' },
+    { weight: 1, value: 'Ministerie van Binnenlandse Zaken, Den Haag' },
+  ]);
+}
+
+function generateConferenceLocation(): string {
+  return faker.helpers.weightedArrayElement([
+    { weight: 1, value: 'Nieuwspoort, Den Haag' },
+    { weight: 1, value: 'Centraal Station, Den Haag' },
+    { weight: 1, value: 'WTC The Hague, Den Haag' },
+    { weight: 1, value: 'Beatrixgebouw, Den Haag' },
+  ]);
+}
+
+function generateWerkbezoekLocation(): string {
+  return faker.helpers.weightedArrayElement([
+    { weight: 3, value: 'Haagse Hogeschool, Den Haag' },
+    { weight: 3, value: 'Mauritshuis, Den Haag' },
+    { weight: 2, value: 'Scheveningen Haven, Den Haag' },
+    { weight: 2, value: 'Binckhorst bedrijventerrein, Den Haag' },
+    { weight: 2, value: 'Den Haag Zuidwest wijkcentrum' },
+    { weight: 2, value: 'Kunstmuseum Den Haag' },
+    { weight: 2, value: 'Sportcampus Zuiderpark, Den Haag' },
+    { weight: 1, value: 'Technologiepark Ypenburg, Den Haag' },
+    { weight: 1, value: 'De Haagse Markt' },
+    { weight: 1, value: 'Strandpaviljoen Scheveningen' },
+    { weight: 1, value: 'Startup incubator Apollo 14, Den Haag' },
+    { weight: 1, value: 'ROC Mondriaan, Den Haag' },
+    { weight: 1, value: 'Stichting PEP, Den Haag' },
+    { weight: 1, value: 'Den Haag International Centre' },
   ]);
 }
 
 function generateDutchCity(): string {
   return faker.helpers.weightedArrayElement([
-    { weight: 8, value: 'Amsterdam' },
-    { weight: 1, value: 'Amstelveen' },
-    { weight: 1, value: 'Haarlem' },
-    { weight: 1, value: 'Utrecht' },
-    { weight: 1, value: 'Almere' },
-    { weight: 1, value: 'Haarlemmermeer' },
-    { weight: 1, value: 'Zaanstad' },
+    { weight: 8, value: 'Den Haag' },
+    { weight: 1, value: 'Delft' },
+    { weight: 1, value: 'Leiden' },
+    { weight: 1, value: 'Rijswijk' },
+    { weight: 1, value: 'Zoetermeer' },
+    { weight: 1, value: 'Pijnacker-Nootdorp' },
+    { weight: 1, value: 'Wassenaar' },
   ]);
 }
 

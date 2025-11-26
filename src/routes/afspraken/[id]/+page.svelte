@@ -19,9 +19,9 @@
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button
       onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
+      class="text-gov-blue caret caret-rotated hover:text-gov-dark-blue  text-lg my-1 cursor-pointer"
     >
-      ← Terug naar overzicht
+      Terug naar overzicht
     </button>
   </div>
 </div>
@@ -46,7 +46,7 @@
             {#each data.meeting.policy_areas as area}
               <a
                 href="/afspraken?policy_area={area}"
-                class="px-2 text-gov-blue py-1 bg-gov-light-blue inline-block text-lg hover:underline cursor-pointer leading-snug"
+                class="px-2 text-gov-blue py-1 bg-gov-light-blue inline-block text-lg  cursor-pointer leading-snug"
               >
                 {area}
               </a>
@@ -103,7 +103,7 @@
           </p>
           <a
             href="/functionarissen/{official.id}"
-            class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
+            class="text-gov-blue hover:text-gov-dark-blue  mt-1 caret caret-sm"
           >
             Bekijk functionaris
           </a>
@@ -134,7 +134,7 @@
           <div class="flex flex-wrap gap-2 mt-auto">
             <a
               href="/organisaties/{lobbyist.organization_id}"
-              class="text-gov-blue hover:text-gov-dark-blue hover:underline mt-1 caret caret-sm"
+              class="text-gov-blue hover:text-gov-dark-blue  mt-1 caret caret-sm"
             >
               Bekijk lobbyorganisatie
             </a>

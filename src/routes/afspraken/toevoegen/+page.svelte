@@ -82,9 +82,9 @@
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button
       onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
+      class="text-gov-blue caret caret-rotated hover:text-gov-dark-blue  text-lg my-1 cursor-pointer"
     >
-      ← Terug naar overzicht
+      Terug naar overzicht
     </button>
   </div>
 </div>
@@ -108,7 +108,7 @@
             id="description"
             required
             rows="3"
-            class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
             placeholder="Onderwerp en toelichting van afspraak"
           ></textarea>
         </div>
@@ -132,7 +132,7 @@
             name="meeting_type"
             id="meeting_type"
             required
-            class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
           >
             <option value="">Selecteer type afspraak...</option>
             {#each data.meetingTypes as meetingType}
@@ -148,7 +148,7 @@
             type="text"
             name="meeting_location"
             id="meeting_location"
-            class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
             placeholder="Bv Tweede Kamer, Den Haag"
           />
         </div>
@@ -226,7 +226,7 @@
               name="contact_name"
               id="contact_name"
               required
-              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
               placeholder="Vul naam en/of afdeling in"
             />
           </div>
@@ -239,7 +239,7 @@
               name="contact_method"
               id="contact_method"
               required
-              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
               placeholder="Telefoonnummer en/of e-mailadres"
             />
           </div>

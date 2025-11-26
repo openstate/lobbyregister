@@ -33,7 +33,7 @@
         name="username"
         id="username"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
       >
         <option value="">Selecteer gebruiker...</option>
         {#each data.users as user}
@@ -50,7 +50,7 @@
         name="password"
         id="password"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         placeholder="Geef uw wachtwoord op"
       />
     </div>

@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import { meetingTypeLabels, searchCategoryTexts, searchCategoryTypes } from '../../types.js';
-  import { toast } from '@zerodevx/svelte-toast'
+  import { toast } from '@zerodevx/svelte-toast';
 
   const { data } = $props();
 
@@ -51,8 +51,7 @@
   }
 
   function searchCategoriesDescription(searchCategories: searchCategoryTypes[]) {
-    return searchCategories.map((category) => searchCategoryTexts[category])
-    .join(', ')
+    return searchCategories.map((category) => searchCategoryTexts[category]).join(', ');
   }
 
   // Handle form submission for filters
@@ -136,11 +135,10 @@
 
 <div class="my-8">
   <div class="flex items-center justify-between mb-4">
-  <h1 class="text-3xl font-semibold text-gray-800">Afspraken</h1>
-  <form action="/afspraken/toevoegen">
-    <Button type="submit">Toevoegen</Button>
-  </form>
-
+    <h1 class="text-3xl font-semibold text-gray-800">Afspraken</h1>
+    <form action="/afspraken/toevoegen">
+      <Button type="submit">Toevoegen</Button>
+    </form>
   </div>
   <p class="text-xl text-gray-700">
     Overzicht van alle geregistreerde afspraken tussen lobbyisten en gemeentefunctionarissen.
@@ -152,36 +150,34 @@
   <div class="lg:w-80 flex-shrink-0">
     <div class="sticky top-4 max-h-[calc(150vh-2rem)] overflow-y-auto p-1 -m-1">
       <form onsubmit={handleFilterSubmit} class="space-y-4">
-          <!-- Search field -->
+        <!-- Search field -->
         <div>
-          <label for="search" class="block font-bold text-gray-700 mb-2">
-            Zoekterm
-          </label>
+          <label for="search" class="block font-bold text-gray-700 mb-2"> Zoekterm </label>
           <input
             id="search"
             name="search"
             type="text"
             value={data.filters.search}
             placeholder="Vul zoekterm in..."
-            class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full bg-white border border-gray-300 px-3 py-2"
           />
         </div>
 
         <h2 class="text-xl font-bold text-gray-800 mb-4">Filters</h2>
         <div>
-          <label for="" class="block font-bold text-gray-700 mb-2">
-            Zoeken in:
-          </label>
+          <label for="" class="block font-bold text-gray-700 mb-2"> Zoeken in: </label>
           <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
             <input
               type="checkbox"
               name="search_categories"
               value={searchCategoryTypes.searchMeetingsId}
               checked={searchMeetings}
-              class="mr-3 text-gov-blue focus:ring-gov-blue"
+              class="mr-3 text-gov-blue"
             />
             <div class="min-w-0 flex-1">
-              <div class="font-bold text-gray-900 truncate">{searchCategoryTexts.searchMeetingsId}</div>
+              <div class="font-bold text-gray-900 truncate">
+                {searchCategoryTexts.searchMeetingsId}
+              </div>
             </div>
           </label>
           <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
@@ -190,10 +186,12 @@
               name="search_categories"
               value={searchCategoryTypes.searchOrganizationsId}
               checked={searchOrganizations}
-              class="mr-3 text-gov-blue focus:ring-gov-blue"
+              class="mr-3 text-gov-blue"
             />
             <div class="min-w-0 flex-1">
-              <div class="font-bold text-gray-900 truncate">{searchCategoryTexts.searchOrganizationsId}</div>
+              <div class="font-bold text-gray-900 truncate">
+                {searchCategoryTexts.searchOrganizationsId}
+              </div>
             </div>
           </label>
           <label class="flex items-center px-3 py-2 hover:bg-gray-50 cursor-pointer">
@@ -202,10 +200,12 @@
               name="search_categories"
               value={searchCategoryTypes.searchLobbyistsId}
               checked={searchLobbyists}
-              class="mr-3 text-gov-blue focus:ring-gov-blue"
+              class="mr-3 text-gov-blue"
             />
             <div class="min-w-0 flex-1">
-              <div class="font-bold text-gray-900 truncate">{searchCategoryTexts.searchLobbyistsId}</div>
+              <div class="font-bold text-gray-900 truncate">
+                {searchCategoryTexts.searchLobbyistsId}
+              </div>
             </div>
           </label>
         </div>
@@ -216,7 +216,7 @@
           <select
             id="type"
             name="type"
-            class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full bg-white border border-gray-300 px-3 py-2"
           >
             <option value="">Alle types</option>
             {#each Object.entries(data.filterOptions.meetingTypes) as type}
@@ -251,7 +251,7 @@
                   type="text"
                   placeholder="Zoek functionaris..."
                   bind:value={officialSearch}
-                  class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+                  class="w-full bg-white border border-gray-300 px-3 py-2"
                 />
               </div>
               <div class="max-h-48 overflow-y-auto">
@@ -262,7 +262,7 @@
                       name="official"
                       value={official.id}
                       checked={data.filters.officialIds.includes(official.id)}
-                      class="mr-3 text-gov-blue focus:ring-gov-blue"
+                      class="mr-3 text-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
                       <div class="font-bold text-gray-900 truncate">{official.name}</div>
@@ -304,7 +304,7 @@
                   type="text"
                   placeholder="Zoek lobbyist..."
                   bind:value={lobbyistSearch}
-                  class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+                  class="w-full bg-white border border-gray-300 px-3 py-2"
                 />
               </div>
               <div class="max-h-48 overflow-y-auto">
@@ -315,7 +315,7 @@
                       name="lobbyist"
                       value={lobbyist.id}
                       checked={data.filters.lobbyistIds.includes(lobbyist.id)}
-                      class="mr-3 text-gov-blue focus:ring-gov-blue"
+                      class="mr-3 text-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
                       <div class="font-bold text-gray-900 truncate">{lobbyist.name}</div>
@@ -356,7 +356,7 @@
                   type="text"
                   placeholder="Zoek lobbyorganisatie..."
                   bind:value={organizationSearch}
-                  class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+                  class="w-full bg-white border border-gray-300 px-3 py-2"
                 />
               </div>
               <div class="max-h-48 overflow-y-auto">
@@ -367,7 +367,7 @@
                       name="organization"
                       value={organization.id}
                       checked={data.filters.organizationIds.includes(organization.id)}
-                      class="mr-3 text-gov-blue focus:ring-gov-blue"
+                      class="mr-3 text-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
                       <div class="font-bold text-gray-900 truncate">{organization.name}</div>
@@ -375,7 +375,9 @@
                   </label>
                 {/each}
                 {#if filteredOrganizations.length === 0}
-                  <div class="px-3 py-4 text-gray-500 text-center">Geen lobbyorganisaties gevonden</div>
+                  <div class="px-3 py-4 text-gray-500 text-center">
+                    Geen lobbyorganisaties gevonden
+                  </div>
                 {/if}
               </div>
             </div>
@@ -406,7 +408,7 @@
                   type="text"
                   placeholder="Zoek beleidsterrein..."
                   bind:value={policyAreaSearch}
-                  class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+                  class="w-full bg-white border border-gray-300 px-3 py-2"
                 />
               </div>
               <div class="max-h-48 overflow-y-auto">
@@ -417,7 +419,7 @@
                       name="policy_area"
                       value={area}
                       checked={data.filters.policyAreas.includes(area)}
-                      class="mr-3 text-gov-blue focus:ring-gov-blue"
+                      class="mr-3 text-gov-blue"
                     />
                     <div class="min-w-0 flex-1">
                       <div class="font-bold text-gray-900 truncate">{area}</div>
@@ -440,7 +442,7 @@
             <button
               type="button"
               onclick={() => updateFilter(null)}
-              class="w-full text-gov-blue hover:underline py-1 cursor-pointer"
+              class="w-full text-gov-blue  py-1 cursor-pointer"
             >
               Alle filters wissen
             </button>
@@ -463,14 +465,19 @@
           </span>
         {/if}
         {#if data.pagination.totalCount > 0}
-        <a href="."
-           onclick="{(event) => {
-            toast.push("Deze demo versie bevat nog geen mogelijkheid om de resultaten te downloaden", {duration: 10000});
-            event.preventDefault();
-           }}"
-           title="Resultaten downloaden">
-          <img src="/download.svg" alt="Resultaten downloaden" class="w-8 inline ml-4" />
-        </a>
+          <a
+            href="."
+            onclick={(event) => {
+              toast.push(
+                'Deze demo versie bevat nog geen mogelijkheid om de resultaten te downloaden',
+                { duration: 10000 },
+              );
+              event.preventDefault();
+            }}
+            title="Resultaten downloaden"
+          >
+            <img src="/download.svg" alt="Resultaten downloaden" class="w-8 inline ml-4" />
+          </a>
         {/if}
       </p>
 
@@ -480,7 +487,10 @@
             {@render filterCard(`Zoekterm: "${data.filters.search}"`, 'search')}
           {/if}
           {#if data.filters.searchCategories.length > 0}
-            {@render filterCard(`Zoek in: "${searchCategoriesDescription(data.filters.searchCategories)}"`, 'search')}
+            {@render filterCard(
+              `Zoek in: "${searchCategoriesDescription(data.filters.searchCategories)}"`,
+              'search',
+            )}
           {/if}
           {#if data.filters.meetingType}
             {@render filterCard(`Type: ${meetingTypeLabels[data.filters.meetingType]}`, 'type')}
@@ -531,7 +541,7 @@
             <div class="mb-2">
               <a
                 href="/afspraken/{meeting.id}"
-                class="text-xl font-bold text-gov-blue hover:underline leading-tight inline-block mb-2"
+                class="text-xl text-gov-blue hover:text-gov-dark-blue leading-tight inline-block mb-2"
               >
                 {meeting.description}
               </a>

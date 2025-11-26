@@ -7,7 +7,7 @@
 </script>
 
 <div class="my-12">
-  <h1 class="text-4xl font-semibold text-gray-800 mb-5">Lobbyregister Amsterdam</h1>
+  <h1 class="text-4xl font-semibold text-gray-800 mb-5">Lobbyregister Den Haag</h1>
   <p class="sm:text-balance text-lg sm:text-xl text-gray-700">
     Het lobbyregister geeft inzicht in de contacten van organisaties die belangen behartigen bij de
     burgemeester, wethouders en topambtenaren. Belangenbehartigers/lobbyisten moeten zich hier
@@ -27,12 +27,15 @@
       name="search"
       value=""
       placeholder="Zoeken in het lobbyregister"
-      class="w-full text-xl bg-white border border-gray-300 px-4 py-3 focus:outline-2 placeholder:text-gray-600 outline-offset-1 focus:outline-gov-blue"
+      class="w-full text-xl bg-white border border-gray-300 px-4 py-3 placeholder:text-gray-600"
     />
     <Button type="submit" size="lg">Zoeken</Button>
   </form>
-  <a class="text-gov-blue mr-4 text-lg caret hover:underline underline-offset-4" href="/afspraken"
-    >Uitgebreid zoeken
+  <a
+    class="text-gov-blue hover:text-gov-dark-blue mr-4 text-lg caret"
+    href="/afspraken"
+  >
+    Uitgebreid zoeken
   </a>
 </div>
 
@@ -43,7 +46,7 @@
       <div class="border border-gray-300 pb-3 p-4 min-w-0 {i >= 3 ? 'max-md:hidden' : ''}">
         <a
           href="/afspraken/{meeting.id}"
-          class="font-bold hover:underline text-lg text-gov-blue leading-snug mb-1.5 inline-block"
+          class="text-lg hover:text-gov-dark-blue text-gov-blue leading-snug mb-1.5 inline-block"
         >
           {meeting.description}
         </a>
@@ -59,10 +62,7 @@
         </p>
       </div>
     {/each}
-    <a
-      class="text-gov-blue hover:underline underline-offset-4 caret text-lg py-1"
-      href="/afspraken"
-    >
+    <a class="text-gov-blue hover:text-gov-dark-blue caret text-lg py-1" href="/afspraken">
       Bekijk alle afspraken
     </a>
   </div>
@@ -78,7 +78,7 @@
       <div class="border border-gray-300 pb-3 p-4 {i >= 3 ? 'max-md:hidden' : ''}">
         <a
           href="/organisaties/{organization.id}"
-          class="text-lg hover:underline text-gov-blue font-bold leading-snug mb-1.5 inline-block"
+          class="text-lg hover:text-gov-dark-blue text-gov-blue leading-snug mb-1.5 inline-block"
         >
           {organization.name}
         </a>
@@ -94,10 +94,7 @@
         </p>
       </div>
     {/each}
-    <a
-      class="text-gov-blue hover:underline underline-offset-4 caret text-lg py-1"
-      href="/organisaties"
-    >
+    <a class="text-gov-blue hover:text-gov-dark-blue caret text-lg py-1" href="/organisaties">
       Bekijk alle lobbyisten
     </a>
   </div>

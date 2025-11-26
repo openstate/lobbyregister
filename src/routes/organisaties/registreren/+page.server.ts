@@ -76,7 +76,7 @@ export const actions: Actions = {
             .values({ representative_id: organization.id, client_id: client.value});
         }
 
-        const message = `Lobbyorganisatie <a class='font-bold hover:underline' href='/organisaties/${organization.id}'>${organization.name}</a> is toegevoegd`;
+        const message = `Lobbyorganisatie <a class='font-bold ' href='/organisaties/${organization.id}'>${organization.name}</a> is toegevoegd`;
         return redirect(302, '/', {type: 'success', message: message}, cookies);
       }
     }

@@ -2,7 +2,7 @@
   import { goto } from '$app/navigation';
   import Button from '$lib/components/Button.svelte';
   import { officialTypeLabels } from '../../../types.js';
-    import { formatDate } from '../../../utils/dateUtils.js';
+  import { formatDate } from '../../../utils/dateUtils.js';
 
   const { data } = $props();
 </script>
@@ -18,9 +18,9 @@
   <div class="flex flex-wrap gap-x-8 gap-y-4 items-center">
     <button
       onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-      class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
+      class="text-gov-blue caret caret-rotated hover:text-gov-dark-blue  text-lg my-1 cursor-pointer"
     >
-      ← Terug naar overzicht
+      Terug naar overzicht
     </button>
     <Button variant="link" href="/afspraken?official={data.official.id}">Doorzoek afspraken</Button>
   </div>

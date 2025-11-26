@@ -31,8 +31,8 @@
     children,
   }: Props = $props();
 
-  const baseClasses = 'bg-gov-blue text-white hover:bg-gov-dark-blue font-semibold transition-colors';
-  const lightClasses = 'bg-gov-light-blue hover:brightness-95 text-gov-dark-blue font-semibold transition-all';
+  const baseClasses = 'bg-gov-green rounded text-white hover:bg-gov-dark-green font-semibold transition-colors';
+  const lightClasses = 'bg-gov-light-green hover:brightness-95 text-gov-dark-green font-semibold transition-all';
 
   // Size-specific classes
   const sizeClasses = {

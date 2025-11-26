@@ -33,7 +33,7 @@
         name="name"
         id="name"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         placeholder="Vul de naam van uw organisatie in."
       />
     </div>
@@ -45,7 +45,7 @@
         name="city"
         id="city"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         placeholder="Vul de vestigingsplaats van uw organisatie in."
       />
     </div>
@@ -57,7 +57,7 @@
         name="website"
         id="website"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         placeholder="Vul de website van uw organisatie in."
       />
     </div>
@@ -68,7 +68,7 @@
         type="text"
         name="kvk_number"
         id="kvk_number"
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         placeholder="Vul het KVK-nummer van uw organisatie in."
       />
       <label class="flex items-center gap-2 mt-2 text-lg">
@@ -76,7 +76,7 @@
           type="checkbox"
           name="no_kvk"
           id="no_kvk"
-          class="focus:outline-2 outline-offset-1 focus:outline-gov-blue size-4"
+          class="outline-offset-1 size-4"
         />
         <span class="text-gray-600">De organisatie heeft geen KVK-nummer.</span>
       </label>
@@ -90,7 +90,7 @@
         name="sector"
         id="sector"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
       >
         <option value="">Selecteer sector...</option>
         {#each SBI_CODES as [sbiCode, label]}
@@ -144,7 +144,7 @@
             name="lobbyist_name"
             id="lobbyist_name"
             required
-            class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
             placeholder="Vul de naam van de lobbyist in"
           />
         </div>
@@ -154,7 +154,7 @@
             name="lobbyist_function"
             id="lobbyist_function"
             required
-            class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
             placeholder="Vul de functie van de lobbyist in"
           />
         </div>

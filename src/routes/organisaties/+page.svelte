@@ -125,7 +125,7 @@
             type="text"
             value={data.filters.search}
             placeholder="Vul zoekterm in..."
-            class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full bg-white border border-gray-300 px-3 py-2"
           />
         </div>
 
@@ -137,7 +137,7 @@
           <select
             id="type"
             name="type"
-            class="w-full bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+            class="w-full bg-white border border-gray-300 px-3 py-2"
           >
             <option value="">Alle types</option>
             {#each Object.entries(data.filterOptions.organizationTypes) as type}
@@ -154,7 +154,7 @@
             <button
               type="button"
               onclick={() => updateFilter(null)}
-              class="w-full text-gov-blue hover:underline py-1 cursor-pointer"
+              class="w-full text-gov-blue  py-1 cursor-pointer"
             >
               Alle filters wissen
             </button>
@@ -218,7 +218,7 @@
             <div class="mb-2">
               <a
                 href="/organisaties/{organization.id}"
-                class="text-xl font-bold text-gov-blue hover:underline leading-tight inline-block mb-2"
+                class="text-xl text-gov-blue hover:text-gov-dark-blue leading-tight inline-block mb-2"
               >
                 {organization.name}
               </a>

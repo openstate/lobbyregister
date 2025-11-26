@@ -50,7 +50,7 @@
         name="name"
         id="name"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         value={data.organization.name}
       />
     </div>
@@ -62,7 +62,7 @@
         name="city"
         id="city"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         value={data.organization.city}
       />
     </div>
@@ -74,7 +74,7 @@
         name="website"
         id="website"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         value={data.organization.website}
       />
     </div>
@@ -85,7 +85,7 @@
         type="text"
         name="kvk_number"
         id="kvk_number"
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
         value={data.organization.kvk_number}
       />
       <label class="flex items-center gap-2 mt-2 text-lg">
@@ -93,7 +93,7 @@
           type="checkbox"
           name="no_kvk"
           id="no_kvk"
-          class="focus:outline-2 outline-offset-1 focus:outline-gov-blue size-4"
+          class="outline-offset-1 size-4"
           checked={!data.organization.kvk_number}
         />
         <span class="text-gray-600">De organisatie heeft geen KVK-nummer.</span>
@@ -108,7 +108,7 @@
         name="sector"
         id="sector"
         required
-        class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+        class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
       >
         <option value="">Selecteer sector...</option>
         {#each SBI_CODES as [sbiCode, label]}
@@ -158,7 +158,7 @@
               name={lobbyistNameId(index)}
               id={lobbyistNameId(index)}
               required
-              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
               bind:value={lobbyist.name}
               placeholder="Vul de naam van de lobbyist in"
             />
@@ -169,7 +169,7 @@
               name={lobbyistFunctionId(index)}
               id={lobbyistFunctionId(index)}
               required
-              class="w-full text-lg bg-white border border-gray-300 px-3 py-2 focus:outline-2 outline-offset-1 focus:outline-gov-blue"
+              class="w-full text-lg bg-white border border-gray-300 px-3 py-2"
               bind:value={lobbyist.function}
               placeholder="Vul de functie van de lobbyist in"
             />
@@ -231,7 +231,7 @@
       <button
         type="button"
         onclick={() => (history.length > 1 ? history.back() : goto('/'))}
-        class="text-gov-blue hover:text-gov-dark-blue hover:underline text-lg my-1 cursor-pointer"
+        class="text-gov-blue hover:text-gov-dark-blue  text-lg my-1 cursor-pointer"
       >
         ← Terug
       </button>
