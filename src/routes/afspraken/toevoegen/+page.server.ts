@@ -24,7 +24,7 @@ export const load: PageServerLoad = async (event) => {
         const message = "Om een afspraak toe te voegen moet u ingelogd zijn als een gemeentefunctionaris";
         return redirect(302, `/afspraken`, {type: 'error', message: message}, event.cookies);
     } else {
-      redirect(302, `/inloggen_functionaris?fromPage=${REDIRECTS.add_meeting}`);
+      redirect(302, `/inloggen/functionaris?fromPage=${REDIRECTS.add_meeting}`);
     }
   }
 

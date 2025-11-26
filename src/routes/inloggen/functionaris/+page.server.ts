@@ -6,41 +6,41 @@ import { zfd } from 'zod-form-data';
 import type { Actions } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 import type { PageServerLoad } from './$types';
-import { AuthenticatedUserTypes, type Lobbyist } from '../../types';
-import { loginUser } from '../../utils/authenticationUtils';
-import { redirectPath, REDIRECTS } from '../../utils/routingUtils';
+import { AuthenticatedUserTypes, type Official } from '../../../types';
+import { loginUser } from '../../../utils/authenticationUtils';
+import { redirectPath, type REDIRECTS } from '../../../utils/routingUtils';
 
-const loginLobbyistSchema = zfd.formData({
+const loginOfficialSchema = zfd.formData({
   username: zfd.text(),
   password: zfd.text(),
   fromPage: zfd.text().optional(),
   fromPageParams: z.preprocess((value) => JSON.parse(value as string), z.record(z.string(), z.string())).optional(),
 });
 
-async function getLobbyists() {
+async function getOfficials() {
   const users = await db
     .select({
-      id: schema.lobbyists.id,
-      name: schema.lobbyists.name,
-      function: schema.lobbyists.function
+      id: schema.officials.id,
+      name: schema.officials.name,
+      type: schema.officials.type
     })
-    .from(schema.lobbyists)
-    .where(eq(schema.lobbyists.active, true))
-    .orderBy(schema.lobbyists.name);
+    .from(schema.officials)
+    .where(eq(schema.officials.active, true))
+    .orderBy(schema.officials.name);
 
   return users.map((user) => {
-    let lobbyist: Lobbyist = {
+    let official: Official = {
       id: user.id,
       name: user.name,
-      function: user.function
+      type: user.type
     };
-    return lobbyist;
+    return official;
   });
 }
 
 export const actions: Actions = {
   default: async ({ request, cookies }) => {
-    const parsed = loginLobbyistSchema.safeParse(await request.formData());
+    const parsed = loginOfficialSchema.safeParse(await request.formData());
 
     if (!parsed.success) {
       console.error('Validation error:', parsed.error);
@@ -53,7 +53,7 @@ export const actions: Actions = {
     const { username, password, fromPage, fromPageParams } = parsed.data;
 
     if (password == process.env.DEMO_LOGIN_PASSWORD) {
-      loginUser(cookies, username, AuthenticatedUserTypes.lobbyist);
+      loginUser(cookies, username, AuthenticatedUserTypes.official);
       return redirect(302, redirectPath(fromPage as REDIRECTS, fromPageParams));
     } else {
       console.error("Credentials not correct for " + username);
@@ -67,6 +67,6 @@ export const actions: Actions = {
 export const load: PageServerLoad = async ({ params, url }) => {
   const fromPage = url.searchParams.get('fromPage')
   const fromPageParams = url.searchParams.get('fromPageParams')
-  const users = await getLobbyists();
+  const users = await getOfficials();
 	return { users, fromPage, fromPageParams };
 };

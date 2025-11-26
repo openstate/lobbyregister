@@ -49,7 +49,7 @@ export const actions: Actions = {
       ({ name, type, sector, kvk_number, no_kvk, city, website, lobbyists, selected_clients } = parsed.data);
       // 03-07: decision was made to hide the is_commercial flag from the UI. Left it here so that
       // the DB did not have to be rebuilt
-      is_commercial = type === 'consultant';      
+      is_commercial = type === 'consultant';
       website = website.replace(/^https?:?\/?\/?/, '');
 
       if (no_kvk) {
@@ -57,7 +57,7 @@ export const actions: Actions = {
       } else {
         formValid = new RegExp(/^\d{8}$/).test(kvk_number || '');
         if (!formValid) {
-          issues.push(`kvk_number - moet een getal van 8 cijfers zijn`)            
+          issues.push(`kvk_number - moet een getal van 8 cijfers zijn`)
         } else {
           // Check uniqueness KvK nummer. Exclude own record
           let filters = [
@@ -116,7 +116,7 @@ const syncLobbyists = async(organizationId: string, lobbyists: Array<Record<stri
   ).map((row) => row['id']);
   const keptIds = lobbyists.map((lobbyist) => lobbyist.id).filter((lobbyistId) => !!lobbyistId);
   const idsToRemove = existingIds.filter((lobbyistId) => !keptIds.includes(lobbyistId));
-  
+
   for (let lobbyist of lobbyists) {
     if (lobbyist.id) {
       await db
@@ -168,13 +168,13 @@ const syncClients = async(organizationId: string, selectedClients: ObjectOption[
         .update(schema.organization_representatives)
         .set({active: true})
         .where(eq(schema.organization_representatives.id, existingInActive[0].id));
-      continue;  
+      continue;
     }
 
     // Not in db yet, so add to db
     await db
       .insert(schema.organization_representatives)
-      .values({ representative_id: organizationId, client_id: clientId});    
+      .values({ representative_id: organizationId, client_id: clientId});
   }
 
   for (let client of existingActiveClients) {
@@ -196,7 +196,7 @@ export const load: PageServerLoad = async (event) => {
         const message = "Om deze lobbyorganisatie te bewerken moet u ingelogd zijn als een lobbyist van de organisatie";
         return redirect(302, `/organisaties/${id}`, {type: 'error', message: message}, event.cookies);
     } else {
-      redirect(302, `/inloggen_lobbyist?fromPage=${REDIRECTS.edit_organization}&fromPageParams={"organizationId": "${id}"}`);
+      redirect(302, `/lobbyist?fromPage=${REDIRECTS.edit_organization}&fromPageParams={"organizationId": "${id}"}`);
     }
   }
 

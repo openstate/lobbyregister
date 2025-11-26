@@ -10,7 +10,7 @@ export const actions: Actions = {
     const formData = await request.formData();
     const parsed = loginType.safeParse(formData);
     if (!parsed.success) redirect(303, '/inloggen');
-    if (parsed.data.type === 'official') redirect(303, '/inloggen_functionaris');
-    else redirect(303, '/inloggen_lobbyist');
+    if (parsed.data.type === 'official') redirect(303, '/inloggen/functionaris');
+    else redirect(303, '/inloggen/lobbyist');
   },
 };
