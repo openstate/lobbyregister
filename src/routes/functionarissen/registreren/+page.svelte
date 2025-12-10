@@ -15,7 +15,7 @@
 
   const organisations = [
     'College van Burgemeester en Wethouders',
-    'Gemeentelijk Management Team',
+    'Gemeentesecretaris en Algemeen Directeuren',
   ];
 </script>
 

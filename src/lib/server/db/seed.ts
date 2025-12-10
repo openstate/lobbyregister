@@ -97,7 +97,7 @@ async function seed() {
     officials.push({
       name: faker.person.fullName(),
       type: 'municipal_secretary' as const,
-      department: 'Gemeentelijk Management Team',
+      department: 'Gemeentesecretaris en Algemeen Directeuren',
       active: true,
       registered_at: faker.date
         .between({ from: oneYearAgo, to: today })
@@ -124,7 +124,7 @@ async function seed() {
       const official = {
         name: faker.person.fullName(),
         type: 'director' as const,
-        department: 'Gemeentelijk Management Team',
+        department: 'Gemeentesecretaris en Algemeen Directeuren',
         active: faker.datatype.boolean(0.95),
         registered_at: faker.date
           .between({ from: oneYearAgo, to: today })
